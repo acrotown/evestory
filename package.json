@@ -9,7 +9,14 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,tsx,ts,tsx,mdx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "@types/node": "20.3.1",
@@ -31,9 +38,13 @@
     "typescript": "5.1.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.12.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0"
   }
