@@ -15,8 +15,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
       "pnpm run format:write",
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "dependencies": {
