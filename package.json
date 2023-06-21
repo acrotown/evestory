@@ -47,6 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
+    "ci-info": "^3.8.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.12.1",
