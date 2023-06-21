@@ -14,6 +14,9 @@ dependencies:
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.12)(react@18.2.0)
+  '@t3-oss/env-nextjs':
+    specifier: ^0.4.1
+    version: 0.4.1(typescript@5.1.3)(zod@3.21.4)
   '@types/node':
     specifier: 20.3.1
     version: 20.3.1
@@ -71,6 +74,9 @@ dependencies:
   typescript:
     specifier: 5.1.3
     version: 5.1.3
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 devDependencies:
   '@commitlint/cli':
@@ -1096,6 +1102,27 @@ packages:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.5.3
+    dev: false
+
+  /@t3-oss/env-core@0.4.1(typescript@5.1.3)(zod@3.21.4):
+    resolution: {integrity: sha512-JZI8vxlHwtiZO7OYS3qSX9Ngt7UcdqsugLwhBwx7UVi5wp1PtRo2tzMyNoBEGbfHdmkd2QU9IbvYjqtaLUA7TQ==}
+    peerDependencies:
+      typescript: '>=4.7.2'
+      zod: ^3.0.0
+    dependencies:
+      typescript: 5.1.3
+      zod: 3.21.4
+    dev: false
+
+  /@t3-oss/env-nextjs@0.4.1(typescript@5.1.3)(zod@3.21.4):
+    resolution: {integrity: sha512-lDbewJvZwOW7bFwHzdKtAH4+YcVTvGU7UEJfHwlb1RqVe9ejPrKn6ax2OGv/nFji1JXGKecKYHz3Xkpru6TFbw==}
+    peerDependencies:
+      typescript: '>=4.7.2'
+      zod: ^3.0.0
+    dependencies:
+      '@t3-oss/env-core': 0.4.1(typescript@5.1.3)(zod@3.21.4)
+      typescript: 5.1.3
+      zod: 3.21.4
     dev: false
 
   /@tsconfig/node10@1.0.9:
