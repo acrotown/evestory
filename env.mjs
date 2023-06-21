@@ -1,9 +1,9 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
 import ci from 'ci-info';
+import { z } from "zod";
  
 export const env = createEnv({
-  skipValidation: 
+  skipValidation: ci.isCI,
   server: {
     NEXTAUTH_URL: z.string().url(),
     NEXTAUTH_SECRET: z.string().min(1),
