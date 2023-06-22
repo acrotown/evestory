@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "canary",
+  "initialVersions": {
+    "evestory": "0.0.0"
+  },
+  "changesets": [
+    "large-crabs-rescue",
+    "tasty-mails-remain"
+  ]
+}
