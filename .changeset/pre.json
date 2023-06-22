@@ -5,6 +5,7 @@
     "evestory": "0.0.0"
   },
   "changesets": [
-    "large-crabs-rescue"
+    "large-crabs-rescue",
+    "tasty-mails-remain"
   ]
 }
