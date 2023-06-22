@@ -12,7 +12,8 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
     "prepare": "husky install",
     "bump": "bumpp",
-    "prerelease": "bumpp prerelease --preid canary"
+    "prerelease": "bumpp prerelease --preid canary",
+    "seed": "node ./prisma/seed.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
@@ -21,6 +22,7 @@
     ]
   },
   "dependencies": {
+    "@prisma/client": "4.16.0",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
@@ -57,7 +59,8 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "prisma": "^4.16.0"
   },
   "packageManager": "pnpm@8.6.1"
 }
