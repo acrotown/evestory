@@ -10,7 +10,9 @@
     "lint:fix": "next lint --fix",
     "format:write": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "bump": "bumpp",
+    "prerelease": "bumpp prerelease --preid canary"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
