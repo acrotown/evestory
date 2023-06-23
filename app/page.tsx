@@ -1,4 +1,9 @@
+"use client"
+
+import { signOut } from "next-auth/react"
+
 import ThemeSwitcher from "@/components/theme-switcher"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
@@ -10,6 +15,7 @@ export default function Home() {
       </div>
 
       <h1 className="text-7xl">evestory</h1>
+      <Button onClick={() => signOut()}>Sign out</Button>
     </main>
   )
 }
