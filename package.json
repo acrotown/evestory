@@ -14,7 +14,8 @@
     "bump": "bumpp",
     "prerelease": "bumpp prerelease --preid canary",
     "seed": "node ./prisma/seed.js",
-    "turbo": "turbo"
+    "turbo": "turbo",
+    "postinstall": "prisma generate"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
