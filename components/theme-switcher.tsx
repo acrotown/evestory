@@ -1,6 +1,6 @@
 "use client"
 
-import { Laptop, Moon, Sun } from "lucide-react"
+import { LaptopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 
@@ -25,19 +25,21 @@ export default function ThemeSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          {theme === "light" ? <Sun /> : <Moon />}
+        <Button variant="outline" size="icon">
+          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onSelect={() => setTheme("light")}>
-          <Sun size={16} className="mr-2" /> <span>Light</span>
+          <SunIcon className="mr-2" /> <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => setTheme("dark")}>
-          <Moon size={16} className="mr-2" /> <span>Dark</span>
+          <MoonIcon className="mr-2" /> <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => setTheme("system")}>
-          <Laptop size={16} className="mr-2" /> <span>System</span>
+          <LaptopIcon className="mr-2" /> <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
