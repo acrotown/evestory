@@ -67,7 +67,7 @@
     --ring: 217.2 32.6% 17.5%;
 
     /** Do we need this? since the style CLI shadcn-ui still new */
-    // --radius: 0.5rem;
+    /* --radius: 0.5rem; */
   }
 }
 
