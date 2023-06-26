@@ -15,7 +15,11 @@ export default async function middleware(req: NextRequest) {
     email?: string
   }
 
-  if (!session?.email && path !== "/login" && path !== "/register") {
+  if (session?.email && path === "/") {
+    return NextResponse.redirect(new URL("/home", req.url))
+  } else if (!session?.email && path === "/") {
+    return NextResponse.next()
+  } else if (!session?.email && path !== "/login" && path !== "/register") {
     return NextResponse.redirect(
       new URL(
         `/login${path !== "/" ? `?redirect=${encodeURIComponent(path)}` : ""}`,
@@ -25,4 +29,6 @@ export default async function middleware(req: NextRequest) {
   } else if (session?.email && (path === "/login" || path === "/register")) {
     return NextResponse.redirect(new URL("/", req.url))
   }
+
+  return NextResponse.next()
 }

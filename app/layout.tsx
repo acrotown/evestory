@@ -1,10 +1,9 @@
-import "./globals.css"
+import "@/styles/globals.css"
 
-import { Inter } from "next/font/google"
-
-import { Providers } from "./providers"
-
-const inter = Inter({ subsets: ["latin"] })
+import { Providers } from "@/app/providers"
+import { TailwindIndicator } from "@/components/tailwind-indicator"
+import { cn } from "@/lib/utils"
+import { cal, inter } from "@/styles/fonts"
 
 export const metadata = {
   title: "Evestory",
@@ -18,8 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body
+        className={cn("min-h-screen bg-background antialiased", [
+          cal.variable,
+          inter.variable,
+        ])}
+      >
         <Providers>{children}</Providers>
+        <TailwindIndicator />
       </body>
     </html>
   )
