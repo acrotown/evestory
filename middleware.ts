@@ -15,20 +15,26 @@ export default async function middleware(req: NextRequest) {
     email?: string
   }
 
-  if (session?.email && path === "/") {
-    return NextResponse.redirect(new URL("/home", req.url))
-  } else if (!session?.email && path === "/") {
-    return NextResponse.next()
-  } else if (!session?.email && path !== "/login" && path !== "/register") {
+  /** If there's no session
+   * and the path is not /login or /register
+   * and path is /dashboard
+   * then redirect to /login
+   */
+  if (
+    !session?.email &&
+    path !== "/login" &&
+    path !== "/register" &&
+    path === "/dashboard"
+  ) {
     return NextResponse.redirect(
-      new URL(
-        `/login${path !== "/" ? `?redirect=${encodeURIComponent(path)}` : ""}`,
-        req.url
-      )
+      new URL(`/login?redirect=${encodeURIComponent(path)}`, req.url)
     )
-  } else if (session?.email && (path === "/login" || path === "/register")) {
-    return NextResponse.redirect(new URL("/", req.url))
+  } else if (session?.email) {
+    /** If there's a session and the path is /login or /register then redirect to / */
+    if (path === "/login" || path === "/register") {
+      return NextResponse.redirect(new URL("/", req.url))
+    }
   }
 
-  return NextResponse.next()
+  return NextResponse.rewrite(new URL(path, req.url))
 }
