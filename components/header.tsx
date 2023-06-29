@@ -1,6 +1,6 @@
+import { AuthNav } from "@/components/auth-nav"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
-import { SignInSignOut } from "@/components/sign-in-sign-out"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
 export function Header() {
@@ -11,7 +11,7 @@ export function Header() {
         <MobileNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
           <ThemeSwitcher />
-          <SignInSignOut />
+          <AuthNav />
         </div>
       </div>
     </header>

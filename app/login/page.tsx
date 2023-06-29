@@ -25,7 +25,7 @@ export default function Page() {
     <div className="mt-[calc(30vh)] flex justify-center">
       <Card className="w-[350px]">
         <CardHeader className="flex items-center">
-          <CardTitle>Sign in to evestory</CardTitle>
+          <CardTitle>Log in to evestory</CardTitle>
           <CardDescription>Start crafting your events</CardDescription>
         </CardHeader>
         <CardContent>

@@ -58,7 +58,7 @@ export default function Page() {
               href="/login"
               className=" font-semibold text-muted-foreground hover:text-black dark:hover:text-white"
             >
-              Sign in.
+              Log in.
             </Link>
           </p>
         </CardFooter>
