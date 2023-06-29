@@ -27,7 +27,7 @@ export default function Home() {
           <div className="flex space-x-4">
             <Button size="lg">Get Started</Button>
             <Button size="lg" variant="outline">
-              Get a Demo
+              Create an Invitation
             </Button>
           </div>
         </div>
