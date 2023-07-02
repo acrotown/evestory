@@ -1,10 +1,10 @@
 "use client"
 
-import { HamburgerMenuIcon } from "@radix-ui/react-icons"
 import Link, { LinkProps } from "next/link"
 import { useRouter } from "next/navigation"
 import React from "react"
 
+import { PanelLeftOpen } from "@/components/icons/panel-left-open"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -22,7 +22,7 @@ export function MobileNav() {
           variant="ghost"
           className="text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
-          <HamburgerMenuIcon />
+          <PanelLeftOpen />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
