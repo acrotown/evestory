@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { useState } from "react"
 
+import { Google } from "@/components/icons/google"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -47,7 +48,10 @@ export default function Page() {
                 Signing up...
               </>
             ) : (
-              "Continue with Google"
+              <>
+                <Google className="mr-2" />
+                Continue with Google
+              </>
             )}
           </Button>
         </CardContent>
