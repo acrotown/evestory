@@ -1,6 +1,7 @@
 import "@/styles/globals.css"
 
 import { Providers } from "@/app/providers"
+import Background from "@/components/background"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { cn } from "@/lib/utils"
 import { cal, inter } from "@/styles/fonts"
@@ -23,7 +24,9 @@ export default function RootLayout({
           inter.variable,
         ])}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Background>{children}</Background>
+        </Providers>
         <TailwindIndicator />
       </body>
     </html>
