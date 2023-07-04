@@ -41,3 +41,6 @@ next-env.d.ts
 
 # turbo
 .turbo
+
+# react email
+.react-email
