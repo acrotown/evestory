@@ -16,11 +16,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
+import { env } from "@/env.mjs"
 
 export default function Page() {
+  const { toast } = useToast()
   const searchParams = useSearchParams()
   const redirect = searchParams.get("redirect")
   const [isGoogleClicked, setIsGoogleClicked] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <div className="mt-[calc(30vh)] flex justify-center">
@@ -31,6 +37,7 @@ export default function Page() {
         </CardHeader>
         <CardContent>
           <Button
+            type="button"
             disabled={isGoogleClicked}
             className="w-full"
             onClick={() => {
@@ -59,7 +66,11 @@ export default function Page() {
           <p className="text-sm text-muted-foreground">
             Already have an account?{" "}
             <Link
-              href="/login"
+              href={
+                process.env.NODE_ENV === "production"
+                  ? "https://app.evestory.day/login"
+                  : "http://app.localhost:3000/login"
+              }
               className=" font-semibold text-muted-foreground hover:text-black dark:hover:text-white"
             >
               Log in.

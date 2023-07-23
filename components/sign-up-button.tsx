@@ -16,7 +16,15 @@ export function SignUpButton() {
     ))
     .otherwise(() => (
       <Button asChild>
-        <Link href="/register">Sign up</Link>
+        <Link
+          href={
+            process.env.NODE_ENV === "production"
+              ? "https://app.evestory.day/register"
+              : "http://app.localhost:3000/register"
+          }
+        >
+          Sign up
+        </Link>
       </Button>
     ))
 }

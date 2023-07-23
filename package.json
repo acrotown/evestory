@@ -3,7 +3,7 @@
   "version": "0.0.1-canary.9",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently -k 'next dev' 'email dev --port 4000' 'prisma studio --browser none'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,7 +15,9 @@
     "prerelease": "bumpp prerelease --preid canary",
     "seed": "node ./prisma/seed.js",
     "turbo": "turbo",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "vercel": "vercel",
+    "prisma": "prisma"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
@@ -35,6 +37,8 @@
     "@radix-ui/react-scroll-area": "^1.0.4",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.4",
+    "@react-email/components": "^0.0.7",
     "@t3-oss/env-nextjs": "^0.4.1",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
@@ -44,13 +48,16 @@
     "clsx": "^1.2.1",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
-    "next": "13.4.7",
+    "next": "13.4.8",
     "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",
+    "nodemailer": "^6.9.3",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-email": "^1.9.4",
     "react-wrap-balancer": "^1.0.0",
+    "resend": "^0.16.0",
     "tailwind-merge": "^1.13.1",
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.6",
@@ -63,6 +70,7 @@
     "@commitlint/config-conventional": "^17.6.5",
     "bumpp": "^9.1.1",
     "ci-info": "^3.8.0",
+    "concurrently": "^8.2.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.12.1",
@@ -71,7 +79,8 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "prisma": "^4.16.0",
-    "turbo": "^1.10.5"
+    "turbo": "^1.10.5",
+    "vercel": "^31.0.1"
   },
   "packageManager": "pnpm@8.6.1"
 }

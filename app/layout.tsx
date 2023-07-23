@@ -1,8 +1,9 @@
 import "@/styles/globals.css"
 
 import { Providers } from "@/app/providers"
-import Background from "@/components/background"
+import { Header } from "@/components/header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
+import { Toaster } from "@/components/ui/toaster"
 import { cn } from "@/lib/utils"
 import { cal, inter } from "@/styles/fonts"
 
@@ -25,8 +26,10 @@ export default function RootLayout({
         ])}
       >
         <Providers>
-          <Background>{children}</Background>
+          {/* <Header /> */}
+          {children}
         </Providers>
+        <Toaster />
         <TailwindIndicator />
       </body>
     </html>

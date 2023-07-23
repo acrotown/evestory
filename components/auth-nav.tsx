@@ -27,6 +27,7 @@ export function AuthNav() {
   const user = session?.user as UserProps["user"]
 
   const getInitials = (name: string) => {
+    if (!name) return ""
     const [first, last] = name.split(" ")
     if (first && last) {
       return `${first[0]?.toUpperCase()}${last[0]?.toUpperCase()}`
