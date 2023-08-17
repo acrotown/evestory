@@ -25,6 +25,11 @@ export default async function middleware(req: NextRequest) {
   domain = domain.replace("www.", "")
   if (isHomeHostname(domain)) domain = env.NEXT_PUBLIC_ROOT_DOMAIN
 
+  const SOUVENIRS_HOSTNAMES = new Set([
+    `souvenirs.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+    "souvenirs.localhost:3000",
+  ])
+
   const APP_HOSTNAMES = new Set([
     `app.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
     "app.localhost:3000",
@@ -59,6 +64,10 @@ export default async function middleware(req: NextRequest) {
 
   if (ROOT_HOSTNAMES.has(domain)) {
     return NextResponse.rewrite(new URL(`/home${path}`, req.url))
+  }
+
+  if (SOUVENIRS_HOSTNAMES.has(domain)) {
+    return NextResponse.rewrite(new URL(`/souvenirs${path}`, req.url))
   }
 
   // rewrite everything else to `/[domain]/[path] dynamic route
