@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { cal, inter } from "@/styles/fonts"
 
 export const metadata = {
-  title: "Evestory",
+  title: "evestory",
   description: "Sharing invitations never this easy!",
 }
 
