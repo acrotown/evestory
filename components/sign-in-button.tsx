@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import { match, P } from "ts-pattern"
 
 import { Button } from "@/components/ui/button"
+import { APP_DOMAIN } from "@/lib/constants"
 
 export function SignInButton() {
   const { data: session, status } = useSession()
@@ -12,15 +13,7 @@ export function SignInButton() {
   return match([status, session])
     .with(["unauthenticated", P.nullish], () => (
       <Button asChild variant="ghost">
-        <Link
-          href={
-            process.env.NODE_ENV === "production"
-              ? "https://app.evestory.day/login"
-              : "http://app.localhost:3000/login"
-          }
-        >
-          Log in
-        </Link>
+        <Link href={`${APP_DOMAIN}/login`}>Log in</Link>
       </Button>
     ))
     .otherwise(() => <></>)

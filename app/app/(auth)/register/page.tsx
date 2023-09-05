@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { env } from "@/env.mjs"
+import { APP_DOMAIN } from "@/lib/constants"
 
 export default function Page() {
   const { toast } = useToast()
@@ -66,11 +67,7 @@ export default function Page() {
           <p className="text-sm text-muted-foreground">
             Already have an account?{" "}
             <Link
-              href={
-                process.env.NODE_ENV === "production"
-                  ? "https://app.evestory.day/login"
-                  : "http://app.localhost:3000/login"
-              }
+              href={`${APP_DOMAIN}/login`}
               className=" font-semibold text-muted-foreground hover:text-black dark:hover:text-white"
             >
               Log in.

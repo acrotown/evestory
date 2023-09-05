@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import prisma from "@/lib/prisma"
+import { conn } from "@/lib/planetscale"
 
-// export const runtime = "edge"
+export const runtime = "edge"
 
 export async function POST(req: NextRequest) {
   const { email } = (await req.json()) as { email: string }
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  })
+  if (!conn) {
+    return new NextResponse("Database connection failed", { status: 500 })
+  }
+
+  const user = await conn
+    .execute("SELECT * FROM User WHERE email = ?", [email])
+    .then((res) => res.rows[0])
+
   if (user) {
     return new NextResponse(JSON.stringify({ exists: true }))
   }

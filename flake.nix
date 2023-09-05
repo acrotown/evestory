@@ -23,11 +23,11 @@
         run = pkg: "${pkgs.${pkg}}/bin/${pkg}";
 
         scripts = with pkgs;[
-          (writeScriptBin "start" ''
-            until ${run "yarn"} prettier -v > /dev/null 2>&1; do
+          (writeScriptBin "dev" ''
+            until ${run "pnpm"} prettier -v > /dev/null 2>&1; do
               ${run "pnpm"} install
             done
-            ${run "pnpm"} start
+            ${run "pnpm"} dev
           '')
         ];
 

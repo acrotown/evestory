@@ -16,17 +16,14 @@ export async function sendVerificationRequest({
 }: SendVerificationRequestParams) {
   try {
     if (env.NODE_ENV === "development") {
-      console.info("Skipping email in development mode")
-      console.info(`Email verification link: ${url}`)
+      console.info(`
+      Skipping email in development mode
+      Email verification link: ${url}
+      `)
     } else {
       await resend.sendEmail({
-        // from: `Evestory <${env.EMAIL_FROM}>`,
         to: [identifier],
-        // subject: "Verify your email address",
-        // from: "Acme <onboarding@resend.dev>",
-        // from: "evestory <kevin.anantha@gmail.com>",
         from: "Kevin from evestory <no-reply@accounts.evestory.day>",
-        // to: ["kuliah.wisma@gmail.com"],
         subject: "Your magic link to evestory.day 🎉",
         react: RaycastMagicLinkEmail({ magicLink: url }),
       })
