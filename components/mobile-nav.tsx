@@ -10,6 +10,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
+import { Logo } from "./icons/logo"
+
 const links = ["Home", "About", "Contact", "Blog"]
 
 export function MobileNav() {
@@ -30,9 +32,10 @@ export function MobileNav() {
         <MobileLink
           href="/"
           onOpenChange={setOpen}
-          className="font-display text-3xl"
+          className="flex items-center font-display text-xl"
         >
-          evestory
+          <Logo className="mr-2" />
+          <span className="relative top-[-2px]">evestory</span>
         </MobileLink>
         <ScrollArea className="my-4">
           <div className="flex flex-col space-y-3">
@@ -41,7 +44,7 @@ export function MobileNav() {
                 key={link}
                 href={`/${link.toLowerCase()}`}
                 onOpenChange={setOpen}
-                className="text-xl font-semibold"
+                className="text-base font-medium"
               >
                 {link}
               </MobileLink>

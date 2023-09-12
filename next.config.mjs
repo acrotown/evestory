@@ -4,7 +4,15 @@ import "./env.mjs"
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: true
+    useDeploymentId: true,
+    serverActions: true,
+  },
+  images: {
+    domains: [
+      "localhost",
+      "res.cloudinary.com",
+      "evestory.s3.ap-southeast-3.amazonaws.com",
+    ],
   },
   async headers() {
     return [
@@ -39,7 +47,7 @@ const nextConfig = {
           },
         ],
       },
-    ];
+    ]
   },
 }
 
