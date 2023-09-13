@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 225 22% 96%;
+    --background: 225 22% 96%; // #F3F4F7
     --foreground: 222.2 84% 4.9%;
 
     --muted: 210 40% 96.1%;

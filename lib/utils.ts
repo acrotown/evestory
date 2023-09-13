@@ -2,7 +2,7 @@ import { type ClassValue, clsx } from "clsx"
 import { SendVerificationRequestParams } from "next-auth/providers"
 import { twMerge } from "tailwind-merge"
 
-import RaycastMagicLinkEmail from "@/emails/raycast"
+import LoginLink from "@/emails/login-link"
 import { env } from "@/env.mjs"
 import { resend } from "@/lib/resend"
 
@@ -25,7 +25,7 @@ export async function sendVerificationRequest({
         to: [identifier],
         from: "Kevin from evestory <no-reply@accounts.evestory.day>",
         subject: "Your magic link to evestory.day 🎉",
-        react: RaycastMagicLinkEmail({ magicLink: url }),
+        react: LoginLink({ magicLink: url }),
       })
     }
   } catch (err) {
