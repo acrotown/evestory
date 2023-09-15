@@ -13,7 +13,9 @@ export function SignUpButton() {
   return match([status, session])
     .with(["loading", P._], () => <></>)
     .with(["authenticated", P.not(null)], () => (
-      <Button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</Button>
+      <Button onClick={() => signOut({ callbackUrl: "/login" })}>
+        Sign out
+      </Button>
     ))
     .otherwise(() => (
       <Button asChild>

@@ -1,5 +1,6 @@
 import {
   Body,
+  Column,
   Container,
   Head,
   Heading,
@@ -8,11 +9,14 @@ import {
   Img,
   Link,
   Preview,
+  Row,
   Section,
-  Tailwind,
   Text,
 } from "@react-email/components"
 import * as React from "react"
+
+import { EVESTORY_LOGO_BLUE_URL } from "../lib/constants/logo"
+import { Tailwind } from "./components/tailwind"
 
 interface Props {
   magicLink?: string
@@ -22,53 +26,60 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : ""
 
-export const LoginLink = ({ magicLink = "https://evestory.day" }: Props) => (
+export const LoginLink = ({
+  magicLink = "http://localhost:3000/api/auth/callback/email?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin&token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&email=your.email%40mail.com",
+}: Props) => (
   <Html>
     <Head />
     <Preview>Log in with this magic link.</Preview>
     <Tailwind>
-      <Body className="bg-[#F3F4F7] font-sans">
-        <Container style={container}>
+      <Body className="m-auto bg-white font-sans">
+        <Container className="mx-auto my-10 max-w-[500px] border border-solid border-gray-200 bg-solitude px-10 py-5">
           <Img
-            src="https://evestory.s3.ap-southeast-3.amazonaws.com/logo-blue.png"
+            src={EVESTORY_LOGO_BLUE_URL}
             width={48}
             height={48}
             alt="evestory Logo"
           />
-          <Heading style={heading}>🪄 Your magic link</Heading>
-          <Section style={body}>
-            <Text style={paragraph}>
-              {/* <Link style={link} href={magicLink}> */}
-              <Link className="text-blue-700" href={magicLink}>
-                👉 Click here to sign in 👈
-              </Link>
-            </Text>
-            <Text style={paragraph}>
-              {/* eslint-disable-next-line react/no-unescaped-entities */}
-              If you didn't request this, please ignore this email.
-            </Text>
-          </Section>
-          <Text style={paragraph}>
-            Best,
-            <br />- Kevin
+          <Heading className="my-12 text-2xl font-bold">
+            Your magic link for evestory
+          </Heading>
+          <Text className="text-md mb-4">Welcome to evestory!</Text>
+          <Text className="text-md mb-4">
+            Please click the button below to log in to your account.
           </Text>
-          <Hr style={hr} />
+          <Section className="my-8 text-center">
+            <Link
+              className="rounded-md bg-governor-bay px-6 py-3 text-center text-xs font-semibold text-white no-underline shadow"
+              href={magicLink}
+            >
+              Login to evestory
+            </Link>
+          </Section>
+
+          <Text className="text-md">
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
+            If you didn't request this, you can safely ignore this email.
+          </Text>
+
+          <Hr className="mt-10 border-gray-200" />
+
           <Img
-            src="https://evestory.s3.ap-southeast-3.amazonaws.com/logo-blue.png"
+            src={EVESTORY_LOGO_BLUE_URL}
             width={32}
             height={32}
+            className="mb-2 mt-5 grayscale"
             style={{
-              WebkitFilter: "grayscale(100%)",
               filter: "grayscale(100%)",
-              margin: "20px 0",
+              WebkitFilter: "grayscale(100%)",
             }}
           />
-          {/* <Text style={footer}>Raycast Technologies Inc.</Text> */}
-          {/* <Text style={footer}>
-          2093 Philadelphia Pike #3222, Claymont, DE 19703
-        </Text> */}
-          <Text style={footer}>Acropolis Technologies Limited.</Text>
-          <Text style={footer}>Denpasar, Bali, Indonesia 80238</Text>
+          <Link
+            className="text-xs text-gray-500 underline"
+            href="https://evestory.day"
+          >
+            evestory.day
+          </Link>
         </Container>
       </Body>
     </Tailwind>
@@ -76,47 +87,3 @@ export const LoginLink = ({ magicLink = "https://evestory.day" }: Props) => (
 )
 
 export default LoginLink
-
-const main = {
-  backgroundColor: "#ffffff",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-}
-
-const container = {
-  margin: "0 auto",
-  padding: "20px 25px 48px",
-  backgroundImage: 'url("/assets/raycast-bg.png")',
-  backgroundPosition: "bottom",
-  backgroundRepeat: "no-repeat, no-repeat",
-}
-
-const heading = {
-  fontSize: "28px",
-  fontWeight: "bold",
-  marginTop: "48px",
-}
-
-const body = {
-  margin: "24px 0",
-}
-
-const paragraph = {
-  fontSize: "16px",
-  lineHeight: "26px",
-}
-
-const link = {
-  color: "#FF6363",
-}
-
-const hr = {
-  borderColor: "#dddddd",
-  marginTop: "48px",
-}
-
-const footer = {
-  color: "#8898aa",
-  fontSize: "12px",
-  marginLeft: "4px",
-}

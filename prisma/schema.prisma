@@ -52,7 +52,8 @@ model Session {
 }
 
 model VerificationToken {
-  identifier String   @id
+  // identifier String   @id
+  identifier String
   token      String   @unique
   expires    DateTime
 

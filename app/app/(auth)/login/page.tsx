@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { useState } from "react"
+import { toast } from "sonner"
 
 import { Google } from "@/components/icons/google"
 import { Button } from "@/components/ui/button"
@@ -18,11 +19,9 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast"
 import { APP_DOMAIN } from "@/lib/constants"
 
 export default function Page() {
-  const { toast } = useToast()
   const searchParams = useSearchParams()
   const redirect = searchParams.get("redirect")
   const [isGoogleClicked, setIsGoogleClicked] = useState(false)
@@ -33,6 +32,7 @@ export default function Page() {
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsEmailClicked(true)
+
     try {
       const res = await fetch("/api/auth/account-exists", {
         method: "POST",
@@ -48,26 +48,16 @@ export default function Page() {
           ...(redirect && redirect.length > 0 ? { callbackUrl: redirect } : {}),
         })
         if (res?.ok && !res?.error) {
-          toast({
-            description: "Email sent - check you inbox!",
-          })
+          toast("Email sent - check you inbox!")
         } else {
           // TODO: Handle error when user is exists
-          toast({
-            variant: "destructive",
-            description: "Error sending email - try again?",
-          })
+          toast.error("Error sending email - try again?")
         }
       } else {
-        toast({
-          description: "No account found with that email address.",
-        })
+        toast.error("No account found with that email address.")
       }
     } catch (err) {
-      toast({
-        variant: "destructive",
-        description: "Error sending email - try again?",
-      })
+      toast.error("Error sending email - try again?")
     } finally {
       setIsLoading(false)
       setIsEmailClicked(false)
