@@ -14,7 +14,7 @@ const handler = NextAuth({
   providers: [
     Email({
       sendVerificationRequest({ identifier, url }) {
-        if (env.NODE_ENV !== "development") {
+        if (env.NODE_ENV === "development") {
           console.info("Skipping email in development mode")
           console.info(`Email verification link: ${url}`)
         } else {
