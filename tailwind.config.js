@@ -24,6 +24,9 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        "governor-bay": "hsl(var(--governor-bay))",
+        swamp: "hsl(var(--swamp))",
+        solitude: "hsl(var(--solitude))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {

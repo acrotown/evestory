@@ -3,16 +3,28 @@ import NextAuth from "next-auth/next"
 import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 
+import LoginLink from "@/emails/login-link"
 import { env } from "@/env.mjs"
 import prisma from "@/lib/prisma"
-import { sendVerificationRequest } from "@/lib/utils"
+import { sendEmail } from "@/lib/resend"
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
 
 const handler = NextAuth({
   providers: [
     Email({
-      sendVerificationRequest,
+      sendVerificationRequest({ identifier, url }) {
+        if (env.NODE_ENV !== "development") {
+          console.info("Skipping email in development mode")
+          console.info(`Email verification link: ${url}`)
+        } else {
+          sendEmail({
+            to: identifier,
+            subject: "Your magic link to evestory 🎉",
+            react: LoginLink({ magicLink: url }),
+          })
+        }
+      },
     }),
     Google({
       clientId: env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
@@ -31,9 +43,7 @@ const handler = NextAuth({
         sameSite: "lax",
         path: "/",
         // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
-        domain: VERCEL_DEPLOYMENT
-          ? `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
-          : undefined,
+        domain: VERCEL_DEPLOYMENT ? ".evestory.day" : undefined,
         secure: VERCEL_DEPLOYMENT,
       },
     },
@@ -71,22 +81,23 @@ const handler = NextAuth({
         token.user = user
       }
 
+      // TODO: refresh user data if they update their name/email
+
       return token
     },
     session({ session, token }) {
       session.user = {
         id: token.sub,
         // @ts-ignore
-        ...token.user,
+        ...(token || session).user,
       }
 
       return session
     },
   },
   events: {
-    signIn(params) {
-      console.log({ params })
-      // TODO: send email
+    signIn() {
+      // TODO: send welcome email
     },
   },
   pages: {

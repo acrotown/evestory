@@ -35,6 +35,3 @@ export const ROOT_HOSTNAMES = new Set([
   env.NEXT_PUBLIC_ROOT_DOMAIN,
   "localhost:3000",
 ])
-
-export const EVESTORY_LOGO_URL =
-  "https://evestory.s3.ap-southeast-3.amazonaws.com/evestory.svg"
