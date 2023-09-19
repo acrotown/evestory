@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils"
 
 import { Logo } from "./icons/logo"
 
-const links = ["Home", "About", "Contact", "Blog"]
+const links = ["About", "Contact", "Blog"]
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false)

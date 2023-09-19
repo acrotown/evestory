@@ -10,7 +10,7 @@ export default function Home() {
 
       <section className="min-h-screen pt-16">
         <div className="container flex flex-col items-center justify-center gap-4">
-          <h1 className="select-none pb-2 text-center font-display text-5xl transition-none animate-in fade-in-0 slide-in-from-top-5 duration-1000 delay-0 running fill-mode-backwards repeat-1 sm:text-6xl lg:text-7xl">
+          <h1 className="select-none pb-2 text-center font-display text-5xl animate-in fade-in-0 slide-in-from-top-5 duration-1000 delay-0 running fill-mode-backwards repeat-1 sm:text-6xl lg:text-7xl">
             <Balancer>
               Unveil the{" "}
               <span className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 bg-clip-text pb-1 text-transparent">
@@ -23,7 +23,7 @@ export default function Home() {
             </Balancer>{" "}
           </h1>
 
-          <h2 className="select-none pb-8 text-center text-xl text-muted-foreground transition-none animate-in fade-in-0 slide-in-from-top-5 duration-1000 delay-300 running fill-mode-backwards repeat-1">
+          <h2 className="select-none pb-8 text-center text-xl text-muted-foreground animate-in fade-in-0 slide-in-from-top-5 duration-1000 delay-300 running fill-mode-backwards repeat-1">
             <Balancer>
               Craft Exquisite Wedding Invitations that Reflect Your Unique Love
               Story.
@@ -35,7 +35,7 @@ export default function Home() {
             </Balancer>
           </h2>
 
-          <div className="flex w-full select-none justify-center space-x-4 transition-none animate-in fade-in slide-in-from-top-5 duration-1000 delay-700 running fill-mode-backwards repeat-1">
+          <div className="flex w-full select-none justify-center space-x-4 animate-in fade-in slide-in-from-top-5 duration-1000 delay-700 running fill-mode-backwards repeat-1">
             <Button size="default">Get Started</Button>
             <Button size="default" variant="outline">
               Create an Invitation
