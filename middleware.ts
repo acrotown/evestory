@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "next-auth/jwt"
 
-import { env } from "@/env.mjs"
 import {
   APP_HOSTNAMES,
   isHomeHostname,
@@ -26,7 +25,10 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (APP_HOSTNAMES.has(domain)) {
-    const session = (await getToken({ req, secret: env.NEXTAUTH_SECRET })) as {
+    const session = (await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    })) as {
       email?: string
     }
     if (!session?.email && path !== "/login" && path !== "/register") {

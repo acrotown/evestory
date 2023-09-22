@@ -4,7 +4,6 @@ import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 
 import LoginLink from "@/emails/login-link"
-import { env } from "@/env.mjs"
 import prisma from "@/lib/prisma"
 import { sendEmail } from "@/lib/resend"
 
@@ -14,9 +13,10 @@ const handler = NextAuth({
   providers: [
     Email({
       sendVerificationRequest({ identifier, url }) {
-        if (env.NODE_ENV === "development") {
-          console.info("Skipping email in development mode")
-          console.info(`Email verification link: ${url}`)
+        if (process.env.VERCEL_ENV === "development") {
+          console.log("Skipping email in development mode")
+          console.log(`Email verification link: ${url}`)
+          return
         } else {
           sendEmail({
             to: identifier,
@@ -27,8 +27,8 @@ const handler = NextAuth({
       },
     }),
     Google({
-      clientId: env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       allowDangerousEmailAccountLinking: true,
     }),
   ],

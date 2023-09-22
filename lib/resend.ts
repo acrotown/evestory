@@ -1,11 +1,9 @@
 import { ReactElement } from "react"
 import { Resend } from "resend"
 
-import { env } from "@/env.mjs"
-
 import { nanoid } from "./utils"
 
-export const resend = new Resend(env.NEXT_PUBLIC_RESEND_API_KEY)
+export const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY)
 
 export const sendEmail = ({
   to,
