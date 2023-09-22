@@ -16,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { APP_DOMAIN } from "@/lib/constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -24,7 +23,7 @@ export default function Page() {
   const [isGoogleClicked, setIsGoogleClicked] = useState(false)
 
   return (
-    <div className="mt-[calc(30vh)] flex justify-center">
+    <div className="flex justify-center pt-[calc(30vh)]">
       <Card className="w-[350px]">
         <CardHeader className="flex items-center">
           <CardTitle>Sign up to evestory</CardTitle>
@@ -61,7 +60,7 @@ export default function Page() {
           <p className="text-sm text-muted-foreground">
             Already have an account?{" "}
             <Link
-              href={`${APP_DOMAIN}/login`}
+              href="/login"
               className=" font-semibold text-muted-foreground hover:text-black dark:hover:text-white"
             >
               Log in.

@@ -19,19 +19,17 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { APP_DOMAIN } from "@/lib/constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
   const redirect = searchParams.get("redirect")
   const [isGoogleClicked, setIsGoogleClicked] = useState(false)
-  const [isEmailClicked, setIsEmailClicked] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsEmailClicked(true)
+    setIsLoading(true)
 
     try {
       const res = await fetch("/api/auth/account-exists", {
@@ -40,8 +38,7 @@ export default function Page() {
         body: JSON.stringify({ email }),
       })
       const { exists } = await res.json()
-      if (process.env.NODE_ENV === "development" || exists) {
-        setIsLoading(true)
+      if (exists) {
         const res = await signIn("email", {
           email,
           redirect: false,
@@ -60,13 +57,12 @@ export default function Page() {
       toast.error("Error sending email - try again?")
     } finally {
       setIsLoading(false)
-      setIsEmailClicked(false)
       setEmail("")
     }
   }
 
   return (
-    <div className="mt-[calc(30vh)] flex justify-center">
+    <div className="flex justify-center pt-[calc(30vh)]">
       <Card className="w-[350px]">
         <CardHeader className="flex items-center">
           <CardTitle>Log in to evestory</CardTitle>
@@ -137,7 +133,7 @@ export default function Page() {
           <p className="text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
             <Link
-              href={`${APP_DOMAIN}/register`}
+              href="/register"
               className=" font-semibold text-muted-foreground hover:text-black dark:hover:text-white"
             >
               Sign up.
