@@ -1,6 +1,6 @@
 {
   "name": "evestory",
-  "version": "0.0.1-canary.9",
+  "version": "0.0.1-canary.10",
   "private": true,
   "scripts": {
     "dev": "concurrently -k 'next dev' 'email dev --port 4000' 'prisma studio --browser none'",
