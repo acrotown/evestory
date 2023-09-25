@@ -21,7 +21,7 @@ export default async function middleware(req: NextRequest) {
   domain = domain.replace("www.", "")
 
   if (isHomeHostname(domain)) {
-    return NextResponse.rewrite(new URL(`/home${path}`, req.url))
+    return NextResponse.rewrite(new URL(`/home${path ? "/" : path}`, req.url))
   }
 
   if (APP_HOSTNAMES.has(domain)) {

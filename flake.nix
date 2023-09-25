@@ -24,22 +24,23 @@
 
         scripts = with pkgs;[
           (writeScriptBin "dev" ''
-            until ${run "pnpm"} prettier -v > /dev/null 2>&1; do
-              ${run "pnpm"} install
+            until ${run "bun"} prettier -v > /dev/null 2>&1; do
+              ${run "bun"} install
             done
-            ${run "pnpm"} dev
+            ${run "bun"} dev
           '')
         ];
 
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ nodejs pnpm yarn ] ++ scripts;
+          buildInputs = with pkgs; [ nodejs pnpm yarn bun ] ++ scripts;
 
           shellHook = with pkgs;''
             echo "node `${nodejs}/bin/node --version`"
             echo "yarn `${yarn}/bin/yarn --version`"
             echo "pnpm `${pnpm}/bin/pnpm --version`"
+            echo "bun `${bun}/bin/bun --version`"
           '';
         };
       });

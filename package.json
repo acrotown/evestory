@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "format:write": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
+    "format:write": "prettier --write '**/*.{js,jsx,ts,tsx,mdx}' --cache",
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,mdx}' --cache",
     "prepare": "husky install",
     "bump": "bumpp",
     "prerelease": "bumpp prerelease --preid canary",
@@ -21,7 +21,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
-      "pnpm run format:write",
+      "bun run format:write",
       "eslint --fix"
     ]
   },
@@ -83,5 +83,5 @@
     "turbo": "^1.10.5",
     "vercel": "^31.0.1"
   },
-  "packageManager": "pnpm@8.6.1"
+  "packageManager": "bun@1.0.2"
 }
