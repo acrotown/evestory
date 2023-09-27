@@ -27,4 +27,4 @@ export const APP_HOSTNAMES = new Set([
 export const APP_DOMAIN = match(process.env.NEXT_PUBLIC_VERCEL_ENV)
   .with("production", () => "https://app.evestory.day")
   .with("preview", () => "https://preview.evestory.day")
-  .otherwise(() => "http://localhost:3000")
+  .with("development", () => "http://localhost:3000")

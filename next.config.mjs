@@ -12,6 +12,14 @@ const nextConfig = {
       "evestory.s3.ap-southeast-3.amazonaws.com",
     ],
   },
+  webpack: (config) => {
+    config.externals.push({
+      "utf-8-validate": "utf-8-validate",
+      bufferutil: "bufferutil",
+      encoding: "encoding",
+    })
+    return config
+  },
   async headers() {
     return [
       {
