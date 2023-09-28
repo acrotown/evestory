@@ -3,7 +3,7 @@
   "version": "0.0.1-canary.10",
   "private": true,
   "scripts": {
-    "dev": "concurrently -k 'next dev' 'email dev --port 4000' 'prisma studio --browser none'",
+    "dev": "concurrently -k 'next dev' 'email dev --port 4000' 'drizzle-kit studio --port 3333'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,11 +13,12 @@
     "prepare": "husky install",
     "bump": "bumpp",
     "prerelease": "bumpp prerelease --preid canary",
-    "seed": "node ./prisma/seed.js",
     "turbo": "turbo",
-    "postinstall": "prisma generate",
+    "migrate": "bunx tsx drizzle/migrate",
     "vercel": "vercel",
-    "prisma": "prisma"
+    "push": "drizzle-kit push:sqlite",
+    "drizzle-kit": "drizzle-kit",
+    "studio": "drizzle-kit studio --port 3333"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mdx}": [
@@ -26,10 +27,9 @@
     ]
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^0.3.2",
+    "@libsql/client": "^0.3.5",
     "@mobily/ts-belt": "^3.13.1",
-    "@next-auth/prisma-adapter": "^1.0.7",
-    "@planetscale/database": "^1.11.0",
-    "@prisma/client": "5.2.0",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
@@ -44,8 +44,10 @@
     "@types/react-dom": "18.2.5",
     "@vercel/analytics": "^1.0.2",
     "autoprefixer": "10.4.14",
+    "better-sqlite3": "^8.6.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
+    "drizzle-orm": "^0.28.6",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "nanoid": "^5.0.1",
@@ -73,6 +75,7 @@
     "bumpp": "^9.1.1",
     "ci-info": "^3.8.0",
     "concurrently": "^8.2.0",
+    "drizzle-kit": "^0.19.13",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.12.1",
@@ -80,7 +83,6 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "prisma": "^5.2.0",
     "turbo": "^1.10.5",
     "vercel": "^32.3.1"
   },

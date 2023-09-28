@@ -1,10 +1,12 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { DrizzleAdapter } from "@auth/drizzle-adapter"
+import { eq } from "drizzle-orm"
 import NextAuth from "next-auth/next"
 import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 
+import { users } from "@/drizzle/schema"
 import LoginLink from "@/emails/login-link"
-import prisma from "@/lib/prisma"
+import drizzle from "@/lib/drizzle"
 import { sendEmail } from "@/lib/resend"
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
@@ -32,8 +34,8 @@ const handler = NextAuth({
       allowDangerousEmailAccountLinking: true,
     }),
   ],
-  /** https://github.com/nextauthjs/next-auth/issues/7727 */
-  adapter: PrismaAdapter(prisma),
+  // @ts-ignore
+  adapter: DrizzleAdapter(drizzle),
   session: { strategy: "jwt" },
   cookies: {
     sessionToken: {
@@ -54,19 +56,15 @@ const handler = NextAuth({
         return false
       }
       if (account?.provider === "google") {
-        const userExists = await prisma.user.findUnique({
-          where: { email: user.email },
-          select: { name: true },
+        const userExists = await drizzle.query.users.findFirst({
+          where: eq(users.email, user.email),
         })
 
         if (userExists && !userExists.name) {
-          await prisma.user.update({
-            where: { email: user.email },
-            data: {
-              name: profile?.name,
-              image: profile?.image,
-            },
-          })
+          await drizzle
+            .update(users)
+            .set({ name: profile?.name, image: profile?.image })
+            .where(eq(users.email, user.email))
         }
       }
 
