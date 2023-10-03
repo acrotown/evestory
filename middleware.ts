@@ -1,3 +1,4 @@
+import { get } from "@vercel/edge-config"
 import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "next-auth/jwt"
 
@@ -25,12 +26,22 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (APP_HOSTNAMES.has(domain)) {
+    const prodIsMaintenanceMode =
+      process.env.VERCEL_ENV === "production"
+        ? await get<boolean>("prodIsMaintenanceMode")
+        : false
+
+    if (prodIsMaintenanceMode) {
+      return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url))
+    }
+
     const session = (await getToken({
       req,
       secret: process.env.NEXTAUTH_SECRET,
     })) as {
       email?: string
     }
+
     if (!session?.email && path !== "/login" && path !== "/register") {
       return NextResponse.redirect(
         new URL(
@@ -44,7 +55,9 @@ export default async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.url))
     }
 
-    return NextResponse.rewrite(new URL(`/app${path}`, req.url))
+    return NextResponse.rewrite(
+      new URL(`/app${path === "/" ? "/overview" : path}`, req.url)
+    )
   }
 
   if (SOUVENIRS_HOSTNAMES.has(domain)) {

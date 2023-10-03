@@ -1,7 +1,6 @@
 import "@/styles/globals.css"
 
 import { Providers } from "@/app/providers"
-import { Header } from "@/components/header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { cn } from "@/lib/utils"
 import { cal, inter } from "@/styles/fonts"
@@ -19,15 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn("min-h-screen bg-background antialiased", [
-          cal.variable,
-          inter.variable,
-        ])}
+        className={cn(
+          "min-h-screen bg-background antialiased selection:bg-swamp selection:text-solitude dark:selection:bg-governor-bay",
+          [cal.variable, inter.variable]
+        )}
       >
-        <Providers>
-          {/* <Header /> */}
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
         <TailwindIndicator />
       </body>
     </html>
