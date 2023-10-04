@@ -21,20 +21,20 @@ export default async function middleware(req: NextRequest) {
   let domain = req.headers.get("host") as string
   domain = domain.replace("www.", "")
 
+  const prodIsMaintenanceMode =
+    process.env.VERCEL_ENV === "production"
+      ? await get<boolean>("prodIsMaintenanceMode")
+      : false
+
+  if (prodIsMaintenanceMode) {
+    return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url))
+  }
+
   if (isHomeHostname(domain)) {
     return NextResponse.rewrite(new URL(`/home${path ? "/" : path}`, req.url))
   }
 
   if (APP_HOSTNAMES.has(domain)) {
-    const prodIsMaintenanceMode =
-      process.env.VERCEL_ENV === "production"
-        ? await get<boolean>("prodIsMaintenanceMode")
-        : false
-
-    if (prodIsMaintenanceMode) {
-      return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url))
-    }
-
     const session = (await getToken({
       req,
       secret: process.env.NEXTAUTH_SECRET,
