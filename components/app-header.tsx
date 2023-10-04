@@ -3,10 +3,12 @@ import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
-export function Header() {
+export function AppHeader() {
   return (
-    <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-      <div className="container flex h-14 items-center">
+    <header className="sticky top-0 z-40 w-full">
+      <div className="bien-glass" />
+      <div className="bien-glass-edge" />
+      <div className="relative flex h-14 items-center px-4">
         <MainNav />
         <MobileNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
