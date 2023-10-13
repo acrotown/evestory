@@ -1,12 +1,10 @@
-import { DrizzleAdapter } from "@auth/drizzle-adapter"
-import { eq } from "drizzle-orm"
+import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth/next"
 import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 
-import { users } from "@/drizzle/schema"
 import LoginLink from "@/emails/login-link"
-import drizzle from "@/lib/drizzle"
+import prisma from "@/lib/prisma"
 import { sendEmail } from "@/lib/resend"
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
@@ -35,7 +33,7 @@ const handler = NextAuth({
     }),
   ],
   // @ts-ignore
-  adapter: DrizzleAdapter(drizzle),
+  adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   cookies: {
     sessionToken: {
@@ -56,15 +54,16 @@ const handler = NextAuth({
         return false
       }
       if (account?.provider === "google") {
-        const userExists = await drizzle.query.users.findFirst({
-          where: eq(users.email, user.email),
+        const userExists = await prisma.user.findUnique({
+          where: { email: user.email },
+          select: { name: true },
         })
 
         if (userExists && !userExists.name) {
-          await drizzle
-            .update(users)
-            .set({ name: profile?.name, image: profile?.image })
-            .where(eq(users.email, user.email))
+          await prisma.user.update({
+            where: { email: user.email },
+            data: { name: profile?.name, image: profile?.image },
+          })
         }
       }
 
