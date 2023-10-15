@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background antialiased selection:bg-swamp selection:text-solitude dark:selection:bg-governor-bay",
-          [cal.variable, inter.variable]
+          [cal.variable, inter.variable],
         )}
       >
         <Providers>{children}</Providers>

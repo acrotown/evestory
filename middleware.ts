@@ -48,15 +48,15 @@ export default async function middleware(req: NextRequest) {
           `/login${
             path !== "/" ? `?redirect=${encodeURIComponent(path)}` : ""
           }`,
-          req.url
-        )
+          req.url,
+        ),
       )
     } else if (session?.email && (path === "/login" || path === "/register")) {
       return NextResponse.redirect(new URL("/", req.url))
     }
 
     return NextResponse.rewrite(
-      new URL(`/app${path === "/" ? "/overview" : path}`, req.url)
+      new URL(`/app${path === "/" ? "/overview" : path}`, req.url),
     )
   }
 
