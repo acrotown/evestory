@@ -192,6 +192,7 @@ export default function Create() {
                       <FormControl>
                         <Input
                           placeholder="chandler-and-monica"
+                          rightText=".evestory.day"
                           onChange={(e) => {
                             onChange(
                               e.target.value.replace(/[^a-zA-Z0-9]/g, "-"),
