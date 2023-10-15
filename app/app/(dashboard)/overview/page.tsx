@@ -1,6 +1,6 @@
 import { PersonIcon } from "@radix-ui/react-icons"
 
-import { AppHeader } from "@/components/app-header"
+import MaxWidthWrapper from "@/components/max-width-wrapper"
 import {
   Card,
   CardContent,
@@ -12,9 +12,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function Overview() {
   return (
-    <main className="relative flex min-h-screen w-full flex-col">
+    <MaxWidthWrapper>
       <section className="pt-10">
-        <div className="container space-y-6">
+        <div className="space-y-6">
           <h1 className="font-display text-5xl">Dashboard</h1>
 
           <Tabs defaultValue="overview" className="space-y-4">
@@ -57,6 +57,6 @@ export default function Overview() {
           </Tabs>
         </div>
       </section>
-    </main>
+    </MaxWidthWrapper>
   )
 }

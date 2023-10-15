@@ -8,5 +8,5 @@ export function cn(...inputs: ClassValue[]) {
 
 export const nanoid = customAlphabet(
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-  9
+  9,
 )
