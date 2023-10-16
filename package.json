@@ -50,6 +50,7 @@
     "better-sqlite3": "^8.6.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
+    "crisp-sdk-web": "^1.0.21",
     "date-fns": "^2.30.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",

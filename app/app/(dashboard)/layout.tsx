@@ -1,7 +1,9 @@
 "use client"
 
+import { Crisp } from "crisp-sdk-web"
 import Link from "next/link"
 import { usePathname, useSelectedLayoutSegments } from "next/navigation"
+import { useSession } from "next-auth/react"
 import React from "react"
 
 import { AppHeader } from "@/components/app-header"
@@ -15,6 +17,20 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname()
   const segments = useSelectedLayoutSegments()
+
+  React.useEffect(() => {
+    Crisp.configure("fb44a81e-9c42-42e6-9597-ecca9a6ea0e6", {
+      autoload: true,
+    })
+  }, [])
+
+  const { data: session } = useSession()
+  React.useEffect(() => {
+    if (session?.user?.email) {
+      Crisp.user.setEmail(session.user.email)
+      Crisp.user.setNickname(session.user.name || session.user.email)
+    }
+  }, [session])
 
   return (
     <>
