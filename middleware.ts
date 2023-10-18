@@ -56,7 +56,8 @@ export default async function middleware(req: NextRequest) {
     }
 
     return NextResponse.rewrite(
-      new URL(`/app${path === "/" ? "/overview" : path}`, req.url),
+      // new URL(`/app${path === "/" ? "/overview" : path}`, req.url),
+      new URL(`/app${path}`, req.url),
     )
   }
 
