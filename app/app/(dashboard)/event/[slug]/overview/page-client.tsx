@@ -1,16 +1,16 @@
+"use client"
+
 import { PersonIcon } from "@radix-ui/react-icons"
+import Image from "next/image"
 
 import MaxWidthWrapper from "@/components/max-width-wrapper"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import useEvent from "@/lib/swr/use-event"
 
-export default function Overview() {
+export default function OverviewClient() {
+  const kiw = useEvent()
+
   return (
     <MaxWidthWrapper>
       <section className="pt-10">
@@ -53,6 +53,12 @@ export default function Overview() {
                   </CardContent>
                 </Card>
               </div>
+              <Image
+                src="/_static/empty-state.png"
+                alt="Empty State"
+                width={800}
+                height={800}
+              />
             </TabsContent>
           </Tabs>
         </div>

@@ -6,6 +6,8 @@
 
 export const HOME_HOSTNAMES = new Set(["evestory.day", "home.localhost:3000"])
 
+export const HOME_DOMAIN = "https://evestory.day"
+
 export const SOUVENIRS_HOSTNAMES = new Set([
   "souvenirs.evestory.day",
   "souvenirs.localhost:3000",
@@ -28,3 +30,8 @@ export const APP_DOMAIN =
     : process.env.NEXT_PUBLIC_VERCEL_ENV === "preview"
     ? "https://preview.evestory.day"
     : "http://localhost:3000"
+
+export const API_DOMAIN =
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+    ? "https://evestory.day/api"
+    : "http://localhost:3000/api"

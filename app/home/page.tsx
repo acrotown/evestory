@@ -47,7 +47,7 @@ export default function Home() {
 
           <div className="flex w-full justify-center space-x-4 animate-in fade-in slide-in-from-top-5 duration-1000 delay-700 running fill-mode-backwards repeat-1">
             <Button size="lg" asChild>
-              <Link href={`${APP_DOMAIN}/create`}>Get Started</Link>
+              <Link href={`${APP_DOMAIN}/create`}>Get started</Link>
             </Button>
           </div>
         </div>

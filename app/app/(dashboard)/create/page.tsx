@@ -1,12 +1,14 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { CalendarIcon } from "@radix-ui/react-icons"
+import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons"
 import { format } from "date-fns"
 import Image from "next/image"
-import { useSelectedLayoutSegments } from "next/navigation"
+import { useRouter } from "next/navigation"
+import React from "react"
 import { useForm } from "react-hook-form"
 import Balancer from "react-wrap-balancer"
+import { toast } from "sonner"
 import { z } from "zod"
 
 import InputForm from "@/components/form/input"
@@ -29,48 +31,30 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-
-const FormSchema = z.object({
-  groomName: z
-    .string({
-      required_error: "Groom name is required.",
-    })
-    .min(3, {
-      message: "Groom name must be at least 3 characters long.",
-    }),
-  brideName: z
-    .string({
-      required_error: "Bride name is required.",
-    })
-    .min(3, {
-      message: "Bride name must be at least 3 characters long.",
-    }),
-  weddingDate: z.date({
-    required_error: "Wedding date is required.",
-  }),
-  weddingName: z
-    .string({
-      required_error: "Wedding name is required.",
-    })
-    .min(3, {
-      message: "Wedding name must be at least 3 characters long.",
-    }),
-  websiteURL: z
-    .string({
-      required_error: "Website URL is required.",
-    })
-    .min(3, {
-      message: "Website URL must be at least 3 characters long.",
-    }),
-})
+import { CreateEventSchema } from "@/schemas/create-event.schema"
 
 export default function Create() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof CreateEventSchema>>({
+    resolver: zodResolver(CreateEventSchema),
   })
+  const [isLoading, setIsLoading] = React.useState(false)
+  const router = useRouter()
 
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof CreateEventSchema>) => {
+    setIsLoading(true)
+
+    const res = await fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    const { message } = await res.json()
+
+    if (res.status === 201) {
+      setIsLoading(false)
+      toast(message)
+      router.push(`/event/${data.websiteURL}/overview`)
+    }
   }
 
   return (
@@ -81,13 +65,14 @@ export default function Create() {
             <Balancer>Start crafting your wedding website.</Balancer>
           </h1>
           {/* <h2 className="text-muted-foreground">
-              Fill in the form below to get started.
-            </h2> */}
+            Fill in the form below to get started.
+          </h2> */}
         </div>
 
         <div className="flex flex-col-reverse pt-8 lg:flex-row lg:space-x-11">
           <Form {...form}>
             <form
+              method="POST"
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex w-full flex-col space-y-4"
             >
@@ -122,11 +107,11 @@ export default function Create() {
 
               <FormField
                 control={form.control}
-                name="weddingDate"
+                name="eventDate"
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel>Wedding date</FormLabel>
+                      <FormLabel>Event date</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -157,6 +142,10 @@ export default function Create() {
                         </PopoverContent>
                       </Popover>
 
+                      <FormDescription>
+                        You can change it later.
+                      </FormDescription>
+
                       <FormMessage />
                     </FormItem>
                   )
@@ -165,11 +154,11 @@ export default function Create() {
 
               <FormField
                 control={form.control}
-                name="weddingName"
+                name="eventName"
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel>Wedding name</FormLabel>
+                      <FormLabel>Event name</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="The One With The Proposal"
@@ -192,7 +181,7 @@ export default function Create() {
                       <FormControl>
                         <Input
                           placeholder="chandler-and-monica"
-                          rightText=".evestory.day"
+                          rightElement=".evestory.day"
                           onChange={(e) => {
                             onChange(
                               e.target.value.replace(/[^a-zA-Z0-9]/g, "-"),
@@ -215,7 +204,20 @@ export default function Create() {
                 }}
               />
 
-              <Button type="submit">Next</Button>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                aria-disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <ReloadIcon className="mr-2 animate-spin" />{" "}
+                    <span>Creating...</span>
+                  </>
+                ) : (
+                  "Create"
+                )}
+              </Button>
             </form>
           </Form>
 
@@ -223,8 +225,8 @@ export default function Create() {
             src="/_static/create-wedding-site.png"
             alt="Create Wedding Site"
             priority
-            width={500}
-            height={500}
+            width={420}
+            height={420}
             className="self-center"
           />
         </div>

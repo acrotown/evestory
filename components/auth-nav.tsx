@@ -26,7 +26,7 @@ import { UserProps } from "@/lib/types"
 
 export function AuthNav() {
   const { data: session, status } = useSession()
-  const user = session?.user as UserProps["user"]
+  const user = session?.user as UserProps
 
   const getInitials = (name: string) => {
     if (!name) return ""
@@ -50,9 +50,6 @@ export function AuthNav() {
     ))
     .with(["authenticated", P.not(null)], () => (
       <>
-        <Button asChild>
-          <Link href="/create">Create</Link>
-        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="h-8 w-8 cursor-pointer">

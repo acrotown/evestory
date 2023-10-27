@@ -1,15 +1,16 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
+import { NextAuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 
 import LoginLink from "@/emails/login-link"
-import prisma from "@/lib/prisma"
+import { db } from "@/lib/prisma"
 import { sendEmail } from "@/lib/resend"
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     Email({
       sendVerificationRequest({ identifier, url }) {
@@ -33,7 +34,7 @@ const handler = NextAuth({
     }),
   ],
   // @ts-ignore
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   cookies: {
     sessionToken: {
@@ -54,13 +55,13 @@ const handler = NextAuth({
         return false
       }
       if (account?.provider === "google") {
-        const userExists = await prisma.user.findUnique({
+        const userExists = await db.user.findUnique({
           where: { email: user.email },
           select: { name: true },
         })
 
         if (userExists && !userExists.name) {
-          await prisma.user.update({
+          await db.user.update({
             where: { email: user.email },
             data: { name: profile?.name, image: profile?.image },
           })
@@ -101,6 +102,8 @@ const handler = NextAuth({
     signIn: "/login",
     error: "/login",
   },
-})
+} satisfies NextAuthOptions
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

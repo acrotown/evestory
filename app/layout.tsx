@@ -7,7 +7,7 @@ import { cal, inter } from "@/styles/fonts"
 
 export const metadata = {
   title: "evestory",
-  description: "Sharing invitations never this easy!",
+  description: "Sharing invitations never this easy.",
 }
 
 export default function RootLayout({
