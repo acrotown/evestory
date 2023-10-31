@@ -4,10 +4,10 @@ export const CoupleInformationSchema = z
   .object({
     eventName: z
       .string({
-        required_error: "Event name is required.",
+        required_error: "Wedding name is required.",
       })
       .min(3, {
-        message: "Event name must be at least 3 characters long.",
+        message: "Wedding name must be at least 3 characters long.",
       }),
     description: z.string().default("").optional(),
     isShowGroomNameFirst: z.boolean().default(true),

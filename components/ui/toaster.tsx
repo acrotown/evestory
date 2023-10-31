@@ -8,17 +8,7 @@ const Toaster = () => {
     theme: "light" | "dark" | "system" | undefined
   }
 
-  return (
-    <ToasterSonner
-      closeButton
-      toastOptions={{
-        style: {
-          background: "hsl(var(--background))",
-        },
-      }}
-      theme={theme}
-    />
-  )
+  return <ToasterSonner closeButton theme={theme} richColors />
 }
 
 export { Toaster }

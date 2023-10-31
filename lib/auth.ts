@@ -32,7 +32,7 @@ type WithUserAuthHandler<T extends boolean> = {
     res: Response,
     session: Session,
     user: T extends true ? UserProps : undefined,
-  ): void
+  ): Promise<Response>
 }
 
 export const withUserAuth =
@@ -43,7 +43,10 @@ export const withUserAuth =
   async (req: Request, res: Response) => {
     const session = await getSession()
     if (!session.user.id) {
-      return new Response("Unauthorized: Login required.", { status: 401 })
+      return Response.json(
+        { message: "Unauthorized: Login required." },
+        { status: 401 },
+      )
     }
 
     if (req.method === "GET")
@@ -164,7 +167,7 @@ export const withAuth =
     })
   }
 
-interface WithSessionHandler {
+type WithSessionHandler = {
   ({
     req,
     params,
@@ -186,6 +189,7 @@ export const withSession =
     if (!session?.user?.id) {
       return new Response("Unauthorized: Login required.", { status: 401 })
     }
+
     return handler({
       req,
       params: params || {},

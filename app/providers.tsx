@@ -13,6 +13,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
+      storageKey="evestory-theme"
     >
       <SessionProvider>
         <Toaster />

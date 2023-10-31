@@ -1,12 +1,10 @@
-import { revalidatePath, revalidateTag } from "next/cache"
 import { z } from "zod"
 
-import { getSession, withAuth, withSession, withUserAuth } from "@/lib/auth"
+import { withSession, withUserAuth } from "@/lib/auth"
 import { db } from "@/lib/prisma"
 import { CreateEventSchema } from "@/schemas/create-event.schema"
 
 export const GET = withSession(async ({ session }) => {
-  console.log("session", session)
   const events = await db.event.findMany({
     where: {
       userId: session.user.id,
@@ -22,7 +20,7 @@ export const GET = withSession(async ({ session }) => {
       updatedAt: true,
     },
   })
-  console.log("route handler", events)
+
   return Response.json(events, { status: 200 })
 })
 
@@ -41,19 +39,17 @@ export const POST = withUserAuth(async (req, _res, session) => {
       },
     })
 
-    // revalidatePath("/api/events")
-    // revalidatePath("/(dashboard)", "page")
-    // revalidatePath("/")
-    revalidateTag("events")
-    revalidatePath("/")
     return Response.json(
       { message: "Successfully create event." },
       { status: 201 },
     )
   } catch (err) {
     console.log(err)
-    return new Response(JSON.stringify({ message: "Error creating event." }), {
-      status: 500,
-    })
+    return Response.json(
+      { message: "Error creating event." },
+      {
+        status: 500,
+      },
+    )
   }
 })

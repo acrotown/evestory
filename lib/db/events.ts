@@ -4,7 +4,6 @@ import { cache } from "react"
 
 import { getSession } from "../auth"
 import { db } from "../prisma"
-import { EventProps } from "../types"
 
 export const getEvents = cache(async () => {
   const session = await getSession()
@@ -50,5 +49,5 @@ export const getEvent = cache(async (slug: string) => {
     },
   })
 
-  return eventData as EventProps
+  return eventData
 })

@@ -13,7 +13,6 @@ export const PUT = withAuth(async ({ req, session, params }) => {
     const { slug } = params
     const data = CoupleInformationSchema.parse(body)
 
-    console.log("data", data)
     const res = await db.event.update({
       where: {
         url: slug,
@@ -34,7 +33,6 @@ export const PUT = withAuth(async ({ req, session, params }) => {
         isShowBrideParentsName: data.isShowBrideParentsName,
       },
     })
-    console.log("res", res)
     return Response.json(
       { message: "Successfully updated event." },
       { status: 200 },

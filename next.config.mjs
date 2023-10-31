@@ -10,6 +10,7 @@ const nextConfig = {
       "localhost",
       "res.cloudinary.com",
       "evestory.s3.ap-southeast-3.amazonaws.com",
+      "utfs.io",
     ],
   },
   webpack: (config) => {

@@ -18,9 +18,9 @@ export default async function Events() {
           {events.length > 0 ? (
             <>
               <div className="flex items-center justify-between">
-                <h1 className="font-display text-5xl">Your event story</h1>
+                <h1 className="font-display text-4xl">Your event story</h1>
                 <Button asChild>
-                  <Link href={`${APP_DOMAIN}/create`}>Create event</Link>
+                  <Link href={`${APP_DOMAIN}/create`}>Create new event</Link>
                 </Button>
               </div>
               <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -31,13 +31,13 @@ export default async function Events() {
             </>
           ) : (
             <div className="text-center">
-              <h1 className="font-display text-5xl">Create your first event</h1>
+              <h1 className="font-display text-4xl">Create your first event</h1>
               <p className="mt-2 text-muted-foreground">
                 Create your first event and start sharing your story with your
                 guests.
               </p>
               <Button asChild className="mt-6">
-                <Link href={`${APP_DOMAIN}/create`}>Create event</Link>
+                <Link href={`${APP_DOMAIN}/create`}>Create new event</Link>
               </Button>
             </div>
           )}
