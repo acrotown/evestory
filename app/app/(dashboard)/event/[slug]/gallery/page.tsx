@@ -5,7 +5,7 @@ export default function Gallery() {
     <MaxWidthWrapper>
       <section className="pt-10">
         <div className="space-y-6">
-          <h1 className="font-display text-5xl">Gallery</h1>
+          <h1 className="font-display text-4xl">Gallery</h1>
         </div>
       </section>
     </MaxWidthWrapper>

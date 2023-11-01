@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { Logo } from "./icons/logo"
 
-export function MainNav() {
+export function HomeNav() {
   return (
     <div className="hidden md:flex">
       <Link

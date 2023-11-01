@@ -1,7 +1,10 @@
+import { generateComponents } from "@uploadthing/react"
 import { type ClassValue, clsx } from "clsx"
 import { customAlphabet } from "nanoid"
 import { Metadata } from "next"
 import { twMerge } from "tailwind-merge"
+
+import { OurFileRouter } from "@/app/api/uploadthing/core"
 
 import { HOME_DOMAIN } from "./constants"
 
