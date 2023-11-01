@@ -44,3 +44,6 @@ next-env.d.ts
 
 # react email
 .react-email
+
+# rescript
+lib/bs/

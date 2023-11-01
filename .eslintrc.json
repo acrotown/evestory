@@ -5,6 +5,13 @@
     "prettier",
     "plugin:tailwindcss/recommended"
   ],
+  "ignorePatterns": [
+    "node_modules/*",
+    ".next/*",
+    ".out/*",
+    "!.prettierrc.js",
+    ".bs.mjs"
+  ],
   "plugins": ["simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "error",
