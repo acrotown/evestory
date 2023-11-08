@@ -3,6 +3,7 @@
   "version": "0.0.1-canary.10",
   "private": true,
   "scripts": {
+    "res:dev": "rescript build -w",
     "dev": "concurrently -k 'prisma generate && next dev' 'email dev --port 4000' 'prisma studio --browser none'",
     "build": "prisma generate & next build",
     "start": "next start",
@@ -49,6 +50,8 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.4",
     "@react-email/components": "^0.0.7",
+    "@rescript/core": "^0.5.0",
+    "@rescript/react": "^0.11.0",
     "@types/node": "20.3.1",
     "@types/react-dom": "18.2.10",
     "@uploadthing/react": "^5.7.0",
