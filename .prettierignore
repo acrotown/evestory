@@ -2,4 +2,4 @@ dist
 node_modules
 .direnv
 .next
-.bs.mjs
+**/*.bs.mjs

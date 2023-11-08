@@ -10,7 +10,7 @@
     ".next/*",
     ".out/*",
     "!.prettierrc.js",
-    ".bs.mjs"
+    "**/*.bs.mjs"
   ],
   "plugins": ["simple-import-sort"],
   "rules": {
