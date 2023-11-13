@@ -1,5 +1,14 @@
 @@directive("'use client'")
 
+module D = {
+  @decco
+  type t = {
+    name: string,
+    age: int,
+  }
+  external toJson: 'a => Js.Json.t = "%identity"
+}
+
 @react.component
 let default = () => {
   <MaxWidthWrapper>
@@ -7,19 +16,11 @@ let default = () => {
       <React.Suspense fallback={<div> {"Loading..."->React.string} </div>}>
         <div className="space-y-6">
           <h1 className="font-display text-4xl"> {"Dashboard"->React.string} </h1>
-          // <Next.Image
-          //   src="/_static/couple-information.png"
-          //   alt="Couple Information"
-          //   priority={true}
-          //   width={300}
-          //   height={400}
-          //   className="sticky top-24 w-[300px] self-baseline pt-4 2xl:w-[400px]"
-          // />
-          // <Next.Image src="" alt="" />
-          <Next.Link locale=#false_ href=#false_> {"Hello"->React.string} </Next.Link>
           <Tabs.Root defaultValue="overview" className="space-y-4">
             <Tabs.List>
-              <Tabs.Trigger value="overview"> {"Overview"->React.string} </Tabs.Trigger>
+              <Tabs.Trigger value="overview" className="bg-slate-50">
+                {"Overview"->React.string}
+              </Tabs.Trigger>
               <Tabs.Trigger value="guest_list"> {"Guest List"->React.string} </Tabs.Trigger>
               <Tabs.Trigger value="other"> {"Other"->React.string} </Tabs.Trigger>
             </Tabs.List>

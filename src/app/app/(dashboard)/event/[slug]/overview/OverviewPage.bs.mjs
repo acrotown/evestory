@@ -2,14 +2,79 @@
 'use client'
 
 import * as Card from "../../../../../../components/ui/card/Card.bs.mjs";
-import * as Tabs from "../../../../../../components/ui/tabs/Tabs.bs.mjs";
+import * as Decco from "decco/src/Decco.bs.mjs";
 import * as React from "react";
-import Link from "next/link";
+import * as Js_dict from "rescript/lib/es6/js_dict.js";
+import * as Js_json from "rescript/lib/es6/js_json.js";
+import * as Tabs__List from "../../../../../../components/ui/tabs/Tabs__List.bs.mjs";
+import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
+import * as Tabs__Content from "../../../../../../components/ui/tabs/Tabs__Content.bs.mjs";
+import * as Tabs__Trigger from "../../../../../../components/ui/tabs/Tabs__Trigger.bs.mjs";
 import * as MaxWidthWrapper from "../../../../../../components/MaxWidthWrapper.bs.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 import * as ReactTabs from "@radix-ui/react-tabs";
 import * as ReactIcons from "@radix-ui/react-icons";
+
+function t_encode(v) {
+  return Js_dict.fromArray([
+              [
+                "name",
+                Decco.stringToJson(v.name)
+              ],
+              [
+                "age",
+                Decco.intToJson(v.age)
+              ]
+            ]);
+}
+
+function t_decode(v) {
+  var dict = Js_json.classify(v);
+  if (typeof dict === "number") {
+    return Decco.error(undefined, "Not an object", v);
+  }
+  if (dict.TAG !== /* JSONObject */2) {
+    return Decco.error(undefined, "Not an object", v);
+  }
+  var dict$1 = dict._0;
+  var name = Decco.stringFromJson(Belt_Option.getWithDefault(Js_dict.get(dict$1, "name"), null));
+  if (name.TAG === /* Ok */0) {
+    var age = Decco.intFromJson(Belt_Option.getWithDefault(Js_dict.get(dict$1, "age"), null));
+    if (age.TAG === /* Ok */0) {
+      return {
+              TAG: /* Ok */0,
+              _0: {
+                name: name._0,
+                age: age._0
+              }
+            };
+    }
+    var e = age._0;
+    return {
+            TAG: /* Error */1,
+            _0: {
+              path: ".age" + e.path,
+              message: e.message,
+              value: e.value
+            }
+          };
+  }
+  var e$1 = name._0;
+  return {
+          TAG: /* Error */1,
+          _0: {
+            path: ".name" + e$1.path,
+            message: e$1.message,
+            value: e$1.value
+          }
+        };
+}
+
+var D = {
+  t_encode: t_encode,
+  t_decode: t_decode
+};
 
 function OverviewPage$default(props) {
   return JsxRuntime.jsx(MaxWidthWrapper.make, {
@@ -21,32 +86,28 @@ function OverviewPage$default(props) {
                                             children: "Dashboard",
                                             className: "font-display text-4xl"
                                           }),
-                                      JsxRuntime.jsx(Link, {
-                                            href: "false_",
-                                            locale: "false_",
-                                            children: "Hello"
-                                          }),
                                       JsxRuntime.jsxs(ReactTabs.Root, {
                                             defaultValue: "overview",
                                             className: "space-y-4",
                                             children: [
-                                              JsxRuntime.jsxs(Tabs.List.make, {
+                                              JsxRuntime.jsxs(Tabs__List.make, {
                                                     children: [
-                                                      JsxRuntime.jsx(Tabs.Trigger.make, {
+                                                      JsxRuntime.jsx(Tabs__Trigger.make, {
+                                                            className: "bg-slate-50",
                                                             value: "overview",
                                                             children: "Overview"
                                                           }),
-                                                      JsxRuntime.jsx(Tabs.Trigger.make, {
+                                                      JsxRuntime.jsx(Tabs__Trigger.make, {
                                                             value: "guest_list",
                                                             children: "Guest List"
                                                           }),
-                                                      JsxRuntime.jsx(Tabs.Trigger.make, {
+                                                      JsxRuntime.jsx(Tabs__Trigger.make, {
                                                             value: "other",
                                                             children: "Other"
                                                           })
                                                     ]
                                                   }),
-                                              JsxRuntime.jsx(Tabs.Content.make, {
+                                              JsxRuntime.jsx(Tabs__Content.make, {
                                                     children: JsxRuntime.jsxs("div", {
                                                           children: [
                                                             JsxRuntime.jsxs(Card.Card.make, {
@@ -114,7 +175,7 @@ function OverviewPage$default(props) {
                                                         }),
                                                     value: "overview"
                                                   }),
-                                              JsxRuntime.jsx(Tabs.Content.make, {
+                                              JsxRuntime.jsx(Tabs__Content.make, {
                                                     children: JsxRuntime.jsx("div", {
                                                           children: JsxRuntime.jsxs(Card.Card.make, {
                                                                 children: [
@@ -140,7 +201,7 @@ function OverviewPage$default(props) {
                                                         }),
                                                     value: "guest_list"
                                                   }),
-                                              JsxRuntime.jsx(Tabs.Content.make, {
+                                              JsxRuntime.jsx(Tabs__Content.make, {
                                                     children: JsxRuntime.jsx("div", {
                                                           children: JsxRuntime.jsxs(Card.Card.make, {
                                                                 children: [
@@ -183,6 +244,7 @@ function OverviewPage$default(props) {
 var $$default = OverviewPage$default;
 
 export {
+  D ,
   $$default ,
   $$default as default,
 }

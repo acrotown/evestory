@@ -1,9 +1,15 @@
 module Image = {
   type placeholder = [#blur | #empty]
-  // type loading = [#eager | @as("lazy") #lazyy]
   type loading = [#eager | #"lazy"]
+  type objectFit = [
+    | #fill
+    | #contain
+    | #cover
+    | #none
+    | #"scale-down"
+  ]
 
-  @module("next/image") @react.component
+  @module("next/image") @scope("default") @react.component
   external make: (
     ~src: string,
     ~alt: string,
@@ -13,7 +19,7 @@ module Image = {
     ~quality: int=?,
     ~priority: bool=?,
     ~placeholder: placeholder=?,
-    ~objectFit: string=?,
+    ~objectFit: objectFit=?,
     ~objectPosition: string=?,
     ~layout: string=?,
     ~sizes: string=?,
@@ -26,9 +32,8 @@ module Image = {
 }
 
 module Link = {
-  type url = {}
   type locale = [
-    | #StringLocale(string)
+    | @string #StringLocale(string)
     | @as(false) #false_
   ]
   @module("next/link") @react.component
@@ -39,8 +44,8 @@ module Link = {
      * @example https://nextjs.org/docs/api-reference/next/link#with-url-object
      */
     // ~href: Url,
-    // ~href: string,
-    ~href: locale,
+    ~href: string,
+    // ~href: locale,
     /*
      * Optional decorator for the path that will be shown in the browser URL bar. Before Next.js 9.5.3 this was used for dynamic routes, check our [previous docs](https://github.com/vercel/next.js/blob/v9.5.2/docs/api-reference/next/link.md#dynamic-routes) to see how it worked. Note: when this path differs from the one provided in `href` the previous `href`/`as` behavior is used as shown in the [previous docs](https://github.com/vercel/next.js/blob/v9.5.2/docs/api-reference/next/link.md#dynamic-routes).
      */
@@ -86,8 +91,10 @@ module Link = {
      * When `false` `href` has to include the locale as the default behavior is disabled.
      */
     // ~locale: string | false,
-    // ~locale: [#String(string) | #False]=?,
-    ~locale: locale=?,
+    ~locale: [#String(string) | #False]=?,
+    // ~locale: string | @as(false) bool=?,
+
+    // ~locale: locale=?,
     /*
      * Enable legacy link behavior.
      * @defaultValue `false`
