@@ -1,13 +1,4 @@
 module Clsx = {
-  // type classValue =
-  //   | ClassArray
-  //   | ClassDictionary
-  //   | String
-  //   | Int
-  //   | Bool
-
-  // type classDictionary = Js.Dict.t<Js.Json.t>
-  // type classArray = array<classValue>
   @module("clsx")
   external clsx: string => string = "clsx"
 }
