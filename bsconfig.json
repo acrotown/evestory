@@ -16,17 +16,13 @@
   "bs-dependencies": [
     "@rescript/react",
     "@rescript/core",
-    "@glennsl/rescript-fetch",
-    "decco"
+    "@glennsl/rescript-fetch"
   ],
-  "warnings": {
-    "number": "+A-42-48",
-    "error": "+A-3-44-102-103"
-  },
   "jsx": {
     "version": 4,
     "mode": "automatic"
   },
-  "ppx-flags": ["decco/ppx"],
-  "bsc-flags": ["-open RescriptCore"]
+  "bsc-flags": [
+    "-open RescriptCore"
+  ]
 }

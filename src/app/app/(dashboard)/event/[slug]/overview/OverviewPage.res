@@ -1,14 +1,5 @@
 @@directive("'use client'")
 
-module D = {
-  @decco
-  type t = {
-    name: string,
-    age: int,
-  }
-  external toJson: 'a => Js.Json.t = "%identity"
-}
-
 @react.component
 let default = () => {
   <MaxWidthWrapper>

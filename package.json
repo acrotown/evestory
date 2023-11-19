@@ -5,7 +5,7 @@
   "scripts": {
     "res:dev": "rescript build -w",
     "dev": "concurrently -k 'prisma generate && next dev' 'email dev --dir ./src/emails --port 4000' 'prisma studio --browser none'",
-    "build": "prisma generate & next build",
+    "build": "prisma generate & rescript clean & rescript build -with-deps & next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
