@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const CoupleInformationSchema = z
+export let CoupleInformationSchema = z
   .object({
     eventName: z
       .string({
@@ -42,7 +42,6 @@ export const CoupleInformationSchema = z
       }),
   })
   .superRefine((data, ctx) => {
-    console.log(data, ctx)
     if (data.isShowGroomParentsName && !data.groomParentsName) {
       ctx.addIssue({
         code: "custom",

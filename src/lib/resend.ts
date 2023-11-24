@@ -3,9 +3,9 @@ import { Resend } from "resend"
 
 import { nanoid } from "./utils"
 
-export const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY)
+export let resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY)
 
-export const sendEmail = ({
+export let sendEmail = ({
   to,
   subject,
   react,

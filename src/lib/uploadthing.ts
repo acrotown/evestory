@@ -3,7 +3,7 @@ import { generateReactHelpers } from "@uploadthing/react/hooks"
 
 import { OurFileRouter } from "@/app/api/uploadthing/core"
 
-export const { UploadButton, UploadDropzone, Uploader } =
+export let { UploadButton, UploadDropzone, Uploader } =
   generateComponents<OurFileRouter>()
 
-export const { useUploadThing } = generateReactHelpers<OurFileRouter>()
+export let { useUploadThing } = generateReactHelpers<OurFileRouter>()

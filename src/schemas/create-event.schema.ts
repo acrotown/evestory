@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const CreateEventSchema = z.object({
+export let CreateEventSchema = z.object({
   groomName: z
     .string({
       required_error: "Groom name is required.",

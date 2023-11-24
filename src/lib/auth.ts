@@ -18,8 +18,8 @@ export async function getSession() {
 }
 
 export function getSearchParams(url: string) {
-  const searchParams = new URL(url).searchParams
-  const params: Record<string, string> = {}
+  let searchParams = new URL(url).searchParams
+  let params: Record<string, string> = {}
   searchParams.forEach((value, key) => {
     params[key] = value
   })
@@ -35,13 +35,13 @@ type WithUserAuthHandler<T extends boolean> = {
   ): Promise<Response>
 }
 
-export const withUserAuth =
+export let withUserAuth =
   <T extends boolean = false>(
     handler: WithUserAuthHandler<T>,
     { needUserDetails }: { needUserDetails?: T } = {},
   ) =>
   async (req: Request, res: Response) => {
-    const session = await getSession()
+    let session = await getSession()
     if (!session.user.id) {
       return Response.json(
         { message: "Unauthorized: Login required." },
@@ -58,7 +58,7 @@ export const withUserAuth =
       )
 
     if (needUserDetails) {
-      const user = (await db.user.findUnique({
+      let user = (await db.user.findUnique({
         where: { id: session.user.id },
         select: {
           id: true,
@@ -99,21 +99,21 @@ type WithAuthHandler = {
   }): Promise<Response>
 }
 
-export const withAuth =
+export let withAuth =
   (handler: WithAuthHandler) =>
   async (
     req: Request,
     { params }: { params: Record<string, string> | undefined },
   ) => {
-    const session = await getSession()
+    let session = await getSession()
 
     if (!session.user.id) {
       return new Response("Unauthorized: Login required.", { status: 401 })
     }
-    const searchParams = getSearchParams(req.url)
-    const { slug } = params || {}
+    let searchParams = getSearchParams(req.url)
+    let { slug } = params || {}
 
-    const eventData = await db.event.findUnique({
+    let eventData = await db.event.findUnique({
       where: { url: slug },
       select: {
         id: true,
@@ -181,10 +181,10 @@ type WithSessionHandler = {
   }): Promise<Response>
 }
 
-export const withSession =
+export let withSession =
   (handler: WithSessionHandler) =>
   async (req: Request, { params }: { params: Record<string, string> }) => {
-    const session = await getSession()
+    let session = await getSession()
 
     if (!session?.user?.id) {
       return new Response("Unauthorized: Login required.", { status: 401 })

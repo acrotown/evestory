@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import InputForm from "@/components/form/input"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -27,49 +26,32 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useAction } from "@/hooks/use-action"
 import { cn } from "@/lib/utils"
 import { CreateEventSchema } from "@/schemas/create-event.schema"
 
+import { createEvent } from "./action"
+
 export default function CreateEventForm() {
-  const form = useForm<z.infer<typeof CreateEventSchema>>({
+  let form = useForm<z.infer<typeof CreateEventSchema>>({
     resolver: zodResolver(CreateEventSchema),
   })
-  const [isLoading, setIsLoading] = React.useState(false)
-  const router = useRouter()
+  let router = useRouter()
 
-  const onSubmit = async (data: z.infer<typeof CreateEventSchema>) => {
-    setIsLoading(true)
+  let { call, loading } = useAction(createEvent, {
+    onSuccess(data) {
+      console.log("data", data)
+      toast.success("Event created successfully")
+      router.replace(`/event/${data?.url}/overview`)
+    },
+    onError(error) {
+      console.log("error", error)
+      toast.error(error)
+    },
+  })
 
-    // Check subdomain availability if the user has entered a custom subdomain
-    if (data.websiteURL) {
-      const resSubdomain = await fetch("/api/events/subdomain-exists", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subdomain: data.websiteURL }),
-      })
-      const { exists } = await resSubdomain.json()
-      if (exists) {
-        setIsLoading(false)
-        toast.error(
-          "This subdomain is already taken. Please choose another one.",
-        )
-        return
-      }
-    }
-
-    const res = await fetch("/api/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-    const { message } = await res.json()
-
-    if (res.status === 201) {
-      setIsLoading(false)
-      toast.success(message)
-      router.refresh()
-      router.push(`/event/${data.websiteURL}/overview`)
-    }
+  let onSubmit = (data: z.infer<typeof CreateEventSchema>) => {
+    call(data)
   }
 
   return (
@@ -80,11 +62,21 @@ export default function CreateEventForm() {
       >
         <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
           <div className="w-full">
-            <InputForm
+            <FormField
               control={form.control}
               name="groomName"
-              label="Groom name"
-              placeholder="Chandler Bing"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Groom name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Chandler Bing" {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
           </div>
 
@@ -99,6 +91,7 @@ export default function CreateEventForm() {
                     <FormControl>
                       <Input placeholder="Monica Geller" {...field} />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )
@@ -114,6 +107,11 @@ export default function CreateEventForm() {
             return (
               <FormItem>
                 <FormLabel htmlFor="eventDate">Event date</FormLabel>
+                <input
+                  className="hidden"
+                  name="eventDate"
+                  value={field.value?.toString()}
+                />
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -203,8 +201,8 @@ export default function CreateEventForm() {
           }}
         />
 
-        <Button type="submit" disabled={isLoading} aria-disabled={isLoading}>
-          {isLoading ? (
+        <Button type="submit" disabled={loading} aria-disabled={loading}>
+          {loading ? (
             <>
               <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
               <span>Creating event...</span>

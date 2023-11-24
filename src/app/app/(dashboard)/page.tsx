@@ -4,12 +4,13 @@ import { Suspense } from "react"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { Button } from "@/components/ui/button"
 import { APP_DOMAIN } from "@/lib/constants"
-import { getEvents } from "@/lib/db/events"
+import { getCacheEvents, getEvents } from "@/lib/db/events"
 
 import CardEvent from "./card-event"
 
 export default async function Events() {
-  const events = await getEvents()
+  // const events = await getEvents()
+  const events = await getCacheEvents()
 
   return (
     <MaxWidthWrapper>

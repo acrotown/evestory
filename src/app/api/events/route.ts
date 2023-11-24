@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { z } from "zod"
 
 import { withSession, withUserAuth } from "@/lib/auth"
@@ -38,6 +39,8 @@ export const POST = withUserAuth(async (req, _res, session) => {
         userId: session.user.id,
       },
     })
+
+    revalidateTag("events")
 
     return Response.json(
       { message: "Successfully create event." },

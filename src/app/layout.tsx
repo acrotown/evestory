@@ -1,5 +1,7 @@
 import "@/styles/globals.css"
 
+import Script from "next/script"
+
 import { Providers } from "@/app/providers"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { cn } from "@/lib/utils"
@@ -25,6 +27,20 @@ export default function RootLayout({
       >
         <Providers>{children}</Providers>
         <TailwindIndicator />
+        {/* <button
+          data-logsnag-feedback
+          data-logsnag-token="<API_TOKEN>"
+          data-logsnag-project="<PROJECT>"
+          data-logsnag-channel="<CHANNEL>"
+        >
+          Feedback
+        </button>
+        <Script
+          src="https://cdn.logsnag.com/feedback/ls.js"
+          onLoad={() => {
+            console.log("loaded")
+          }}
+        /> */}
       </body>
     </html>
   )

@@ -5,9 +5,9 @@ import { EventProps } from "../types"
 import { fetcher } from "../utils"
 
 export default function useEvent() {
-  const { slug } = useParams() as { slug?: string }
+  let { slug } = useParams() as { slug?: string }
 
-  const {
+  let {
     data: event,
     isLoading,
     error,

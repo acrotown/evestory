@@ -1,7 +1,7 @@
 import { connect } from "@planetscale/database"
 
-const pcaleConfig = {
+let pcaleConfig = {
   url: process.env.DATABASE_URL,
 }
 
-export const conn = process.env.DATABASE_URL ? connect(pcaleConfig) : null
+export let conn = process.env.DATABASE_URL ? connect(pcaleConfig) : null

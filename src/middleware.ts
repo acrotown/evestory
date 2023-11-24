@@ -15,13 +15,13 @@ export const config = {
 }
 
 export default async function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname
+  let path = req.nextUrl.pathname
 
   /** Get hostname of request (e.g kiw.evestory.day, kiw.localhost:3000) */
   let domain = req.headers.get("host") as string
   domain = domain.replace("www.", "")
 
-  const prodIsMaintenanceMode =
+  let prodIsMaintenanceMode =
     process.env.VERCEL_ENV === "production"
       ? await get<boolean>("prodIsMaintenanceMode")
       : false
@@ -35,7 +35,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (APP_HOSTNAMES.has(domain)) {
-    const session = (await getToken({
+    let session = (await getToken({
       req,
       secret: process.env.NEXTAUTH_SECRET,
     })) as {

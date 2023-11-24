@@ -4,7 +4,7 @@ import React, { Suspense } from "react"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { getEvent } from "@/lib/db/events"
 
-import CoupleInformationForm from "./form"
+import CoupleInformationForm from "./_components/form"
 import Loading from "./loading"
 
 export default async function CoupleInformation({

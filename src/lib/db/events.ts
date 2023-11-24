@@ -1,13 +1,14 @@
 import "server-only"
 
+import { unstable_cache } from "next/cache"
 import { cache } from "react"
 
 import { getSession } from "../auth"
 import { db } from "../prisma"
 
-export const getEvents = cache(async () => {
-  const session = await getSession()
-  const events = await db.event.findMany({
+export let getEvents = cache(async () => {
+  let session = await getSession()
+  let events = await db.event.findMany({
     where: {
       userId: session.user.id,
     },
@@ -16,8 +17,25 @@ export const getEvents = cache(async () => {
   return events
 })
 
-export const getEvent = cache(async (slug: string) => {
-  const eventData = await db.event.findUnique({
+export let getCacheEvents = unstable_cache(
+  async () => {
+    let session = await getSession()
+    let events = await db.event.findMany({
+      where: {
+        userId: session.user.id,
+      },
+    })
+
+    return events
+  },
+  ["events"],
+  {
+    tags: ["events"],
+  },
+)
+
+export let getEvent = cache(async (slug: string) => {
+  let eventData = await db.event.findUnique({
     where: { url: slug },
     select: {
       id: true,

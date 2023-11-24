@@ -7,9 +7,9 @@ import LoginLink from "@/emails/login-link"
 import { db } from "@/lib//prisma"
 import { sendEmail } from "@/lib/resend"
 
-const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
+let VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
 
-export const authOptions = {
+export let authOptions = {
   providers: [
     Email({
       sendVerificationRequest({ identifier, url }) {
@@ -53,7 +53,7 @@ export const authOptions = {
         return false
       }
       if (account?.provider === "google") {
-        const userExists = await db.user.findUnique({
+        let userExists = await db.user.findUnique({
           where: { email: user.email },
           select: { name: true },
         })

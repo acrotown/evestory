@@ -1,10 +1,7 @@
-import { generateComponents } from "@uploadthing/react"
 import { type ClassValue, clsx } from "clsx"
 import { customAlphabet } from "nanoid"
 import { Metadata } from "next"
 import { twMerge } from "tailwind-merge"
-
-import { OurFileRouter } from "@/app/api/uploadthing/core"
 
 import { HOME_DOMAIN } from "./constants"
 
@@ -56,7 +53,7 @@ export function constructMetadata({
   }
 }
 
-export const nanoid = customAlphabet(
+export let nanoid = customAlphabet(
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
   9,
 )
@@ -69,10 +66,10 @@ export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<JSON> {
-  const res = await fetch(input, init)
+  let res = await fetch(input, init)
   if (!res.ok) {
-    const error = await res.text()
-    const err = new Error(error) as SWRError
+    let error = await res.text()
+    let err = new Error(error) as SWRError
     err.status = res.status
     throw err
   }

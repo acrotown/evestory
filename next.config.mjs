@@ -3,23 +3,26 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     useDeploymentId: true,
-    serverActions: true,
   },
   images: {
-    domains: [
-      "localhost",
-      "res.cloudinary.com",
-      "evestory.s3.ap-southeast-3.amazonaws.com",
-      "utfs.io",
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "evestory.s3.ap-southeast-3.amazonaws.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+      },
     ],
-  },
-  webpack: (config) => {
-    config.externals.push({
-      "utf-8-validate": "utf-8-validate",
-      bufferutil: "bufferutil",
-      encoding: "encoding",
-    })
-    return config
   },
   async headers() {
     return [
