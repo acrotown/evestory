@@ -50,7 +50,7 @@ export default function CreateEventForm() {
     },
   })
 
-  let onSubmit = (data: z.infer<typeof CreateEventSchema>) => {
+  let onSubmit = async (data: z.infer<typeof CreateEventSchema>) => {
     call(data)
   }
 
@@ -70,7 +70,11 @@ export default function CreateEventForm() {
                   <FormItem>
                     <FormLabel>Groom name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Chandler Bing" {...field} />
+                      <Input
+                        disabled={loading}
+                        placeholder="Chandler Bing"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />
@@ -89,7 +93,11 @@ export default function CreateEventForm() {
                   <FormItem>
                     <FormLabel>Bride name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Monica Geller" {...field} />
+                      <Input
+                        disabled={loading}
+                        placeholder="Monica Geller"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />
@@ -108,6 +116,7 @@ export default function CreateEventForm() {
               <FormItem>
                 <FormLabel htmlFor="eventDate">Event date</FormLabel>
                 <input
+                  disabled={loading}
                   className="hidden"
                   name="eventDate"
                   value={field.value?.toString()}
@@ -116,6 +125,7 @@ export default function CreateEventForm() {
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
+                        disabled={loading}
                         variant={"outline"}
                         className={cn(
                           "w-full pl-3 text-left font-normal",
@@ -158,7 +168,11 @@ export default function CreateEventForm() {
               <FormItem>
                 <FormLabel>Wedding name</FormLabel>
                 <FormControl>
-                  <Input placeholder="The One With The Proposal" {...field} />
+                  <Input
+                    disabled={loading}
+                    placeholder="The One With The Proposal"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -175,6 +189,7 @@ export default function CreateEventForm() {
                 <FormLabel>Website URL</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={loading}
                     placeholder="chandler-monica"
                     rightElement=".evestory.day"
                     onChange={(e) => {

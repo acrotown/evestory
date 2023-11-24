@@ -1,5 +1,6 @@
 "use client"
 
+import { useLogSnag } from "@logsnag/next"
 import { Crisp } from "crisp-sdk-web"
 import { useParams, usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
@@ -13,10 +14,11 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname()
-  const { slug } = useParams() as { slug?: string }
+  let pathname = usePathname()
+  let { slug } = useParams() as { slug?: string }
+  let { setUserId } = useLogSnag()
 
-  const { isError, isLoading } = useEvent()
+  let { isError, isLoading } = useEvent()
 
   React.useEffect(() => {
     Crisp.configure("fb44a81e-9c42-42e6-9597-ecca9a6ea0e6", {
@@ -24,13 +26,14 @@ export default function DashboardLayout({
     })
   }, [])
 
-  const { data: session } = useSession()
+  let { data: session } = useSession()
   React.useEffect(() => {
     if (session?.user?.email) {
       Crisp.user.setEmail(session.user.email)
       Crisp.user.setNickname(session.user.name || session.user.email)
+      setUserId(session.user.email)
     }
-  }, [session])
+  }, [session, setUserId])
 
   if (isLoading) {
     return (
