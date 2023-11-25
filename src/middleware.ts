@@ -1,3 +1,4 @@
+import { ipAddress } from "@vercel/edge"
 import { get } from "@vercel/edge-config"
 import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "next-auth/jwt"
@@ -16,19 +17,32 @@ export const config = {
 
 export default async function middleware(req: NextRequest) {
   let path = req.nextUrl.pathname
+  let ip = ipAddress(req) || ""
+  // 118.98.26.6 resend ip ig
+  console.info("ip: ", ip)
+  let isKevsDevices = (await get<Array<string>>("isKevsDevices")) || []
+  console.info("isKevsDevices: ", isKevsDevices)
+  let isProdMaintenanceMode =
+    (await get<boolean>("isProdMaintenanceMode")) || false
+  let isProd = process.env.VERCEL_ENV === "production"
+
+  let isMaintenance = false
+
+  if (isProd) {
+    if (isKevsDevices.includes(ip)) {
+      isMaintenance = false
+    } else {
+      isMaintenance = isProdMaintenanceMode
+    }
+  }
+
+  if (isMaintenance) {
+    return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url))
+  }
 
   /** Get hostname of request (e.g kiw.evestory.day, kiw.localhost:3000) */
   let domain = req.headers.get("host") as string
   domain = domain.replace("www.", "")
-
-  let prodIsMaintenanceMode =
-    process.env.VERCEL_ENV === "production"
-      ? await get<boolean>("prodIsMaintenanceMode")
-      : false
-
-  if (prodIsMaintenanceMode) {
-    return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url))
-  }
 
   if (isHomeHostname(domain)) {
     return NextResponse.rewrite(new URL(`/home${path ? "/" : path}`, req.url))
@@ -55,7 +69,7 @@ export default async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.url))
     }
 
-    return NextResponse.rewrite(new URL(`/app${path ?? "/"}`, req.url))
+    return NextResponse.rewrite(new URL(`/app${path ?? ""}`, req.url))
   }
 
   if (SOUVENIRS_HOSTNAMES.has(domain)) {
