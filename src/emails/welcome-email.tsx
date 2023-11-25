@@ -16,16 +16,10 @@ import * as React from "react"
 import { EVESTORY_LOGO_BLUE_URL } from "../lib/constants/logo"
 import { Tailwind } from "./components/tailwind"
 
-interface Props {
-  magicLink?: string
-}
-
-export const LoginLink = ({
-  magicLink = "http://localhost:3000/api/auth/callback/email?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin&token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&email=your.email%40mail.com",
-}: Props) => (
+export const WelcomeEmail = () => (
   <Html>
     <Head />
-    <Preview>Log in with this magic link.</Preview>
+    <Preview>Welcome to evestory</Preview>
     <Tailwind>
       <Body className="m-auto bg-white font-sans">
         <Container className="mx-auto my-10 max-w-[500px] border border-solid border-gray-200 bg-solitude px-10 py-5">
@@ -36,24 +30,32 @@ export const LoginLink = ({
             alt="evestory Logo"
           />
           <Heading className="my-12 text-2xl font-bold">
-            Your magic link for evestory
+            Welcome to evestory
           </Heading>
-          <Text className="text-md mb-4">Welcome to evestory!</Text>
-          <Text className="text-md mb-4">
-            Please click the button below to log in to your account.
+          <Text className="text-md mb-8">
+            Thanks for signing up to evestory! We&apos;re thrilled to be a part
+            of your journey to create unforgettable wedding invitations that
+            capture your unique love story.
           </Text>
-          <Section className="my-8 text-center">
-            <Link
-              className="rounded-md bg-governor-bay px-6 py-3 text-center text-xs font-semibold text-white no-underline shadow"
-              href={magicLink}
-            >
-              Login to evestory
-            </Link>
-          </Section>
+          <Text className="mb-4">Explore evestory&apos;s magic:</Text>
+          <Text>
+            ◆ <strong>Tailored Customization:</strong> Create invitations that
+            mirror your love story with personalized designs.
+          </Text>
+          <Text>
+            ◆ <strong>Effortless RSVPs:</strong> Simplify guest management using
+            our interactive RSVP feature.
+          </Text>
+          <Text className="mb-8">
+            ◆ <strong>Seamless Planning:</strong> From invites to RSVPs,
+            we&apos;ve streamlined the process for a stress-free experience.
+          </Text>
 
-          <Text className="text-md">
-            {/* eslint-disable-next-line react/no-unescaped-entities */}
-            If you didn't request this, you can safely ignore this email.
+          <Text className="mb-8">
+            Ready to craft? Log in{" "}
+            <Link href="https://app.evestory.day">here</Link> and start creating
+            the wedding invitations of your dreams. If you have any questions,
+            our dedicated support team is here to assist you.
           </Text>
 
           <Hr className="mt-10 border-gray-200" />
@@ -80,4 +82,4 @@ export const LoginLink = ({
   </Html>
 )
 
-export default LoginLink
+export default WelcomeEmail

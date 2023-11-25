@@ -6,8 +6,7 @@ export const GET = withAuth(async ({ event }) => {
   return Response.json(event, { status: 200 })
 })
 
-export const PUT = withAuth(async ({ req, session, params }) => {
-  console.log("params", params)
+export const PUT = withAuth(async ({ req, params }) => {
   try {
     const body = await req.json()
     const { slug } = params

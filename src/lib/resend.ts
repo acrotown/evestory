@@ -2,7 +2,7 @@ import { renderAsync } from "@react-email/components"
 import { ReactElement } from "react"
 import { Resend } from "resend"
 
-import { nanoid } from "./utils"
+import { nanoid } from "@/lib/utils"
 
 export let resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY)
 

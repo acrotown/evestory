@@ -40,17 +40,15 @@ export default function CreateEventForm() {
 
   let { call, loading } = useAction(createEvent, {
     onSuccess(data) {
-      console.log("data", data)
       toast.success("Event created successfully")
       router.replace(`/event/${data?.url}/overview`)
     },
     onError(error) {
-      console.log("error", error)
       toast.error(error)
     },
   })
 
-  let onSubmit = async (data: z.infer<typeof CreateEventSchema>) => {
+  let onSubmit = (data: z.infer<typeof CreateEventSchema>) => {
     call(data)
   }
 

@@ -13,10 +13,11 @@
     "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,mdx}' --cache",
     "prepare": "husky install",
     "bump": "bumpp",
+    "email": "email dev --dir ./src/emails --port 4000",
     "prerelease": "bumpp prerelease --preid canary",
-    "prisma:generate": "prisma generate",
+    "db:generate": "prisma generate",
     "db:push": "prisma db push",
-    "prisma:studio": "prisma studio",
+    "db:studio": "prisma studio",
     "prisma": "prisma",
     "turbo": "turbo",
     "vercel": "vercel"

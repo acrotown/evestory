@@ -44,8 +44,8 @@ export function AuthNav() {
     .with(["loading", P.nullish], () => <></>)
     .with(["unauthenticated", P.nullish], () => (
       <>
-        <SignInButton />
         <SignUpButton />
+        <SignInButton />
       </>
     ))
     .with(["authenticated", P.not(null)], () => (

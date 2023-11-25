@@ -4,7 +4,9 @@ import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 
 import LoginLink from "@/emails/login-link"
+import WelcomeEmail from "@/emails/welcome-email"
 import { db } from "@/lib//prisma"
+import { logsnag } from "@/lib/logsnag"
 import { sendEmail } from "@/lib/resend"
 
 let VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
@@ -92,8 +94,30 @@ export let authOptions = {
     },
   },
   events: {
-    signIn() {
-      // TODO: send welcome email
+    async signIn({ user, isNewUser }) {
+      if (isNewUser && user.email) {
+        sendEmail({
+          to: user.email,
+          subject: "Welcome to evestory - Where Your Dream Wedding Begins!",
+          react: WelcomeEmail(),
+        })
+
+        await logsnag.track({
+          notify: true,
+          event: "Sign up",
+          channel: "sign-ups",
+          icon: "👋",
+          description: `User ${user.email} signed up`,
+        })
+      } else {
+        await logsnag.track({
+          notify: true,
+          event: "Sign in",
+          channel: "sign-in",
+          icon: "👋",
+          description: `User ${user.email} signed in`,
+        })
+      }
     },
   },
   pages: {

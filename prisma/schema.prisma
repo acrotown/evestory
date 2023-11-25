@@ -72,12 +72,12 @@ model Event {
   groomInstagram         String?
   groomPhoto             String?
   groomParentsName       String?
-  isShowGroomParentsName Boolean  @default(true)
+  isShowGroomParentsName Boolean  @default(false)
   brideName              String
   brideInstagram         String?
   bridePhoto             String?
   brideParentsName       String?
-  isShowBrideParentsName Boolean  @default(true)
+  isShowBrideParentsName Boolean  @default(false)
   galleries              Json?    @db.Json
   published              Boolean  @default(false)
   date                   DateTime

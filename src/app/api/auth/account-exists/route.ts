@@ -5,15 +5,15 @@ import { conn } from "@/lib/planetscale"
 export const runtime = "edge"
 
 export async function POST(req: NextRequest) {
-  const { email } = (await req.json()) as { email: string }
+  let { email } = (await req.json()) as { email: string }
 
   if (!conn) {
     return new NextResponse("Database connection failed", { status: 500 })
   }
 
-  const user = await conn.execute("SELECT email FROM User WHERE email = ?", [
-    email,
-  ])
+  let user = await conn
+    .execute("SELECT email FROM User WHERE email = ?", [email])
+    .then((o) => o?.rows?.[0])
 
   if (user) {
     return new NextResponse(JSON.stringify({ exists: true }))

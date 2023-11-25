@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -104,7 +105,7 @@ export default function Page() {
             </div>
           </div>
           <Button
-            disabled={isGoogleClicked}
+            disabled={isGoogleClicked || isLoading}
             variant="outline"
             className="w-full"
             onClick={() => {
@@ -134,7 +135,10 @@ export default function Page() {
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className=" font-semibold text-muted-foreground hover:text-black dark:hover:text-white"
+              className={cn(
+                "font-semibold text-muted-foreground hover:text-black dark:hover:text-white",
+                isLoading ? "pointer-events-none" : "",
+              )}
             >
               Sign up.
             </Link>
