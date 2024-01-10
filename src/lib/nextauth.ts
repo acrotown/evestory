@@ -5,8 +5,8 @@ import Google from "next-auth/providers/google"
 
 import LoginLink from "@/emails/login-link"
 import WelcomeEmail from "@/emails/welcome-email"
-import { db } from "@/lib//prisma"
 import { logsnag } from "@/lib/logsnag"
+import { db } from "@/lib/prisma"
 import { sendEmail } from "@/lib/resend"
 
 let VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL

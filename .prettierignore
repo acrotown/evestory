@@ -1,3 +1,8 @@
+# melange
+_build
+_opam
+src/output
+
 dist
 node_modules
 .direnv

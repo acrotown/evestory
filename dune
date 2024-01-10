@@ -1,0 +1,6 @@
+(dirs :standard \ node_modules)
+
+(env
+ (dev
+  (flags
+   (:standard -warn-error -69-32))))

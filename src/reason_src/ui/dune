@@ -1,0 +1,6 @@
+(library
+ (name ui)
+ (modes melange)
+ (libraries reason-react bindings lib)
+ (preprocess
+  (pps melange.ppx reason-react-ppx)))

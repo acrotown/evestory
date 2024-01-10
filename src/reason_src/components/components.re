@@ -1,0 +1,1 @@
+module MaxWidthWrapper = MaxWidthWrapper;
