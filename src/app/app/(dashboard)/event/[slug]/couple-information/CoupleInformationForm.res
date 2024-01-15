@@ -16,6 +16,5 @@ let make = () => {
   )
   let formState = form->CoupleInformationModule.Form.formState
   let isValid = formState.isValid
-  Js.log(isValid)
   <MaxWidthWrapper> {"hello"->React.string} </MaxWidthWrapper>
 }

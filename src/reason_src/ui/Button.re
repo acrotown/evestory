@@ -1,3 +1,5 @@
+[@mel.config {flags: [|"--preamble", "\"use client\";"|]}];
+
 open Bindings;
 open Lib;
 
@@ -50,9 +52,10 @@ let button_variants =
 
 [@react.component]
 let make =
+  React.forwardRef(
     (
       ~className=?,
-      ~asChild=?,
+      ~asChild=false,
       ~variant: [
          | `default
          | `destructive
@@ -63,38 +66,135 @@ let make =
        ]=`default,
       ~size: [ | `default | `sm | `lg | `icon]=`default,
       ~children,
+      ~onClick: ReactEvent.Mouse.t => unit=_ => (),
+      ~onContextMenu: ReactEvent.Mouse.t => unit=_ => (),
+      ~onDoubleClick: ReactEvent.Mouse.t => unit=_ => (),
+      ~onDrag: ReactEvent.Drag.t => unit=_ => (),
+      ~onDragEnd: ReactEvent.Drag.t => unit=_ => (),
+      ~onDragEnter: ReactEvent.Drag.t => unit=_ => (),
+      ~onDragExit: ReactEvent.Drag.t => unit=_ => (),
+      ~onDragLeave: ReactEvent.Drag.t => unit=_ => (),
+      ~onDragOver: ReactEvent.Drag.t => unit=_ => (),
+      ~onDragStart: ReactEvent.Drag.t => unit=_ => (),
+      ~onDrop: ReactEvent.Drag.t => unit=_ => (),
+      ~onMouseDown: ReactEvent.Mouse.t => unit=_ => (),
+      ~onMouseEnter: ReactEvent.Mouse.t => unit=_ => (),
+      ~onMouseLeave: ReactEvent.Mouse.t => unit=_ => (),
+      ~onMouseMove: ReactEvent.Mouse.t => unit=_ => (),
+      ~onMouseOut: ReactEvent.Mouse.t => unit=_ => (),
+      ~onMouseOver: ReactEvent.Mouse.t => unit=_ => (),
+      ~onMouseUp: ReactEvent.Mouse.t => unit=_ => (),
+      ref_,
     ) => {
-  let variant_to_string =
-    switch (variant) {
-    | `default => "default"
-    | `destructive => "destructive"
-    | `outline => "outline"
-    | `secondary => "secondary"
-    | `ghost => "ghost"
-    | `link => "link"
-    };
+    let variant_to_string =
+      switch (variant) {
+      | `default => "default"
+      | `destructive => "destructive"
+      | `outline => "outline"
+      | `secondary => "secondary"
+      | `ghost => "ghost"
+      | `link => "link"
+      };
 
-  let size_to_string =
-    switch (size) {
-    | `default => "default"
-    | `sm => "sm"
-    | `lg => "lg"
-    | `icon => "icon"
-    };
+    let size_to_string =
+      switch (size) {
+      | `default => "default"
+      | `sm => "sm"
+      | `lg => "lg"
+      | `icon => "icon"
+      };
 
-  let cn =
-    [|
-      button_variants({
-        className: className |> Js.Option.getWithDefault(""),
-        size: size_to_string,
-        variant: variant_to_string,
-      }),
-    |]
-    |> Utils.cn;
+    let cn =
+      [|
+        button_variants({
+          className: className |> Js.Option.getWithDefault(""),
+          size: size_to_string,
+          variant: variant_to_string,
+        }),
+      |]
+      |> Utils.cn;
 
-  switch (asChild) {
-  | Some(_) =>
-    <Bindings.Radix.Slot className=cn> children </Bindings.Radix.Slot>
-  | None => <button className=cn> children </button>
-  };
-};
+    asChild
+      ? <Radix.Slot
+          className=cn
+          ref=?{
+            Js.Nullable.toOption(ref_)->Belt.Option.map(ReactDOM.Ref.domRef)
+          }>
+          children
+        </Radix.Slot>
+      : <button
+          ref=?{
+            Js.Nullable.toOption(ref_)->Belt.Option.map(ReactDOM.Ref.domRef)
+          }
+          type_="button"
+          className=cn
+          onClick
+          onContextMenu
+          onDoubleClick
+          onDrag
+          onDragEnd
+          onDragEnter
+          onDragExit
+          onDragLeave
+          onDragOver
+          onDragStart
+          onDrop
+          onMouseDown
+          onMouseEnter
+          onMouseLeave
+          onMouseMove
+          onMouseOut
+          onMouseOver
+          onMouseUp>
+          children
+        </button>;
+  });
+
+// [@react.component]
+// let make =
+//     (
+//       ~className=?,
+//       ~asChild=false,
+//       ~variant: [
+//          | `default
+//          | `destructive
+//          | `outline
+//          | `secondary
+//          | `ghost
+//          | `link
+//        ]=`default,
+//       ~size: [ | `default | `sm | `lg | `icon]=`default,
+//       ~children,
+//     ) => {
+//   let variant_to_string =
+//     switch (variant) {
+//     | `default => "default"
+//     | `destructive => "destructive"
+//     | `outline => "outline"
+//     | `secondary => "secondary"
+//     | `ghost => "ghost"
+//     | `link => "link"
+//     };
+
+//   let size_to_string =
+//     switch (size) {
+//     | `default => "default"
+//     | `sm => "sm"
+//     | `lg => "lg"
+//     | `icon => "icon"
+//     };
+
+//   let cn =
+//     [|
+//       button_variants({
+//         className: className |> Js.Option.getWithDefault(""),
+//         size: size_to_string,
+//         variant: variant_to_string,
+//       }),
+//     |]
+//     |> Utils.cn;
+
+//   asChild
+//     ? <Radix.Slot className=cn> children </Radix.Slot>
+//     : <button className=cn> children </button>;
+// };
