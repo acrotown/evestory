@@ -2,5 +2,5 @@
  (target output)
  (alias reason)
  (module_systems es6)
- (libraries components bindings home ui lib)
+ (libraries components bindings home ui lib constants)
  (promote (until-clean)))

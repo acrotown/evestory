@@ -1,3 +1,5 @@
+"use client"
+
 export { default } from "@/output/src/reason_src/home/page.js"
 // import Link from "next/link"
 // import { Balancer } from "react-wrap-balancer"

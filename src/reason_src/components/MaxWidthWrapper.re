@@ -1,14 +1,10 @@
-open Bindings;
 [@react.component]
-let make = (~children: React.element) => {
-  <>
-    <Next.Image
-      src="https://picsum.photos/200/300"
-      alt="helo"
-      placeholder=`blur
-      loading=`lazy_
-      objectFit=`cover
-    />
-    <div> {React.string("Max width wrapper")} children </div>
-  </>;
+let make = (~className=?, ~children) => {
+  <div
+    className={Lib.Utils.cn([|
+      "mx-auto w-full max-w-screen-xl px-6 lg:px-6",
+      className->Belt.Option.getWithDefault(""),
+    |])}>
+    children
+  </div>;
 };
