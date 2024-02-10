@@ -2,18 +2,19 @@
 opam-version: "2.0"
 synopsis: "Enter a synopsis of your app here"
 description: "Enter a description of your app here"
-maintainer: ["Your Name <your.email@gmail.com>"]
-authors: ["Your Name <your.email@gmail.com>"]
+maintainer: ["I Putu Kevin Anantha Vijaya <kevin.anantha@gmail.com>"]
+authors: ["I Putu Kevin Anantha Vijaya <kevin.anantha@gmail.com>"]
 license: "MIT"
 tags: ["reasonml," "ocaml," "melange"]
-homepage: "https://github.com/your-username/evestory"
-doc: "https://github.com/your-username/evestory"
-bug-reports: "https://github.com/your-username/evestory/issues"
+homepage: "https://github.com/acrotown/evestory"
+doc: "https://github.com/acrotown/evestory"
+bug-reports: "https://github.com/acrotown/evestory/issues"
 depends: [
   "dune" {>= "3.11" & >= "3.11"}
   "melange" {>= "2.1.0"}
   "ocaml" {>= "5.1.0"}
   "opam-check-npm-deps"
+  "melange-radix-icons"
   "ppx_deriving"
   "reason" {>= "3.10.0"}
   "reason-react" {>= "0.13.0"}
@@ -37,4 +38,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/your-username/evestory.git"
+dev-repo: "git+https://github.com/acrotown/evestory.git"

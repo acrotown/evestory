@@ -1,6 +1,6 @@
 [@mel.config {flags: [|"--preamble", "\"use client\";"|]}];
 
-open Lib;
+open Lib.Utils;
 open Belt;
 open Bindings;
 
@@ -38,7 +38,7 @@ module Trigger = {
     React.forwardRef((~asChild=false, ~className="", ~children, ref_) => {
       asChild
         ? <Radix.Slot
-            className={Utils.cn([|className|])}
+            className={[|className|] |> cn}
             ref=?{
               Js.Nullable.toOption(ref_)
               ->Belt.Option.map(ReactDOM.Ref.domRef)
@@ -46,7 +46,7 @@ module Trigger = {
             children
           </Radix.Slot>
         : <T
-            className={Utils.cn([|className|])}
+            className={[|className|] |> cn}
             ref=?{
               Js.Nullable.toOption(ref_)
               ->Belt.Option.map(ReactDOM.Ref.domRef)
@@ -90,13 +90,13 @@ module SubTrigger = {
   [@react.component]
   let make = (~className=?, ~inset=?, ~children) =>
     <T
-      className={Utils.cn([|
+      className={cn([|
         "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
         Option.isSome(inset) ? "pl-8" : "",
         className->Option.getWithDefault(""),
       |])}>
       children
-      <RadixIcon.ChevronRight className="ml-auto h-4 w-4" />
+      <RadixIcons.ChevronRight className="ml-auto h-4 w-4" />
     </T>;
 };
 
@@ -121,7 +121,7 @@ module Content = {
       (~className=?, ~asChild=false, ~sideOffset=4, ~children, ref_) =>
       <Portal>
         <T
-          className={Utils.cn([|
+          className={cn([|
             "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
             "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
             className->Option.getWithDefault(""),
@@ -170,7 +170,7 @@ module MenuItem = {
       disabled
       textValue
       ?onSelect
-      className={Utils.cn([|
+      className={cn([|
         "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         Option.isSome(inset) ? "pl-8" : "",
         className->Option.getWithDefault(""),

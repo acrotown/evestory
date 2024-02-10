@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "res:dev": "rescript build -w",
-    "dev": "concurrently -k 'bun run res:dev' 'prisma generate && next dev' 'email dev --dir ./src/emails --port 4000' 'prisma studio --browser none'",
+    "dev_": "concurrently -k 'bun run res:dev' 'prisma generate && next dev' 'email dev --dir ./src/emails --port 4000' 'prisma studio --browser none'",
+    "dev": "concurrently -k 'bun run dune.watch' 'prisma generate && next dev' 'email dev --dir ./src/emails --port 4000' 'prisma studio --browser none'",
     "build": "prisma generate & rescript build -with-deps & next build",
     "start": "next start",
     "lint": "next lint",
@@ -18,6 +19,12 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
+    "opam.init": "opam update && opam switch create . 5.1.1 --deps-only --yes && opam install dune && dune build @install && opam install ocaml-lsp-server ocamlformat odoc utop --yes && opam install . --deps-only --yes && opam exec -- dune build",
+    "dune.watch": "opam exec -- dune build -w",
+    "dune.build": "opam exec -- dune build",
+    "dune.sync": "opam exec -- dune build evestory.opam && opam exec -- dune build @install",
+    "opam.update": "opam update",
+    "opam.install": "opam install . --deps-only --with-test",
     "prisma": "prisma",
     "turbo": "turbo",
     "vercel": "vercel"

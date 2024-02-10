@@ -21,3 +21,12 @@ module DropdownMenuRadioGroup = DropdownMenu.RadioGroup;
 module DropdownMenuSubTrigger = DropdownMenu.SubTrigger;
 module DropdownMenuContent = DropdownMenu.Content;
 module DropdownMenuMenuItem = DropdownMenu.MenuItem;
+
+module SheetRoot = Sheet.Root;
+module SheetTrigger = Sheet.Trigger;
+module SheetPortal = Sheet.Portal;
+module SheetContent = Sheet.Content;
+module SheetOverlay = Sheet.Overlay;
+module SheetClose = Sheet.Close;
+module SheetTitle = Sheet.Title;
+module SheetDescription = Sheet.Description;

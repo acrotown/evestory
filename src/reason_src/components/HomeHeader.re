@@ -5,8 +5,8 @@ let make = () => {
     <div className="bien-glass-edge" />
     <div className="container relative z-50 flex h-14 items-center">
       <HomeNav />
-      "HomeNav"->React.string
       "MobileNav"->React.string
+      <MobileNav />
       <div className="flex flex-1 items-center justify-end space-x-2">
         <ThemeSwitcher />
         "AuthNav"->React.string

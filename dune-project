@@ -22,15 +22,15 @@
 ; Provides the source location of the project, typically a GitHub repository.
 
 (source
- (github your-username/evestory))
+ (github acrotown/evestory))
 
 ; Lists the authors of the project.
 
-(authors "Your Name <your.email@gmail.com>")
+(authors "I Putu Kevin Anantha Vijaya <kevin.anantha@gmail.com>")
 
 ; Specifies the maintainers of the project, which can be different from authors.
 
-(maintainers "Your Name <your.email@gmail.com>")
+(maintainers "I Putu Kevin Anantha Vijaya <kevin.anantha@gmail.com>")
 
 ; Declares the license type under which the project is distributed.
 
@@ -38,7 +38,7 @@
 
 ; Provides a link to the project's documentation.
 
-(documentation https://github.com/your-username/evestory)
+(documentation https://github.com/acrotown/evestory)
 
 ; The package stanza defines the configuration for an OPAM package.
 
@@ -57,6 +57,7 @@
   (ocaml
    (>= 5.1.0))
   opam-check-npm-deps
+  melange-radix-icons
   ppx_deriving
   (reason
    (>= 3.10.0))
