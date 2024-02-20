@@ -1,13 +1,13 @@
-import { AuthNav } from "@/components/auth-nav"
-import { HomeNav } from "@/components/home-nav"
-import { MobileNav } from "@/components/mobile-nav"
-import { ThemeSwitcher } from "@/components/theme-switcher"
+import { AuthNav } from "@/components/auth-nav";
+import { HomeNav } from "@/components/home-nav";
+import { MobileNav } from "@/components/mobile-nav";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export function HomeHeader() {
   return (
     <header className="sticky top-0 z-40 w-full">
-      <div className="bien-glass"></div>
-      <div className="bien-glass-edge"></div>
+      <div className="bien-glass" />
+      <div className="bien-glass-edge" />
       <div className="container relative z-50 flex h-14 items-center">
         <HomeNav />
         <MobileNav />
@@ -17,5 +17,5 @@ export function HomeHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }

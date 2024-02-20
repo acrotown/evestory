@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import Link, { LinkProps } from "next/link"
-import { useRouter } from "next/navigation"
-import React from "react"
+import Link, { LinkProps } from "next/link";
+import { useRouter } from "next/navigation";
+import React from "react";
 
-import { PanelLeftOpen } from "@/components/icons/panel-left-open"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { cn } from "@/lib/utils"
+import { PanelLeftOpen } from "@/components/icons/panel-left-open";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
-import { Logo } from "./icons/logo"
+import { Logo } from "./icons/logo";
 
-const links = ["About", "Contact", "Blog"]
+const links = ["About", "Contact", "Blog"];
 
 export function MobileNav() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -53,13 +53,13 @@ export function MobileNav() {
         </ScrollArea>
       </SheetContent>
     </Sheet>
-  )
+  );
 }
 
 interface MobileLinkProps extends LinkProps {
-  children: React.ReactNode
-  onOpenChange?: (open: boolean) => void
-  className?: string
+  children: React.ReactNode;
+  onOpenChange?: (open: boolean) => void;
+  className?: string;
 }
 
 function MobileLink({
@@ -69,18 +69,18 @@ function MobileLink({
   className,
   ...props
 }: MobileLinkProps) {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Link
       href={href}
       onClick={() => {
-        router.push(href.toString())
-        onOpenChange?.(false)
+        router.push(href.toString());
+        onOpenChange?.(false);
       }}
       className={cn(className)}
       {...props}
     >
       {children}
     </Link>
-  )
+  );
 }

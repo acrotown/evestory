@@ -1,4 +1,4 @@
-import { ControllerProps, FieldPath, FieldValues } from "react-hook-form"
+import { ControllerProps, FieldPath, FieldValues } from "react-hook-form";
 
 import {
   FormControl,
@@ -6,13 +6,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 type Props = {
-  label: string
-  placeholder: string
-}
+  label: string;
+  placeholder: string;
+};
 
 export default function InputForm<
   TFieldValues extends FieldValues = FieldValues,
@@ -36,8 +36,8 @@ export default function InputForm<
             </FormControl>
             <FormMessage />
           </FormItem>
-        )
+        );
       }}
     />
-  )
+  );
 }

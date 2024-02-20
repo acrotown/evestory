@@ -1,13 +1,13 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export default function MaxWidthWrapper({
   className,
   children,
 }: {
-  className?: string
-  children: ReactNode
+  className?: string;
+  children: ReactNode;
 }) {
   return (
     <div
@@ -16,5 +16,5 @@ export default function MaxWidthWrapper({
     >
       {children}
     </div>
-  )
+  );
 }

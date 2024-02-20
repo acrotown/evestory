@@ -1,71 +1,67 @@
-"use client"
+import { ReloadIcon, UploadIcon } from "@radix-ui/react-icons";
+import { useDropzone } from "@uploadthing/react/hooks";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
+import { generateClientDropzoneAccept } from "uploadthing/client";
 
-import { ReloadIcon, UploadIcon } from "@radix-ui/react-icons"
-import { FileWithPath } from "@uploadthing/react"
-import { useDropzone } from "@uploadthing/react/hooks"
-import Image from "next/image"
-import { useCallback, useEffect, useState } from "react"
-import { toast } from "sonner"
-import { generateClientDropzoneAccept } from "uploadthing/client"
-
-import { Button } from "@/components/ui/button"
-import { useUploadThing } from "@/lib/uploadthing"
-import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button";
+import { useUploadThing } from "@/lib/uploadthing";
+import { cn } from "@/lib/utils";
 
 export default function InputFile({
   onChange,
   value,
-  endPoint,
 }: {
-  onChange: (url: string) => void
-  value: string
-  endPoint: "imageUploader"
+  onChange: (url: string) => void;
+  value: string;
+  endPoint: "imageUploader";
 }) {
-  const fileType = value?.split(".").pop()
+  const fileType = value?.split(".").pop();
 
-  const [files, setFiles] = useState<File[]>([])
-  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(
       acceptedFiles.map((file) => {
         return Object.assign(file, {
           preview: URL.createObjectURL(file),
-        })
+        });
       }),
-    )
-  }, [])
+    );
+  }, []);
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => {
       // @ts-ignore
-      files.forEach((file) => URL.revokeObjectURL(file.preview))
-    }
-  })
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+    };
+  });
 
   const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
     "imageUploader",
     {
       onClientUploadComplete: async (res) => {
         // @ts-ignore
-        onChange(res?.[0]?.url)
-        setFiles([])
+        onChange(res?.[0]?.url);
+        setFiles([]);
       },
       onUploadError: () => {
-        setFiles([])
-        toast.error("Error occurred while uploading.")
+        setFiles([]);
+        toast.error("Error occurred while uploading.");
       },
       onUploadBegin: () => {},
     },
-  )
+  );
 
   const fileTypes = permittedFileInfo?.config
     ? Object.keys(permittedFileInfo.config)
-    : []
+    : [];
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
-  })
+  });
 
   if (value && fileType !== "pdf" && files.length === 0) {
     return (
@@ -94,7 +90,7 @@ export default function InputFile({
           />
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -126,7 +122,7 @@ export default function InputFile({
                   })}
                   onLoad={(e) => {
                     // @ts-ignore
-                    URL.revokeObjectURL(file.preview)
+                    URL.revokeObjectURL(file.preview);
                   }}
                 />
                 <UploadIcon
@@ -143,9 +139,9 @@ export default function InputFile({
               size="sm"
               disabled={isUploading}
               onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                startUpload(files)
+                e.preventDefault();
+                e.stopPropagation();
+                startUpload(files);
               }}
             >
               {isUploading ? (
@@ -177,5 +173,5 @@ export default function InputFile({
         </div>
       )}
     </div>
-  )
+  );
 }

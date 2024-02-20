@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   experimental: {
     useDeploymentId: true,
   },
@@ -21,6 +21,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "utfs.io",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
       },
     ],
   },
@@ -57,8 +61,8 @@ const nextConfig = {
           },
         ],
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

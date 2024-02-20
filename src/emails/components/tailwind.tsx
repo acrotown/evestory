@@ -1,7 +1,7 @@
 import {
   Tailwind as TailwindReact,
   TailwindProps,
-} from "@react-email/components"
+} from "@react-email/components";
 
 export const Tailwind = ({ children }: TailwindProps) => {
   return (
@@ -36,5 +36,5 @@ export const Tailwind = ({ children }: TailwindProps) => {
     >
       {children}
     </TailwindReact>
-  )
-}
+  );
+};

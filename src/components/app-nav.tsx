@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { SlashIcon } from "@radix-ui/react-icons"
-import Link from "next/link"
-import { useParams } from "next/navigation"
+import { SlashIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
-import { Logo } from "./icons/logo"
+import { Logo } from "./icons/logo";
 
 export function AppNav() {
-  const { slug } = useParams()
+  const { slug } = useParams();
   return (
     <div className="hidden md:flex md:items-center md:justify-center">
       <Link
@@ -21,5 +21,5 @@ export function AppNav() {
       <div className="relative top-[-1px] font-display text-xl">{slug}</div>
       <nav className="flex items-center space-x-6 text-sm font-medium"></nav>
     </div>
-  )
+  );
 }

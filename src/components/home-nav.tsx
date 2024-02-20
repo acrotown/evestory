@@ -1,6 +1,6 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { Logo } from "./icons/logo"
+import { Logo } from "./icons/logo";
 
 export function HomeNav() {
   return (
@@ -18,5 +18,5 @@ export function HomeNav() {
         <Link href="/blog">Blog</Link>
       </nav>
     </div>
-  )
+  );
 }

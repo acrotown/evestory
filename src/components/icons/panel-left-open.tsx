@@ -18,5 +18,5 @@ export function PanelLeftOpen() {
       <path d="M9 3v18" />
       <path d="m14 9 3 3-3 3" />
     </svg>
-  )
+  );
 }

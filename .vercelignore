@@ -1,0 +1,8 @@
+# melange
+_build
+_opam
+src/output
+
+*.db
+*.db-shm
+*.db-wal

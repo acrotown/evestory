@@ -10,11 +10,11 @@ import {
   Preview,
   Section,
   Text,
-} from "@react-email/components"
-import * as React from "react"
+} from "@react-email/components";
+import * as React from "react";
 
-import { EVESTORY_LOGO_BLUE_URL } from "../lib/constants/logo"
-import { Tailwind } from "./components/tailwind"
+import { EVESTORY_LOGO_BLUE_URL } from "../lib/constants/logo";
+import { Tailwind } from "./components/tailwind";
 
 export const WelcomeEmail = () => (
   <Html>
@@ -80,6 +80,6 @@ export const WelcomeEmail = () => (
       </Body>
     </Tailwind>
   </Html>
-)
+);
 
-export default WelcomeEmail
+export default WelcomeEmail;

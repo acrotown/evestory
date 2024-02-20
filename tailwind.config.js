@@ -1,4 +1,4 @@
-import { withUt } from "uploadthing/tw"
+import { withUt } from "uploadthing/tw";
 /** @type {import('tailwindcss').Config} */
 module.exports = withUt({
   darkMode: ["class"],
@@ -93,4 +93,4 @@ module.exports = withUt({
     },
   },
   plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar-hide")],
-})
+});

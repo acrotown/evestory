@@ -73,12 +73,15 @@
 @layer base {
   * {
     @apply border-border;
+    /* min-width: 0; */
   }
+
   body {
     @apply bg-background text-foreground antialiased;
     -webkit-text-rendering: optimizeLegibility;
     text-rendering: optimizeLegibility;
   }
+
   /* @see https://x.com/artur_bien/status/1707845111701221733?s=20 */
   .bien-glass {
     position: absolute;
@@ -94,13 +97,12 @@
 
     /* Cut the part of the backdrop that falls outside of <nav /> */
     --cutoff: calc(100% - var(--extended-by));
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      black 0,
-      black var(--cutoff),
-      transparent var(--cutoff)
-    );
+    -webkit-mask-image: linear-gradient(to bottom,
+        black 0,
+        black var(--cutoff),
+        transparent var(--cutoff));
   }
+
   .bien-glass-edge {
     position: absolute;
     z-index: -1;
@@ -121,11 +123,9 @@
     backdrop-filter: var(--filter);
     pointer-events: none;
 
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      black 0,
-      black var(--offset),
-      transparent var(--offset)
-    );
+    -webkit-mask-image: linear-gradient(to bottom,
+        black 0,
+        black var(--offset),
+        transparent var(--offset));
   }
 }

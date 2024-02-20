@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import { LaptopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons"
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { LaptopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { useTheme } from "next-themes";
+import { ReactEventHandler, useEffect, useState } from "react";
 
-import { Button } from "./ui/button"
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu"
+} from "./ui/dropdown-menu";
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
-  const { setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <DropdownMenu>
@@ -43,5 +43,5 @@ export function ThemeSwitcher() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

@@ -1,21 +1,22 @@
-import "@/styles/globals.css"
+import "@/styles/globals.css";
 
-import { LogSnagProvider } from "@logsnag/next"
+import { LogSnagProvider } from "@logsnag/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { Providers } from "@/app/providers"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { cn } from "@/lib/utils"
-import { cal, inter } from "@/styles/fonts"
+import { Providers } from "@/app/providers";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { cn } from "@/lib/utils";
+import { cal, inter } from "@/styles/fonts";
 
 export const metadata = {
   title: "evestory",
   description: "Sharing invitations never this easy.",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -27,27 +28,14 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background antialiased selection:bg-swamp selection:text-solitude dark:selection:bg-governor-bay",
+          "min-h-screen bg-background antialiased selection:bg-governor-bay selection:text-solitude",
           [cal.variable, inter.variable],
         )}
       >
         <Providers>{children}</Providers>
+        <SpeedInsights />
         <TailwindIndicator />
-        {/* <button
-          data-logsnag-feedback
-          data-logsnag-token="<API_TOKEN>"
-          data-logsnag-project="<PROJECT>"
-          data-logsnag-channel="<CHANNEL>"
-        >
-          Feedback
-        </button>
-        <Script
-          src="https://cdn.logsnag.com/feedback/ls.js"
-          onLoad={() => {
-            console.log("loaded")
-          }}
-        /> */}
       </body>
     </html>
-  )
+  );
 }

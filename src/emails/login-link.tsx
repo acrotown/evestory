@@ -10,14 +10,14 @@ import {
   Preview,
   Section,
   Text,
-} from "@react-email/components"
-import * as React from "react"
+} from "@react-email/components";
+import * as React from "react";
 
-import { EVESTORY_LOGO_BLUE_URL } from "../lib/constants/logo"
-import { Tailwind } from "./components/tailwind"
+import { EVESTORY_LOGO_BLUE_URL } from "../lib/constants/logo";
+import { Tailwind } from "./components/tailwind";
 
 interface Props {
-  magicLink?: string
+  magicLink?: string;
 }
 
 export const LoginLink = ({
@@ -78,6 +78,6 @@ export const LoginLink = ({
       </Body>
     </Tailwind>
   </Html>
-)
+);
 
-export default LoginLink
+export default LoginLink;

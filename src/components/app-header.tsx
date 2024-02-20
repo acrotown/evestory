@@ -1,18 +1,18 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { AuthNav } from "@/components/auth-nav"
-import { MobileNav } from "@/components/mobile-nav"
-import { ThemeSwitcher } from "@/components/theme-switcher"
+import { AuthNav } from "@/components/auth-nav";
+import { MobileNav } from "@/components/mobile-nav";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
-import { AppNav } from "./app-nav"
+import { AppNav } from "./app-nav";
 
 const navs = [
   {
@@ -39,21 +39,21 @@ const navs = [
     title: "Gallery",
     href: "gallery",
   },
-]
+];
 
 const navsRoot = [
   {
     title: "Overview",
     href: "",
   },
-]
+];
 
 export function AppHeader({
   slug,
   pathname,
 }: {
-  slug: string | undefined
-  pathname: string
+  slug: string | undefined;
+  pathname: string;
 }) {
   return (
     <header className="sticky top-0 z-40 w-full">
@@ -100,12 +100,12 @@ export function AppHeader({
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
-                )
+                );
               })}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
       </div>
     </header>
-  )
+  );
 }

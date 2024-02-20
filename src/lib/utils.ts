@@ -1,12 +1,13 @@
-import { type ClassValue, clsx } from "clsx"
-import { customAlphabet } from "nanoid"
-import { Metadata } from "next"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { customAlphabet } from "nanoid";
+import { Metadata } from "next";
+import { twMerge } from "tailwind-merge";
 
-import { HOME_DOMAIN } from "./constants"
+import { HOME_DOMAIN } from "./constants";
+import { SVGS } from "./constants/svgs";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function constructMetadata({
@@ -16,11 +17,11 @@ export function constructMetadata({
   icons = "/favicon.ico",
   noIndex = false,
 }: {
-  title?: string
-  description?: string
-  image?: string
-  icons?: string
-  noIndex?: boolean
+  title?: string;
+  description?: string;
+  image?: string;
+  icons?: string;
+  noIndex?: boolean;
 } = {}): Metadata {
   return {
     title,
@@ -50,29 +51,33 @@ export function constructMetadata({
         follow: false,
       },
     }),
-  }
+  };
 }
 
 export let nanoid = customAlphabet(
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
   9,
-)
+);
 
 interface SWRError extends Error {
-  status: number
+  status: number;
 }
 
 export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<JSON> {
-  let res = await fetch(input, init)
+  let res = await fetch(input, init);
   if (!res.ok) {
-    let error = await res.text()
-    let err = new Error(error) as SWRError
-    err.status = res.status
-    throw err
+    let error = await res.text();
+    let err = new Error(error) as SWRError;
+    err.status = res.status;
+    throw err;
   }
 
-  return res.json()
+  return res.json();
+}
+
+export function generateRandomImage(images = SVGS) {
+  return images[Math.floor(Math.random() * images.length)];
 }

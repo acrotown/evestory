@@ -12,8 +12,8 @@ evetory is a web application that allows users to create and share their event o
 ## Deploy to preview environment
 
 ```bash
-url="$(pn vercel deploy)"
-pn vercel alias set "$url" preview.evestory.day
+url="$(bun run vercel deploy)"
+bun run vercel alias set "$url" preview.evestory.day
 ```
 
 ## Maintainers

@@ -1,5 +1,3 @@
-import { HomeHeader } from "@/components/home-header"
-
 export default function Dashboard() {
   return (
     <main className="relative flex min-h-screen flex-col">
@@ -9,5 +7,5 @@ export default function Dashboard() {
         </div>
       </section>
     </main>
-  )
+  );
 }
