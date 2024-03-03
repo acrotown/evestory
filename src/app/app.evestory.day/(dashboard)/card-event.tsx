@@ -54,6 +54,7 @@ export default function CardEvent({
               onClick={(e) => {
                 e.stopPropagation();
               }}
+              target="_blank"
               href={
                 process.env.NODE_ENV === "production"
                   ? `https://${event.url}.evestory.day`

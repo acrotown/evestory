@@ -45,11 +45,17 @@ export default async function middleware(req: NextRequest) {
   domain = domain.replace("www.", "");
 
   if (isHomeHostname(domain)) {
-    return NextResponse.rewrite(new URL(`/home${path ? "/" : path}`, req.url));
+    return NextResponse.rewrite(
+      new URL(`/home${path === "/" ? "" : path}`, req.url),
+    );
   }
 
   if ("willing-piglet-jointly.ngrok-free.app".includes(domain)) {
-    return NextResponse.rewrite(new URL(`/app${path ?? ""}`, req.url));
+    console.log("domain: ", domain);
+    return NextResponse.rewrite(
+      new URL(`/${domain}${path === "/" ? "" : path}`, req.url),
+    );
+    // return NextResponse.rewrite(new URL(`/app${path ?? ""}`, req.url));
   }
 
   if (APP_HOSTNAMES.has(domain)) {
@@ -70,11 +76,21 @@ export default async function middleware(req: NextRequest) {
         ),
       );
     }
+
+    // let [userExist] = await db
+    //   .select()
+    //   .from(users)
+    //   .where(eq(users.email, session?.email || ""));
+    // console.log("userExist: ", userExist);
+
+    // // If user logged in but somehow not exsists in db, redirect to login.
+    // if (session?.email && !userExist?.id) {
+    // TODO:
+    // }
+
     if (session?.email && (path === "/login" || path === "/register")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
-
-    console.log("path", path);
 
     return NextResponse.rewrite(
       new URL(`/app.evestory.day${path === "/" ? "" : path}`, req.url),
@@ -82,9 +98,13 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (SOUVENIRS_HOSTNAMES.has(domain)) {
-    return NextResponse.rewrite(new URL(`/souvenirs${path}`, req.url));
+    return NextResponse.rewrite(
+      new URL(`/souvenirs${path === "/" ? "" : path}`, req.url),
+    );
   }
 
   // rewrite everything else to `/[domain]/[path] dynamic route
-  return NextResponse.rewrite(new URL(`/${domain}${path}`, req.url));
+  return NextResponse.rewrite(
+    new URL(`/${domain}${path === "/" ? "" : path}`, req.url),
+  );
 }

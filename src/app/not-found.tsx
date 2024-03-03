@@ -5,6 +5,11 @@ import Balancer from "react-wrap-balancer";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 export default function NotFound() {
+  let href =
+    process.env.NODE_ENV === "production"
+      ? "https://app.evestory.day"
+      : "http://localhost:3000";
+
   return (
     <MaxWidthWrapper className="flex min-h-screen flex-col items-center justify-center">
       <h1 className="text-center font-display text-4xl">
@@ -21,7 +26,10 @@ export default function NotFound() {
       </p>
       <p className="text-center text-xl">
         Go back to the{" "}
-        <Link className="font-semibold underline underline-offset-2" href="/">
+        <Link
+          className="font-semibold underline underline-offset-2"
+          href={href}
+        >
           dashboard.
         </Link>
       </p>

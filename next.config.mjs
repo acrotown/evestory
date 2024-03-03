@@ -26,6 +26,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "wsrv.nl",
+      },
     ],
   },
   async headers() {

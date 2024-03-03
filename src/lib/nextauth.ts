@@ -46,6 +46,7 @@ export let authOptions = {
       options: {
         httpOnly: true,
         sameSite: "lax",
+        maxAge: 24 * 60 * 60, // 1 day
         path: "/",
         // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
         domain: VERCEL_DEPLOYMENT ? ".evestory.day" : undefined,

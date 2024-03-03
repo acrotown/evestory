@@ -28,7 +28,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background antialiased selection:bg-governor-bay selection:text-solitude",
+          "bg-background antialiased selection:bg-governor-bay selection:text-solitude",
           [cal.variable, inter.variable],
         )}
       >

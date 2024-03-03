@@ -7,6 +7,7 @@ import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
 
 import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 if (typeof window !== "undefined") {
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY as string, {
@@ -18,16 +19,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="light"
       disableTransitionOnChange
       storageKey="evestory-theme"
     >
       <PostHogProvider client={posthog}>
         <SessionProvider>
-          <Toaster />
-          {children}
-          <Analytics />
+          <TooltipProvider>
+            <Toaster />
+            {children}
+            <Analytics />
+          </TooltipProvider>
         </SessionProvider>
       </PostHogProvider>
     </ThemeProvider>

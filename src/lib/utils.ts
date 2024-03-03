@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
-import { customAlphabet } from "nanoid";
+import { customAlphabet } from "nanoid/non-secure";
 import { Metadata } from "next";
 import { twMerge } from "tailwind-merge";
 
@@ -40,7 +40,7 @@ export function constructMetadata({
       title,
       description,
       images: [image],
-      creator: "@dubdotco",
+      creator: "@evestory__",
     },
     icons,
     metadataBase: new URL(HOME_DOMAIN),
@@ -80,4 +80,9 @@ export async function fetcher<JSON = any>(
 
 export function generateRandomImage(images = SVGS) {
   return images[Math.floor(Math.random() * images.length)];
+}
+
+export function wsrv(url: string) {
+  // `https://wsrv.nl/?url=https://utfs.io/f/527dbbda-9b92-48b5-b702-a5823f14ae1d-2gr9.svg`
+  return `https://wsrv.nl/?url=${url}`;
 }
