@@ -10,7 +10,7 @@
     "build:rescript": "rescript build -with-deps & next build",
     "build": "pnpm run db:generate & next build",
     "deploy:prod": "vercel --prod",
-    "deploy:preview": "vercel",
+    "deploy:preview": "./scripts/deploy-preview.sh",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -35,6 +35,7 @@
     ]
   },
   "dependencies": {
+    "@auth/core": "^0.28.0",
     "@auth/drizzle-adapter": "^0.6.3",
     "@glennsl/rescript-fetch": "^0.2.0",
     "@greenlabs/rescript-react-hook-form": "^0.11.2",
