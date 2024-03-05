@@ -3,7 +3,6 @@
   in local development because Google OAuth doesn't allow subdomain localhost (e.g. app.localhost:3000)
   as the callback URL.
 */
-
 export const HOME_HOSTNAMES = new Set(["evestory.day", "home.localhost:3000"]);
 
 export const HOME_DOMAIN = "https://evestory.day";

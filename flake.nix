@@ -24,10 +24,10 @@
 
         scripts = with pkgs;[
           (writeScriptBin "dev" ''
-            until ${run "bun"} prettier -v > /dev/null 2>&1; do
-              ${run "bun"} install
+            until ${run "pnpm"} prettier -v > /dev/null 2>&1; do
+              ${run "pnpm"} install
             done
-            ${run "bun"} dev
+            ${run "pnpm"} dev
           '')
         ];
 

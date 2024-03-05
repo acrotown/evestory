@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "res:dev": "rescript build -w",
-    "dev.rescript": "concurrently -k 'bun run res:dev' 'next dev --turbo' 'bun run db:dev' 'bun run db:studio'",
+    "dev.rescript": "concurrently -k 'pnpm run res:dev' 'next dev --turbo' 'pnpm run db:dev' 'pnpm run db:studio'",
     "dev.email": "email dev --dir ./src/emails --port 4000",
-    "dev": "concurrently -k 'next dev --turbo' 'bun run db:dev' 'bun run db:studio'",
+    "dev": "concurrently -k 'next dev --turbo' 'pnpm run db:dev' 'pnpm run db:studio'",
     "build:rescript": "rescript build -with-deps & next build",
-    "build": "bun run db:generate & next build",
+    "build": "pnpm run db:generate & next build",
     "deploy:prod": "vercel --prod",
     "deploy:preview": "vercel",
     "start": "next start",
@@ -18,7 +18,7 @@
     "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,mdx}' --cache",
     "prepare": "husky install",
     "bump": "bumpp",
-    "email": "email dev --dir ./src/emails --port 4000",
+    "email": "email",
     "prerelease": "bumpp prerelease --preid canary",
     "db:generate": "drizzle-kit generate:sqlite",
     "db:push": "drizzle-kit push:sqlite",
@@ -132,5 +132,5 @@
     "prettier-plugin-tailwindcss": "^0.3.0",
     "turbo": "^1.10.5"
   },
-  "packageManager": "bun@1.0.2"
+  "packageManager": "pnpm@8.15.3"
 }
