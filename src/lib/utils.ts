@@ -81,8 +81,3 @@ export async function fetcher<JSON = any>(
 export function generateRandomImage(images = SVGS) {
   return images[Math.floor(Math.random() * images.length)];
 }
-
-export function wsrv(url: string) {
-  // `https://wsrv.nl/?url=https://utfs.io/f/527dbbda-9b92-48b5-b702-a5823f14ae1d-2gr9.svg`
-  return `https://wsrv.nl/?url=${url}`;
-}

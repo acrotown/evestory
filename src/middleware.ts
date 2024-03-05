@@ -51,7 +51,6 @@ export default async function middleware(req: NextRequest) {
   }
 
   if ("willing-piglet-jointly.ngrok-free.app".includes(domain)) {
-    console.log("domain: ", domain);
     return NextResponse.rewrite(
       new URL(`/${domain}${path === "/" ? "" : path}`, req.url),
     );
