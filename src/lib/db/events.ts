@@ -1,5 +1,6 @@
 import "server-only";
 
+import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 
 import { events } from "#/drizzle/schema";
@@ -49,9 +50,7 @@ export let getEvent = async (slug: string) => {
           return [asc(date)];
         },
         // https://orm.drizzle.team/docs/rqb#include-custom-fields
-        // extras(fields, operators) {
-
-        // },
+        // extras(fields, operators) {}
       },
     },
   });
@@ -62,3 +61,36 @@ export let getEvent = async (slug: string) => {
 
   return event;
 };
+
+export let getCacheEvent = unstable_cache(
+  async (slug: string) => {
+    let { user } = await getSession();
+
+    let event = await db.query.events.findFirst({
+      where({ url }, { eq, and }) {
+        return and(eq(url, slug), eq(events.userId, user.id));
+      },
+      with: {
+        grooms: true,
+        brides: true,
+        subEvents: {
+          orderBy({ date }, { asc }) {
+            return [asc(date)];
+          },
+          // https://orm.drizzle.team/docs/rqb#include-custom-fields
+          // extras(fields, operators) {}
+        },
+      },
+    });
+
+    if (!event) {
+      return notFound();
+    }
+
+    return event;
+  },
+  ["event"],
+  {
+    tags: ["event"],
+  },
+);

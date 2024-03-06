@@ -1,5 +1,6 @@
 import { ipAddress } from "@vercel/edge";
 import { get } from "@vercel/edge-config";
+import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
@@ -8,6 +9,9 @@ import {
   isHomeHostname,
   SOUVENIRS_HOSTNAMES,
 } from "@/lib/constants";
+import { events } from "#/drizzle/schema";
+
+import { db } from "./lib/drizzle";
 
 export const config = {
   matcher: [
@@ -102,8 +106,29 @@ export default async function middleware(req: NextRequest) {
     );
   }
 
-  // rewrite everything else to `/[domain]/[path] dynamic route
+  let [url] = domain.split(".");
+  if (!url) {
+    // Redirect to not found page, notFound is not working here.
+    return NextResponse.error();
+  }
+
+  let [event] = await db
+    .select({
+      design: events.design,
+      url: events.url,
+      isPublished: events.isPublished,
+    })
+    .from(events)
+    .where(eq(events.url, url));
+  let isEventExist = !!event?.url;
+
+  if (!isEventExist || !event?.isPublished) {
+    // Redirect to not found page if event not exist or not published.
+    return NextResponse.error();
+  }
+
+  // Rewrite everything to appropriate design.
   return NextResponse.rewrite(
-    new URL(`/${domain}${path === "/" ? "" : path}`, req.url),
+    new URL(`/${url}/${event.design}${path === "/" ? "" : path}`, req.url),
   );
 }

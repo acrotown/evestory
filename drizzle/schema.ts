@@ -9,6 +9,35 @@ import {
   text,
 } from "drizzle-orm/sqlite-core";
 
+export let guests = sqliteTable(
+  "guests",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone").notNull(),
+    eventId: text("eventId")
+      .references(() => events.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
+    updatedAt: text("updatedAt").$defaultFn(() => new Date().toISOString()),
+  },
+  (guests) => ({
+    guestIdIdx: index("guestIdIdx").on(guests.id),
+    guestEventIdIdx: index("guestEventIdIdx").on(guests.eventId),
+  }),
+);
+
+export let guestsRelations = relations(guests, ({ one }) => ({
+  event: one(events, {
+    fields: [guests.eventId],
+    references: [events.id],
+  }),
+}));
+
 export let events = sqliteTable(
   "events",
   {
@@ -29,6 +58,38 @@ export let events = sqliteTable(
     userId: text("userId")
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
+    design: text("design", {
+      enum: [
+        "white",
+        "ivory",
+
+        "black",
+        "onyx",
+
+        "pink",
+        "rosewood",
+
+        "red",
+        "scarlet",
+
+        "yellow",
+        "dandelion",
+
+        "green",
+        "moss",
+
+        "blue",
+        "arctic",
+
+        "purple",
+        "iris",
+
+        "brown",
+        "brunette",
+      ],
+    })
+      .default("white")
+      .notNull(),
   },
   (events) => ({
     eventIdIdx: index("eventIdIdx").on(events.id),
@@ -42,6 +103,7 @@ export let eventsRelations = relations(events, ({ many, one }) => ({
   brides: one(brides),
   grooms: one(grooms),
   subEvents: many(subEvents),
+  guests: many(guests),
 }));
 
 export let subEvents = sqliteTable(

@@ -1,13 +1,9 @@
 "use client";
 
-import {
-  ExternalLinkIcon,
-  HeartFilledIcon,
-  HeartIcon,
-} from "@radix-ui/react-icons";
+import { ExternalLinkIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +15,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { APP_DOMAIN } from "@/lib/constants";
 import { getEvents } from "@/lib/db/events";
 
@@ -45,31 +46,55 @@ export default function CardEvent({
           </Badge>
         </CardTitle>
         <CardDescription>
-          <Button
-            asChild
-            variant={"link"}
-            className="pl-0 text-muted-foreground"
-          >
-            <Link
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              target="_blank"
-              href={
-                process.env.NODE_ENV === "production"
-                  ? `https://${event.url}.evestory.day`
-                  : `http://${event.url}.localhost:3000`
-              }
-              className="group flex items-center"
+          {event.isPublished ? (
+            <Button
+              asChild
+              variant="link"
+              className="pl-0 text-muted-foreground"
             >
-              <div className="relative">
-                {process.env.NODE_ENV === "production"
-                  ? `https://${event.url}.evestory.day`
-                  : `http://${event.url}.localhost:3000`}
-                <ExternalLinkIcon className="ml-1 hidden h-4 w-4 group-hover:inline" />
-              </div>
-            </Link>
-          </Button>
+              <Link
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                target="_blank"
+                href={
+                  process.env.NODE_ENV === "production"
+                    ? `https://${event.url}.evestory.day`
+                    : `http://${event.url}.localhost:3000`
+                }
+                className="group flex items-center"
+              >
+                <span className="relative">
+                  {process.env.NODE_ENV === "production"
+                    ? `https://${event.url}.evestory.day`
+                    : `http://${event.url}.localhost:3000`}
+                  <ExternalLinkIcon className="ml-1 hidden h-4 w-4 group-hover:inline" />
+                </span>
+              </Link>
+            </Button>
+          ) : (
+            <Tooltip>
+              <TooltipTrigger className="cursor-not-allowed">
+                <Button
+                  asChild
+                  variant="link"
+                  className="cursor-not-allowed pl-0 text-muted-foreground opacity-50"
+                  disabled
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className="relative">
+                    {process.env.NODE_ENV === "production"
+                      ? `https://${event.url}.evestory.day`
+                      : `http://${event.url}.localhost:3000`}
+                    <ExternalLinkIcon className="ml-1 hidden h-4 w-4 group-hover:inline" />
+                  </span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                You need to publish the event to view the link.
+              </TooltipContent>
+            </Tooltip>
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>

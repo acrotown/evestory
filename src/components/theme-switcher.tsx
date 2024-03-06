@@ -2,7 +2,7 @@
 
 import { LaptopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-import { ReactEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "./ui/button";
 import {

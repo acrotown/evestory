@@ -1,0 +1,1 @@
+ALTER TABLE events ADD `design` text DEFAULT 'white' NOT NULL;

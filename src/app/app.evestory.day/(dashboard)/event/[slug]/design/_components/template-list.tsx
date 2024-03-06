@@ -93,12 +93,6 @@ let templates = [
       "Sleek and professional template for your next big software project.",
     image: "https://generated.vusercontent.net/placeholder.svg",
   },
-  {
-    name: "Dove", // Dove is a type of gray color
-    description:
-      "Sleek and professional template for your next big software project.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
 ];
 
 export default function TemplateList() {

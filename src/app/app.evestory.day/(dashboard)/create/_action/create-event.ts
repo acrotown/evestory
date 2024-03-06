@@ -97,6 +97,7 @@ export let createEvent = action(CreateEventSchema, async (data) => {
     }
 
     revalidateTag("events");
+    revalidateTag("event");
 
     return {
       data: event,

@@ -10,6 +10,7 @@ export default {
   driver: "turso",
   dbCredentials: {
     url: process.env.TURSO_DB_URL as string,
-    authToken: PROD ? (process.env.TURSO_DB_AUTH_TOKEN as string) : undefined,
+    authToken: process.env.TURSO_DB_AUTH_TOKEN,
+    // authToken: PROD ? (process.env.TURSO_DB_AUTH_TOKEN as string) : undefined,
   },
 } satisfies Config;
