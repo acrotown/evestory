@@ -32,6 +32,9 @@ export let createEvent = action(CreateEventSchema, async (data) => {
     }
 
     let event = await db.transaction(async (tx) => {
+      console.log("Creating event");
+      console.log(data.date);
+      console.log(data.date.toISOString());
       let [event] = await tx
         .insert(events)
         .values({

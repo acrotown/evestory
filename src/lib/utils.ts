@@ -44,7 +44,8 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL(HOME_DOMAIN),
-    themeColor: "#FFF",
+    // move to https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+    // themeColor: "#FFF",
     ...(noIndex && {
       robots: {
         index: false,

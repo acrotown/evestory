@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "@/app/providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { cn } from "@/lib/utils";
-import { cal, inter } from "@/styles/fonts";
+import { cal, dr_sugiyama, inter } from "@/styles/fonts";
 
 export const metadata = {
   title: "evestory",

@@ -131,7 +131,7 @@ export default function CreateEventForm() {
                   disabled={loading}
                   className="hidden"
                   name="eventDate"
-                  value={field.value?.toString()}
+                  value={field.value?.toISOString()}
                 />
                 <Popover>
                   <PopoverTrigger asChild>

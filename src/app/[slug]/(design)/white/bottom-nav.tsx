@@ -57,12 +57,16 @@ let navs = [
   },
 ];
 
-export function BottomNav() {
+export function BottomNav({ className }: { className?: string }) {
   let path = usePathname();
-  console.log("path", path);
 
   return (
-    <div className="absolute inset-x-0 bottom-4 mx-auto h-16 max-w-lg overflow-x-auto rounded-full border border-gray-200 bg-white font-sans shadow-md scrollbar-hide dark:border-gray-600 dark:bg-gray-700">
+    <div
+      className={cn(
+        "absolute inset-x-0 bottom-4 z-50 mx-auto h-16 max-w-lg overflow-x-auto rounded-full border border-gray-200 bg-white font-sans shadow-md scrollbar-hide",
+        className,
+      )}
+    >
       <div className="grid h-full max-w-lg grid-flow-col">
         {navs.map((nav, index) => {
           return (
@@ -75,10 +79,8 @@ export function BottomNav() {
                     [
                       index === 0 ? "rounded-s-full" : "",
                       index === navs.length - 1 ? "rounded-e-full" : "",
-                      path === nav.path ? "bg-gray-100 dark:bg-gray-800" : "",
-                      index === 0 && path === "/"
-                        ? "bg-gray-100 dark:bg-gray-800"
-                        : "",
+                      path === nav.path ? "bg-gray-100" : "",
+                      index === 0 && path === "/" ? "bg-gray-100" : "",
                     ],
                   )}
                 >

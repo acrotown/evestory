@@ -1,14 +1,14 @@
-import { permanentRedirect, redirect } from "next/navigation";
-
 import { constructMetadata } from "@/lib/utils";
+
+import CoverPage from "./cover/page";
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }) {
-  let title = `${params.slug?.toUpperCase()}`;
-  let description = `${params.slug?.toUpperCase()} wedding invitation.`;
+  let title = `${params.slug}`;
+  let description = `${params.slug} wedding invitation.`;
 
   return constructMetadata({
     title,
@@ -16,6 +16,6 @@ export async function generateMetadata({
   });
 }
 
-export default async function Page() {
-  return permanentRedirect(`/cover`);
+export default async function Page({ params }: { params: { slug: string } }) {
+  return <CoverPage params={params} />;
 }

@@ -29,7 +29,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider
       // If the hostname is not the app or home hostname, do not
       // This is to prevent the dark theme from being applied to the public pages, e.i https://chandler-monica.evestory.day
-      attribute={!isAppOrHomeHostname ? undefined : "class"}
+      // attribute={!isAppOrHomeHostname ? undefined : "class"}
+      attribute="class"
       defaultTheme="light"
       disableTransitionOnChange
       storageKey="evestory-theme"

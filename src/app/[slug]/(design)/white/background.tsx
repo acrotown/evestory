@@ -19,11 +19,11 @@ export function Background() {
           y: isTopLoaded ? 0 : -305,
         }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-        className="absolute top-0 -z-10 w-full"
+        className="pointer-events-none absolute top-0 w-full"
       >
         <Image
-          src="/_static/templates/standard/ivory/top.png"
-          alt="Create Wedding Site"
+          src="/_static/templates/standard/white/top.png"
+          alt="Leaf top"
           priority
           width={400}
           height={300}
@@ -39,11 +39,11 @@ export function Background() {
           x: isTopLeftLoaded ? 0 : -100,
         }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-        className="absolute left-0 top-0 -z-10 opacity-30"
+        className="pointer-events-none absolute left-0 top-0 opacity-30"
       >
         <Image
-          src="/_static/templates/standard/ivory/top-left.png"
-          alt="Create Wedding Site"
+          src="/_static/templates/standard/white/top-left.png"
+          alt="Leaf top left"
           priority
           width={250}
           height={250}
@@ -59,11 +59,11 @@ export function Background() {
           x: isTopRightLoaded ? 0 : 100,
         }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-        className="absolute right-0 top-0 -z-10 opacity-30"
+        className="pointer-events-none absolute right-0 top-0 opacity-30"
       >
         <Image
-          src="/_static/templates/standard/ivory/top-right.png"
-          alt="Create Wedding Site"
+          src="/_static/templates/standard/white/top-right.png"
+          alt="Leaf top right"
           priority
           width={250}
           height={250}
@@ -79,11 +79,11 @@ export function Background() {
           y: isBottomLoaded ? 0 : 290,
         }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
-        className="absolute bottom-0 right-0 -z-10 opacity-30"
+        className="pointer-events-none absolute bottom-0 right-0 opacity-30"
       >
         <Image
-          src="/_static/templates/standard/ivory/bottom-right.png"
-          alt="Create Wedding Site"
+          src="/_static/templates/standard/white/bottom-right.png"
+          alt="Leaf bottom right"
           priority
           width={250}
           height={250}

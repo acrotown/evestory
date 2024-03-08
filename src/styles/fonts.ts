@@ -1,4 +1,4 @@
-import { Alice, Cormorant, Inter } from "next/font/google";
+import { Alice, Cormorant, Dr_Sugiyama, Inter } from "next/font/google";
 import localFont from "next/font/local";
 
 export const cal = localFont({
@@ -13,7 +13,7 @@ export const inter = Inter({
   variable: "--font-inter",
 });
 
-// Ivory Standard
+// White
 export const alice = Alice({
   weight: "400",
   subsets: ["latin"],
@@ -27,4 +27,13 @@ export const cormorant = Cormorant({
   variable: "--font-cormorant",
   display: "swap",
 });
-// Ivory Standard
+// White
+
+// Black
+export const dr_sugiyama = Dr_Sugiyama({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-dr-sugiyama",
+  display: "swap",
+});
+// Black

@@ -18,8 +18,15 @@ module.exports = withUt({
     },
     extend: {
       fontFamily: {
-        display: ["var(--font-cal)", "system-ui", "sans-serif"],
         default: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-cal)", "system-ui", "sans-serif"],
+
+        // white template
+        alice: ["var(--font-alice)", "system-ui", "sans-serif"],
+        cormorant: ["var(--font-cormorant)", "system-ui", "sans-serif"],
+
+        // black template
+        dr_sugiyama: ["var(--font-dr-sugiyama)", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -1,6 +1,6 @@
 import type { AdapterAccount } from "@auth/core/adapters";
 import { createId } from "@paralleldrive/cuid2";
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -58,6 +58,7 @@ export let events = sqliteTable(
     userId: text("userId")
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
+    coverImageUrl: text("coverImageUrl"),
     design: text("design", {
       enum: [
         "white",

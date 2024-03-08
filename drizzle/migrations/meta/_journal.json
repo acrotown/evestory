@@ -15,6 +15,13 @@
       "when": 1709741883642,
       "tag": "0001_short_tyger_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1709893867419,
+      "tag": "0002_marvelous_peter_parker",
+      "breakpoints": true
     }
   ]
 }
