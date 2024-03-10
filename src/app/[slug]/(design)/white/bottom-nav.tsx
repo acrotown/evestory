@@ -63,7 +63,7 @@ export function BottomNav({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "absolute inset-x-0 bottom-4 z-50 mx-auto h-16 max-w-lg overflow-x-auto rounded-full border border-gray-200 bg-white font-sans shadow-md scrollbar-hide",
+        "absolute inset-x-0 bottom-4 z-50 mx-auto h-14 max-w-lg overflow-x-auto rounded-full border border-gray-200 bg-white font-sans shadow-md scrollbar-hide",
         className,
       )}
     >

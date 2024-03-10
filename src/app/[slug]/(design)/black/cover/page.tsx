@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/drizzle";
 import { constructMetadata } from "@/lib/utils";
 
-import Wrapper from "../right-section-wrapper";
+import RightSectionWrapper from "../right-section-wrapper";
 import Cover from "./cover";
 
 export async function generateMetadata({
@@ -34,7 +34,7 @@ let getEvent = async (url: string) => {
   return res;
 };
 
-export type eventType = Awaited<ReturnType<typeof getEvent>>;
+export type EventType = Awaited<ReturnType<typeof getEvent>>;
 
 export default async function CoverPage({
   params,
@@ -50,8 +50,8 @@ export default async function CoverPage({
   }
 
   return (
-    <Wrapper>
+    <RightSectionWrapper>
       <Cover event={event} />
-    </Wrapper>
+    </RightSectionWrapper>
   );
 }

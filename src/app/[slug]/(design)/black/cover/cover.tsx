@@ -4,22 +4,13 @@ import { motion } from "framer-motion";
 import Balancer from "react-wrap-balancer";
 
 import { cn } from "@/lib/utils";
-import { dr_sugiyama } from "@/styles/fonts";
 
 import EventDate from "./event-date";
-import type { eventType } from "./page";
+import type { EventType } from "./page";
 
-// export default function Cover() {
-//   return <>hello cover</>;
-// }
-
-export default function Cover({ event }: { event: NonNullable<eventType> }) {
-  // return <>hello</>;
+export default function Cover({ event }: { event: NonNullable<EventType> }) {
   return (
     <motion.div
-      // initial={{ scale: 0 }}
-      // animate={{ scale: 1 }}
-      // transition={{ type: "spring", stiffness: 260, damping: 20 }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 1 }}

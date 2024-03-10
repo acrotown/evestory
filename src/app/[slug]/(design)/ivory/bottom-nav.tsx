@@ -63,7 +63,7 @@ export function BottomNav({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "absolute inset-x-0 bottom-4 z-50 mx-auto h-14 max-w-lg overflow-x-auto rounded-full border border-[#292825] bg-[#34332f] font-sans shadow-md scrollbar-hide",
+        "absolute inset-x-0 bottom-4 z-50 mx-auto h-14 max-w-lg overflow-x-auto rounded-full border border-gray-200 bg-white font-sans shadow-md scrollbar-hide",
         className,
       )}
     >
@@ -75,16 +75,16 @@ export function BottomNav({ className }: { className?: string }) {
                 <Link
                   href={nav.path}
                   className={cn(
-                    "group inline-flex flex-col items-center justify-center px-5 hover:bg-[#292825]",
+                    "group inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100 dark:hover:bg-gray-800",
                     [
                       index === 0 ? "rounded-s-full" : "",
                       index === navs.length - 1 ? "rounded-e-full" : "",
-                      path === nav.path ? "bg-[#292825]" : "",
-                      index === 0 && path === "/" ? "bg-[#292825]" : "",
+                      path === nav.path ? "bg-gray-100" : "",
+                      index === 0 && path === "/" ? "bg-gray-100" : "",
                     ],
                   )}
                 >
-                  <nav.icon className="h-6 w-6" color="#fff" />
+                  <nav.icon className="h-6 w-6" color="#5E7054" />
                 </Link>
               </TooltipTrigger>
               <TooltipContent>

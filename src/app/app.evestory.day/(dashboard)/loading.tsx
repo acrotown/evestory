@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <MaxWidthWrapper>
       <div className="flex items-center justify-between pt-10">
-        <Skeleton className="h-12 w-[25%] rounded-xl" />
+        <Skeleton className="h-14w-[25%] rounded-xl" />
 
         <Skeleton className="h-9 w-[10%] rounded-xl" />
       </div>

@@ -1,4 +1,10 @@
-import { Alice, Cormorant, Dr_Sugiyama, Inter } from "next/font/google";
+import {
+  Alice,
+  Cormorant,
+  Dr_Sugiyama,
+  Inter,
+  Style_Script,
+} from "next/font/google";
 import localFont from "next/font/local";
 
 export const cal = localFont({
@@ -37,3 +43,12 @@ export const dr_sugiyama = Dr_Sugiyama({
   display: "swap",
 });
 // Black
+
+// Ivory
+export const style_script = Style_Script({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-style-script",
+  display: "swap",
+});
+// Ivory

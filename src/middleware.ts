@@ -32,23 +32,23 @@ export default async function middleware(req: NextRequest) {
 
   let isMaintenance = false;
 
-  if (isProd) {
-    if (isKevsDevices.includes(ip)) {
-      isMaintenance = false;
-    } else {
-      isMaintenance = isProdMaintenanceMode;
-    }
-  }
-
-  if (isMaintenance) {
-    return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url));
-  }
-
   /** Get hostname of request (e.g kiw.evestory.day, kiw.localhost:3000) */
   let domain = req.headers.get("host") as string;
   domain = domain.replace("www.", "");
 
   if (isHomeHostname(domain)) {
+    if (isProd) {
+      if (isKevsDevices.includes(ip)) {
+        isMaintenance = false;
+      } else {
+        isMaintenance = isProdMaintenanceMode;
+      }
+    }
+
+    if (isMaintenance) {
+      return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url));
+    }
+
     return NextResponse.rewrite(
       new URL(`/home${path === "/" ? "" : path}`, req.url),
     );
@@ -62,6 +62,18 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (APP_HOSTNAMES.has(domain)) {
+    if (isProd) {
+      if (isKevsDevices.includes(ip)) {
+        isMaintenance = false;
+      } else {
+        isMaintenance = isProdMaintenanceMode;
+      }
+    }
+
+    if (isMaintenance) {
+      return NextResponse.rewrite(new URL(`/maintenance${path}`, req.url));
+    }
+
     let session = (await getToken({
       req,
       secret: process.env.NEXTAUTH_SECRET,

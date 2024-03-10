@@ -79,7 +79,7 @@ export function Background() {
           y: isBottomLoaded ? 0 : 290,
         }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
-        className="pointer-events-none absolute bottom-0 right-0 opacity-30"
+        className="pointer-events-none absolute bottom-[4.5rem] right-0 opacity-30"
       >
         <Image
           src="/_static/templates/standard/white/bottom-right.png"

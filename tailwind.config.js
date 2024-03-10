@@ -27,6 +27,9 @@ module.exports = withUt({
 
         // black template
         dr_sugiyama: ["var(--font-dr-sugiyama)", "system-ui", "sans-serif"],
+
+        // ivory template
+        style_script: ["var(--font-style-script)", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

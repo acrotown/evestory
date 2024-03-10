@@ -82,3 +82,10 @@ export async function fetcher<JSON = any>(
 export function generateRandomImage(images = SVGS) {
   return images[Math.floor(Math.random() * images.length)];
 }
+
+export function titleCase(str: string) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
