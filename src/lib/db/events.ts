@@ -22,11 +22,13 @@ export let getEvents = async () => {
       grooms: {
         columns: {
           name: true,
+          photoUrl: true,
         },
       },
       brides: {
         columns: {
           name: true,
+          photoUrl: true,
         },
       },
     },

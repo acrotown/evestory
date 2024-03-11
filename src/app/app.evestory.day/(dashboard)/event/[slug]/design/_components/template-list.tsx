@@ -1,10 +1,15 @@
 "use client";
 
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
+import { toast } from "sonner";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -31,73 +36,167 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { IS_DESKTOP } from "@/lib/constants";
+import { titleCase } from "@/lib/utils";
+import { events } from "#/drizzle/schema";
 
-let templates = [
+import { chooseTemplateAction } from "../_actions/choose-template";
+
+let fallbackImage = "https://generated.vusercontent.net/placeholder.svg";
+
+type Template = {
+  name: (typeof events.design.enumValues)[number];
+  image: string;
+  premium: boolean;
+};
+
+let premiumTemplates: Array<Template> = [
   {
-    name: "Ivory", // Ivory is a type of white color
-    description:
-      "Perfect for showcasing your work in a beautiful and modern layout.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
+    name: "ivory", // Ivory is a type of white color
+    image: fallbackImage,
+    premium: true,
   },
   {
-    name: "Marigold", // Marigold is a type of orange color
-    description:
-      "Perfect for showcasing your work in a beautiful and modern layout.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
+    name: "alabaster", // Ivory is a type of white color
+    image: fallbackImage,
+    premium: true,
   },
+  // {
+  //   name: "Marigold", // Marigold is a type of orange color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Scarlet", // Scarlet is a type of red color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Rosewood", // Rosewood is a type of pink color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Dandelion", // Dandelion is a type of yellow color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Moss", // Moss is a type of green color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Arctic", // Arctic is a type of blue color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Onyx", // Onyx is a type of black color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Iris", // Iris is a type of purple color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+  // {
+  //   name: "Brunette", // Brunette is a type of brown color
+  //   image: fallbackImage,
+  //   premium: true,
+  // },
+];
+
+let freeTemplates: Array<Template> = [
   {
-    name: "Scarlet", // Scarlet is a type of red color
-    description:
-      "Clean and elegant design for sharing your thoughts with the world.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
+    name: "white", // Cotton is a type of white color
+    image: fallbackImage,
+    premium: false,
   },
+  // {
+  //   name: "Lemon", // Lemon is a type of yellow color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Mint", // Mint is a type of green color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Sky", // Sky is a type of blue color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Lavender", // Lavender is a type of purple color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Peach", // Peach is a type of orange color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Cherry", // Cherry is a type of red color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Plum", // Plum is a type of purple color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
+  // {
+  //   name: "Chocolate", // Chocolate is a type of brown color
+  //   image: fallbackImage,
+  //   premium: false,
+  // },
   {
-    name: "Rosewood", // Rosewood is a type of pink color
-    description:
-      "Start selling online with this stylish and feature-rich store.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
-  {
-    name: "Dandelion", // Dandelion is a type of yellow color
-    description:
-      "Start selling online with this stylish and feature-rich store.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
-  {
-    name: "Moss", // Moss is a type of green color
-    description:
-      "Sleek and professional template for your next big software project.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
-  {
-    name: "Arctic", // Arctic is a type of blue color
-    description:
-      "Sleek and professional template for your next big software project.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
-  {
-    name: "Onyx", // Onyx is a type of black color
-    description:
-      "Sleek and professional template for your next big software project.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
-  {
-    name: "Iris", // Iris is a type of purple color
-    description:
-      "Sleek and professional template for your next big software project.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
-  },
-  {
-    name: "Brunette", // Brunette is a type of brown color
-    description:
-      "Sleek and professional template for your next big software project.",
-    image: "https://generated.vusercontent.net/placeholder.svg",
+    name: "black", // Coal is a type of black color
+    image: fallbackImage,
+    premium: false,
   },
 ];
 
-export default function TemplateList() {
+let templates = [...premiumTemplates, ...freeTemplates];
+
+export default function TemplateList({
+  slug,
+  currentDesign,
+}: {
+  slug: string;
+  currentDesign: (typeof events.design.enumValues)[number];
+}) {
   let [open, setOpen] = useState(false);
   let isDesktop = useMediaQuery(IS_DESKTOP);
+  let [template, setTemplate] = useState<Pick<Template, "name">>({
+    name: "white",
+  });
+  let router = useRouter();
+
+  let action = useAction(chooseTemplateAction, {
+    onSuccess(data) {
+      if (data.ok) {
+        toast.success(data.message);
+        router.refresh();
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError(err) {
+      toast.error(err.serverError || "Error choosing template.");
+    },
+  });
+  let isLoading = action.status === "executing";
+
+  let handleChooseTemplate = () => {
+    action.execute({
+      name: template.name,
+      url: slug,
+    });
+  };
 
   return (
     <>
@@ -107,7 +206,10 @@ export default function TemplateList() {
             key={template.name + "-" + index}
             className="flex w-full max-w-sm scale-100 flex-col overflow-hidden rounded-lg border shadow-sm transition-transform hover:scale-105"
             href="#"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              setTemplate({ name: template.name });
+              setOpen(true);
+            }}
           >
             <div className="aspect-[16/9] w-full">
               <Image
@@ -124,12 +226,15 @@ export default function TemplateList() {
             </div>
             <div className="bg-gradient-to-b from-muted/50 to-muted p-4">
               <div className="space-y-2">
-                <h3 className="text-xl font-bold leading-none">
-                  {template.name}
-                </h3>
-                <p className="truncate-2-lines text-sm text-muted-foreground">
-                  {template.description}
-                </p>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold leading-none">
+                    {titleCase(template.name)}
+                    {currentDesign === template.name && ` - current`}
+                  </h3>
+                  <Badge variant={template.premium ? "default" : "secondary"}>
+                    {template.premium ? "Premium" : "Free"}
+                  </Badge>
+                </div>
               </div>
             </div>
           </Link>
@@ -140,7 +245,7 @@ export default function TemplateList() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent className="">
             <DialogHeader>
-              <DialogTitle>Template name</DialogTitle>
+              <DialogTitle>{template.name}</DialogTitle>
               <DialogDescription>
                 Choose your design template for your event page.
               </DialogDescription>
@@ -151,7 +256,10 @@ export default function TemplateList() {
 
             <DialogFooter>
               <Button variant="secondary">Preview</Button>
-              <Button>Use this template</Button>
+              <Button disabled={isLoading} onClick={handleChooseTemplate}>
+                {isLoading && <ReloadIcon className="mr-2 animate-spin" />}
+                Use this template
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -159,7 +267,7 @@ export default function TemplateList() {
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>Template name</DrawerTitle>
+              <DrawerTitle>{template.name}</DrawerTitle>
               <DrawerDescription>
                 Choose your design template for your event page.
               </DrawerDescription>
@@ -169,7 +277,10 @@ export default function TemplateList() {
               </div>
             </DrawerHeader>
             <DrawerFooter>
-              <Button>Use this template</Button>
+              <Button disabled={isLoading} onClick={handleChooseTemplate}>
+                {isLoading && <ReloadIcon className="mr-2 animate-spin" />}
+                Use this template
+              </Button>
               <Button variant="secondary">Preview</Button>
             </DrawerFooter>
           </DrawerContent>

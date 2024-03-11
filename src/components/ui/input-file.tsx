@@ -65,7 +65,7 @@ export default function InputFile({
 
   if (value && fileType !== "pdf" && files.length === 0) {
     return (
-      <div {...getRootProps()}>
+      <div {...getRootProps()} className="select-none">
         <input {...getInputProps()} />
         <div
           className={cn(
@@ -94,7 +94,7 @@ export default function InputFile({
   }
 
   return (
-    <div {...getRootProps()}>
+    <div {...getRootProps()} className="select-none">
       <input
         {...getInputProps()}
         disabled={isUploading}
@@ -153,14 +153,14 @@ export default function InputFile({
                 "Upload"
               )}
             </Button>
-            <Button
+            {/* <Button
               size="sm"
               variant="secondary"
               className={cn({ "cursor-not-allowed": isUploading })}
               disabled={isUploading}
             >
               Preview
-            </Button>
+            </Button> */}
           </div>
         </div>
       ) : (

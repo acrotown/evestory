@@ -75,7 +75,7 @@ export function BottomNav({ className }: { className?: string }) {
                 <Link
                   href={nav.path}
                   className={cn(
-                    "group inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100 dark:hover:bg-gray-800",
+                    "group inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100",
                     [
                       index === 0 ? "rounded-s-full" : "",
                       index === navs.length - 1 ? "rounded-e-full" : "",
@@ -84,7 +84,7 @@ export function BottomNav({ className }: { className?: string }) {
                     ],
                   )}
                 >
-                  <nav.icon className="h-6 w-6" color="#555650" />
+                  <nav.icon className="h-6 w-6" color="#000" />
                 </Link>
               </TooltipTrigger>
               <TooltipContent>

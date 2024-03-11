@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getEvent } from "@/lib/db/events";
 
+import DeleteButton from "./_components/delete-button";
 import PublishSwitch from "./_components/publish-switch";
 
 export default async function Overview({
@@ -24,7 +25,10 @@ export default async function Overview({
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h1 className="font-display text-4xl">Dashboard</h1>
-              <PublishSwitch isPublished={!!event?.isPublished} />
+              <div className="flex gap-2">
+                <DeleteButton slug={slug} />
+                <PublishSwitch isPublished={!!event?.isPublished} />
+              </div>
             </div>
 
             <Tabs defaultValue="overview" className="space-y-4">

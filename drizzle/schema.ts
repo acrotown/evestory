@@ -19,6 +19,9 @@ export let guests = sqliteTable(
     name: text("name").notNull(),
     email: text("email").notNull(),
     phone: text("phone").notNull(),
+    guestType: text("guestType", { enum: ["family", "friend"] }).default(
+      "friend",
+    ),
     eventId: text("eventId")
       .references(() => events.id, { onDelete: "cascade" })
       .notNull(),
@@ -59,33 +62,91 @@ export let events = sqliteTable(
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
     coverImageUrl: text("coverImageUrl"),
+    paymentStatus: text("paymentStatus", { enum: ["unpaid", "paid"] }).default(
+      "unpaid",
+    ),
     design: text("design", {
       enum: [
+        /**
+         * Standard white
+         */
         "white",
+        /**
+         * Premium white
+         */
+        "alabaster",
         "ivory",
 
+        /**
+         * Standard black
+         */
         "black",
+        /**
+         * Premium black
+         */
         "onyx",
 
+        /**
+         * Standard pink
+         */
         "pink",
+        /**
+         * Premium pink
+         */
         "rosewood",
 
+        /**
+         * Standard red
+         */
         "red",
+        /**
+         * Premium red
+         */
         "scarlet",
 
+        /**
+         * Standard yellow
+         */
         "yellow",
+        /**
+         * Premium yellow
+         */
         "dandelion",
 
+        /**
+         * Standard green
+         */
         "green",
+        /**
+         * Premium green
+         */
         "moss",
 
+        /**
+         * Standard blue
+         */
         "blue",
+        /**
+         * Premium blue
+         */
         "arctic",
 
+        /**
+         * Standard purple
+         */
         "purple",
+        /**
+         * Premium purple
+         */
         "iris",
 
+        /**
+         * Standard brown
+         */
         "brown",
+        /**
+         * Premium brown
+         */
         "brunette",
       ],
     })

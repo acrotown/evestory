@@ -26,5 +26,5 @@ export let UpdateEventInformationSchema = EventsSchema.pick({
   name: true,
   description: true,
   url: true,
-  // date: true,
+  date: true,
 });

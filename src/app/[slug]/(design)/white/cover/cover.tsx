@@ -21,31 +21,26 @@ export default function Cover({ event }: { event: NonNullable<EventType> }) {
       transition={{ duration: 1 }}
       className="flex flex-col space-y-5 pb-32 pt-80"
     >
-      <h1 className={cn("text-center font-cormorant text-5xl text-[#555650]")}>
+      <h1
+        className={cn("text-center font-sorts_mill_goudy text-7xl text-swamp")}
+      >
         <Balancer>
           {event?.grooms?.name} & {event?.brides?.name}
         </Balancer>
       </h1>
       <p className="text-center text-sm font-medium uppercase tracking-[0.2em] text-foreground">
-        <Balancer>invite you to join in the celebration of their</Balancer>
-      </p>
-      <h1 className={cn("text-center font-cormorant text-5xl text-[#555650]")}>
-        <Balancer>Wedding</Balancer>
-      </h1>
-
-      <p className="text-center text-sm font-medium uppercase tracking-[0.2em] text-foreground">
-        <Balancer>on</Balancer>
+        <Balancer>invite you to their wedding</Balancer>
       </p>
 
       <div className="flex items-center justify-evenly">
-        <p className="w-32 text-center text-sm font-medium uppercase tracking-[0.2em] text-foreground">
+        <p className="w-32 text-center text-sm font-medium uppercase tracking-[0.2em] text-swamp">
           <Balancer>{month}</Balancer>
         </p>
-        <div className="border-x-2 border-[#A59D40] px-6 text-center text-lg font-bold uppercase tracking-[0.2em] text-foreground max-md:mx-3">
+        <div className="border-x-2 border-[#000] px-6 text-center text-lg font-bold uppercase tracking-[0.2em] text-swamp max-md:mx-3">
           <p>{day}</p>
           <p>{date}</p>
         </div>
-        <p className="w-32 text-center text-sm font-medium uppercase tracking-[0.2em] text-foreground">
+        <p className="w-32 text-center text-sm font-medium uppercase tracking-[0.2em] text-swamp">
           <Balancer>{year}</Balancer>
         </p>
       </div>

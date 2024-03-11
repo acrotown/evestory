@@ -250,19 +250,21 @@ export default function CoupleInformationForm({
                   <FormItem>
                     <FormLabel>Groom photo</FormLabel>
                     <FormControl>
-                      <InputFile
-                        endPoint="imageUploader"
-                        onChange={(url) => {
-                          if (event.grooms?.id === undefined) {
-                            return;
-                          }
-                          updatePhotoAction.execute({
-                            groomId: event.grooms.id,
-                            groomPhoto: url,
-                          });
-                        }}
-                        value={field.value}
-                      />
+                      <div className="flex">
+                        <InputFile
+                          endPoint="imageUploader"
+                          onChange={(url) => {
+                            if (event.grooms?.id === undefined) {
+                              return;
+                            }
+                            updatePhotoAction.execute({
+                              groomId: event.grooms.id,
+                              groomPhoto: url,
+                            });
+                          }}
+                          value={field.value}
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -280,19 +282,21 @@ export default function CoupleInformationForm({
                   <FormItem>
                     <FormLabel>Bride photo</FormLabel>
                     <FormControl>
-                      <InputFile
-                        endPoint="imageUploader"
-                        onChange={(url) => {
-                          if (event.brides?.id === undefined) {
-                            return;
-                          }
-                          updatePhotoAction.execute({
-                            brideId: event.brides.id,
-                            bridePhoto: url,
-                          });
-                        }}
-                        value={field.value}
-                      />
+                      <div className="flex">
+                        <InputFile
+                          endPoint="imageUploader"
+                          onChange={(url) => {
+                            if (event.brides?.id === undefined) {
+                              return;
+                            }
+                            updatePhotoAction.execute({
+                              brideId: event.brides.id,
+                              bridePhoto: url,
+                            });
+                          }}
+                          value={field.value}
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

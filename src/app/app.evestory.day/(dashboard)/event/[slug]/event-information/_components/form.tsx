@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 import React from "react";
@@ -10,6 +11,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -20,7 +22,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { getEvent } from "@/lib/db/events";
+import { cn } from "@/lib/utils";
 
 import { updateEventInfo } from "../_action";
 import { UpdateEventInformationSchema } from "../_schema/event-information";
@@ -35,6 +43,7 @@ export default function EventInformationForm({
     defaultValues: {
       id: event?.id,
       name: event?.name,
+      date: new Date(event.date),
       description: event?.description || "",
       url: event?.url,
     },
@@ -100,6 +109,58 @@ export default function EventInformationForm({
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel htmlFor="eventDate">Event date</FormLabel>
+                  <input
+                    // disabled={loading}
+                    className="hidden"
+                    name="eventDate"
+                    value={field.value?.toISOString()}
+                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          // disabled={loading}
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground",
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+
+                  <FormDescription>You can change it later.</FormDescription>
+
                   <FormMessage />
                 </FormItem>
               );

@@ -21,7 +21,7 @@ module.exports = withUt({
         default: ["var(--font-inter)", "system-ui", "sans-serif"],
         display: ["var(--font-cal)", "system-ui", "sans-serif"],
 
-        // white template
+        // alabaster template
         alice: ["var(--font-alice)", "system-ui", "sans-serif"],
         cormorant: ["var(--font-cormorant)", "system-ui", "sans-serif"],
 
@@ -30,6 +30,13 @@ module.exports = withUt({
 
         // ivory template
         style_script: ["var(--font-style-script)", "system-ui", "sans-serif"],
+
+        // white template
+        sorts_mill_goudy: [
+          "var(--font-sorts-mill-goudy)",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       colors: {
         border: "hsl(var(--border))",

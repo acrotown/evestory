@@ -34,7 +34,8 @@ export let updateEventInfo = action(
         name: data.name,
         description: data.description,
         url: data.url,
-        updatedAt: new Date().toISOString(),
+        date: data.date.toISOString(),
+        updatedAt: new Date(Date.now()).toISOString(),
       })
       .where(eq(events.id, data.id));
 

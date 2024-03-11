@@ -3,6 +3,7 @@ import {
   Cormorant,
   Dr_Sugiyama,
   Inter,
+  Sorts_Mill_Goudy,
   Style_Script,
 } from "next/font/google";
 import localFont from "next/font/local";
@@ -19,7 +20,23 @@ export const inter = Inter({
   variable: "--font-inter",
 });
 
-// White
+/**
+ * ========================================
+ * White
+ * ========================================
+ */
+export const sorts_mill_goudy = Sorts_Mill_Goudy({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-sorts-mill-goudy",
+  display: "swap",
+});
+
+/**
+ * ========================================
+ * Alabaster
+ * ========================================
+ */
 export const alice = Alice({
   weight: "400",
   subsets: ["latin"],
@@ -33,22 +50,27 @@ export const cormorant = Cormorant({
   variable: "--font-cormorant",
   display: "swap",
 });
-// White
 
-// Black
-export const dr_sugiyama = Dr_Sugiyama({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-dr-sugiyama",
-  display: "swap",
-});
-// Black
-
-// Ivory
+/**
+ * ========================================
+ * Ivory
+ * ========================================
+ */
 export const style_script = Style_Script({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-style-script",
   display: "swap",
 });
-// Ivory
+
+/**
+ * ========================================
+ * Black
+ * ========================================
+ */
+export const dr_sugiyama = Dr_Sugiyama({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-dr-sugiyama",
+  display: "swap",
+});

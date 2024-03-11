@@ -22,12 +22,14 @@ export const config = {
 export default async function middleware(req: NextRequest) {
   let path = req.nextUrl.pathname;
   let ip = ipAddress(req) || "";
-  // 118.98.26.6 resend ip ig
-  console.info("ip: ", ip);
-  let isKevsDevices = (await get<Array<string>>("isKevsDevices")) || [];
-  console.info("isKevsDevices: ", isKevsDevices);
+  let isKevsDevices =
+    process.env.NODE_ENV === "production"
+      ? (await get<Array<string>>("isKevsDevices")) || []
+      : [];
   let isProdMaintenanceMode =
-    (await get<boolean>("isProdMaintenanceMode")) || false;
+    process.env.NODE_ENV === "production"
+      ? (await get<boolean>("isProdMaintenanceMode")) || false
+      : false;
   let isProd = process.env.VERCEL_ENV === "production";
 
   let isMaintenance = false;
@@ -121,7 +123,7 @@ export default async function middleware(req: NextRequest) {
   let [url] = domain.split(".");
   if (!url) {
     // Redirect to not found page, notFound is not working here.
-    return NextResponse.error();
+    return NextResponse.rewrite(new URL("/404", req.url));
   }
 
   let [event] = await db
@@ -136,7 +138,7 @@ export default async function middleware(req: NextRequest) {
 
   if (!isEventExist || !event?.isPublished) {
     // Redirect to not found page if event not exist or not published.
-    return NextResponse.error();
+    return NextResponse.rewrite(new URL("/404", req.url));
   }
 
   // Rewrite everything to appropriate design.

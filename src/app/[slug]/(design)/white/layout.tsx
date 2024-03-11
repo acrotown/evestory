@@ -1,5 +1,5 @@
 import { cn, constructMetadata } from "@/lib/utils";
-import { alice, cormorant } from "@/styles/fonts";
+import { sorts_mill_goudy } from "@/styles/fonts";
 
 import RootWrapper from "../root-wrapper";
 
@@ -23,9 +23,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      className={cn("bg-[#fff] font-alice", alice.variable, cormorant.variable)}
-    >
+    <div className={cn("bg-[#fff] font-default", sorts_mill_goudy.variable)}>
       <RootWrapper>{children}</RootWrapper>
     </div>
   );
