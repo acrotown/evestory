@@ -9,8 +9,7 @@ export default {
   out: "./drizzle/migrations",
   driver: "turso",
   dbCredentials: {
-    url: process.env.TURSO_DB_URL as string,
+    url: process.env.TURSO_DB_URL || "http://127.0.0.1:8080",
     authToken: process.env.TURSO_DB_AUTH_TOKEN,
-    // authToken: PROD ? (process.env.TURSO_DB_AUTH_TOKEN as string) : undefined,
   },
 } satisfies Config;

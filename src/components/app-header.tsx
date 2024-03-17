@@ -28,6 +28,10 @@ const navs = [
     href: "guests",
   },
   {
+    title: "Gallery",
+    href: "gallery",
+  },
+  {
     title: "Couple Information",
     href: "couple-information",
   },
@@ -36,8 +40,8 @@ const navs = [
     href: "event-information",
   },
   {
-    title: "Gallery",
-    href: "gallery",
+    title: "Additional Information",
+    href: "additional-information",
   },
 ];
 

@@ -3,7 +3,6 @@
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
@@ -36,7 +35,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { IS_DESKTOP } from "@/lib/constants";
-import { titleCase } from "@/lib/utils";
+import { cn, titleCase } from "@/lib/utils";
 import { events } from "#/drizzle/schema";
 
 import { chooseTemplateAction } from "../_actions/choose-template";
@@ -47,6 +46,7 @@ type Template = {
   name: (typeof events.design.enumValues)[number];
   image: string;
   premium: boolean;
+  comingSoon: boolean;
 };
 
 let premiumTemplates: Array<Template> = [
@@ -54,109 +54,82 @@ let premiumTemplates: Array<Template> = [
     name: "ivory", // Ivory is a type of white color
     image: fallbackImage,
     premium: true,
+    comingSoon: false,
   },
   {
     name: "alabaster", // Ivory is a type of white color
     image: fallbackImage,
     premium: true,
+    comingSoon: false,
   },
-  // {
-  //   name: "Marigold", // Marigold is a type of orange color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Scarlet", // Scarlet is a type of red color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Rosewood", // Rosewood is a type of pink color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Dandelion", // Dandelion is a type of yellow color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Moss", // Moss is a type of green color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Arctic", // Arctic is a type of blue color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Onyx", // Onyx is a type of black color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Iris", // Iris is a type of purple color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
-  // {
-  //   name: "Brunette", // Brunette is a type of brown color
-  //   image: fallbackImage,
-  //   premium: true,
-  // },
+  {
+    name: "marigold", // Marigold is a type of orange color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "scarlet", // Scarlet is a type of red color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "rosewood", // Rosewood is a type of pink color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "dandelion", // Dandelion is a type of yellow color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "moss", // Moss is a type of green color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "arctic", // Arctic is a type of blue color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "onyx", // Onyx is a type of black color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "iris", // Iris is a type of purple color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
+  {
+    name: "brunette", // Brunette is a type of brown color
+    image: fallbackImage,
+    premium: true,
+    comingSoon: true,
+  },
 ];
 
 let freeTemplates: Array<Template> = [
   {
-    name: "white", // Cotton is a type of white color
+    name: "white",
     image: fallbackImage,
     premium: false,
+    comingSoon: false,
   },
-  // {
-  //   name: "Lemon", // Lemon is a type of yellow color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Mint", // Mint is a type of green color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Sky", // Sky is a type of blue color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Lavender", // Lavender is a type of purple color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Peach", // Peach is a type of orange color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Cherry", // Cherry is a type of red color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Plum", // Plum is a type of purple color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
-  // {
-  //   name: "Chocolate", // Chocolate is a type of brown color
-  //   image: fallbackImage,
-  //   premium: false,
-  // },
   {
-    name: "black", // Coal is a type of black color
+    name: "black",
     image: fallbackImage,
     premium: false,
+    comingSoon: false,
   },
 ];
 
@@ -202,11 +175,16 @@ export default function TemplateList({
     <>
       <div className="grid w-full grid-cols-1 items-stretch justify-center gap-10 pt-8 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
         {templates.map((template, index) => (
-          <Link
+          <div
             key={template.name + "-" + index}
-            className="flex w-full max-w-sm scale-100 flex-col overflow-hidden rounded-lg border shadow-sm transition-transform hover:scale-105"
-            href="#"
+            className={cn(
+              "flex w-full max-w-sm scale-100 cursor-pointer flex-col overflow-hidden rounded-lg border shadow-sm transition-transform hover:scale-105",
+              {
+                "cursor-not-allowed": template.comingSoon,
+              },
+            )}
             onClick={() => {
+              if (template.comingSoon) return;
               setTemplate({ name: template.name });
               setOpen(true);
             }}
@@ -231,13 +209,19 @@ export default function TemplateList({
                     {titleCase(template.name)}
                     {currentDesign === template.name && ` - current`}
                   </h3>
-                  <Badge variant={template.premium ? "default" : "secondary"}>
-                    {template.premium ? "Premium" : "Free"}
-                  </Badge>
+                  {template.comingSoon ? (
+                    <Badge variant="default">Coming Soon</Badge>
+                  ) : (
+                    <Badge
+                      variant={template.premium ? "governor" : "secondary"}
+                    >
+                      {template.premium ? "Premium" : "Free"}
+                    </Badge>
+                  )}
                 </div>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
 
@@ -245,7 +229,7 @@ export default function TemplateList({
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent className="">
             <DialogHeader>
-              <DialogTitle>{template.name}</DialogTitle>
+              <DialogTitle>{titleCase(template.name)}</DialogTitle>
               <DialogDescription>
                 Choose your design template for your event page.
               </DialogDescription>
@@ -267,7 +251,7 @@ export default function TemplateList({
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>{template.name}</DrawerTitle>
+              <DrawerTitle>{titleCase(template.name)}</DrawerTitle>
               <DrawerDescription>
                 Choose your design template for your event page.
               </DrawerDescription>

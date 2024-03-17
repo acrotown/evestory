@@ -65,6 +65,7 @@ export let events = sqliteTable(
     paymentStatus: text("paymentStatus", { enum: ["unpaid", "paid"] }).default(
       "unpaid",
     ),
+    prayer: text("prayer"),
     design: text("design", {
       enum: [
         /**
@@ -103,6 +104,15 @@ export let events = sqliteTable(
          * Premium red
          */
         "scarlet",
+
+        /**
+         * Standard orange
+         */
+        "orange",
+        /**
+         * Premium orange
+         */
+        "marigold",
 
         /**
          * Standard yellow

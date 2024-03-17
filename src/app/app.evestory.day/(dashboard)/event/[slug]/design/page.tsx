@@ -24,7 +24,7 @@ export default async function Design({ params }: { params: { slug: string } }) {
 
   return (
     <MaxWidthWrapper>
-      <section className="pt-10">
+      <section className="py-10">
         <div className="">
           <h1 className="font-display text-4xl">Choose your design template</h1>
           <p className="text-muted-foreground">

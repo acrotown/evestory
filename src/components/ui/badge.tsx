@@ -15,6 +15,11 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         outline: "text-foreground",
+        governor: "border-transparent bg-governor-bay text-solitude",
+        // governor:
+        //   "border-transparent bg-governor-bay text-solitude dark:bg-solitude dark:text-governor-bay",
+        "governor-outline":
+          "border-governor-bay bg-transparent text-governor-bay dark:bg-transparent dark:text-solitude",
       },
     },
     defaultVariants: {
