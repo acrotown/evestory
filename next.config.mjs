@@ -4,6 +4,7 @@ const nextConfig = {
   experimental: {
     useDeploymentId: true,
   },
+  transpilePackages: ["lucide-react"],
   images: {
     remotePatterns: [
       {

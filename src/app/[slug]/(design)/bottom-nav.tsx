@@ -1,10 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  BadgeInfoIcon,
+  CalendarHeartIcon,
+  GiftIcon,
+  HeartPulseIcon,
+  ImagesIcon,
+  LucideIcon,
+  MessageSquareHeartIcon,
+  UsersIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+// import Icon from "@/components/icons/icon";
 import {
   Tooltip,
   TooltipContent,
@@ -13,6 +24,49 @@ import {
 import { BOTTOM_NAV_STYLES } from "@/lib/constants/design-template";
 import { cn, generateNavs } from "@/lib/utils";
 import { events } from "#/drizzle/schema";
+
+export let NAVS: Array<{
+  // icon: keyof typeof dynamicIconImports;
+  icon: LucideIcon;
+  label: string;
+  path: string;
+}> = [
+  {
+    icon: BadgeInfoIcon,
+    label: "Cover",
+    path: "/cover",
+  },
+  {
+    icon: UsersIcon,
+    label: "Couple",
+    path: "/couple",
+  },
+  {
+    icon: CalendarHeartIcon,
+    label: "Event",
+    path: "/event",
+  },
+  {
+    icon: MessageSquareHeartIcon,
+    label: "Wishes",
+    path: "/wishes",
+  },
+  {
+    icon: HeartPulseIcon,
+    label: "Stories",
+    path: "/stories",
+  },
+  {
+    icon: ImagesIcon,
+    label: "Galleries",
+    path: "/galleries",
+  },
+  {
+    icon: GiftIcon,
+    label: "Gift",
+    path: "/gift",
+  },
+];
 
 export function BottomNav({
   className,
@@ -86,6 +140,11 @@ export function BottomNav({
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
+                    {/* <Icon
+                      name={nav.icon}
+                      className="h-6 w-6"
+                      color={bottomNavStyles.iconColor}
+                    /> */}
                     <nav.icon
                       className="h-6 w-6"
                       color={bottomNavStyles.iconColor}

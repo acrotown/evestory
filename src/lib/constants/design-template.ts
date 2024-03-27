@@ -4,49 +4,13 @@ import {
   GiftIcon,
   HeartPulseIcon,
   ImagesIcon,
+  LucideIcon,
   MessageSquareHeartIcon,
   UsersIcon,
 } from "lucide-react";
 
+// import dynamicIconImports from "lucide-react/dynamicIconImports";
 import { events } from "#/drizzle/schema";
-
-export let NAVS = [
-  {
-    icon: BadgeInfoIcon,
-    label: "Cover",
-    path: "/cover",
-  },
-  {
-    icon: UsersIcon,
-    label: "Couple",
-    path: "/couple",
-  },
-  {
-    icon: CalendarHeartIcon,
-    label: "Event",
-    path: "/event",
-  },
-  {
-    icon: MessageSquareHeartIcon,
-    label: "Wishes",
-    path: "/wishes",
-  },
-  {
-    icon: HeartPulseIcon,
-    label: "Stories",
-    path: "/stories",
-  },
-  {
-    icon: ImagesIcon,
-    label: "Galleries",
-    path: "/galleries",
-  },
-  {
-    icon: GiftIcon,
-    label: "Gift",
-    path: "/gift",
-  },
-];
 
 // TODO: Add more styles
 // @ts-expect-error

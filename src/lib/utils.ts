@@ -3,8 +3,9 @@ import { customAlphabet } from "nanoid/non-secure";
 import { Metadata } from "next";
 import { twMerge } from "tailwind-merge";
 
+import { NAVS } from "@/app/[slug]/(design)/bottom-nav";
+
 import { HOME_DOMAIN } from "./constants";
-import { NAVS } from "./constants/design-template";
 import { SVGS } from "./constants/svgs";
 
 export function cn(...inputs: ClassValue[]) {

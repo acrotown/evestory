@@ -48,7 +48,7 @@ export let createEvent = action(CreateEventSchema, async (data) => {
         });
 
       if (!event?.id) {
-        await tx.rollback();
+        tx.rollback();
         return;
       }
 
@@ -60,7 +60,7 @@ export let createEvent = action(CreateEventSchema, async (data) => {
         })
         .returning({ id: grooms.id });
       if (!groom?.id) {
-        await tx.rollback();
+        tx.rollback();
         return;
       }
 
@@ -72,7 +72,7 @@ export let createEvent = action(CreateEventSchema, async (data) => {
         })
         .returning({ id: brides.id });
       if (!bride?.id) {
-        await tx.rollback();
+        tx.rollback();
         return;
       }
 
