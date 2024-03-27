@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { SVGS } from "@/lib/constants/svgs";
-import { getEvent } from "@/lib/db/events";
+import { getEventBySlug } from "@/lib/db/events";
 import { generateRandomImage } from "@/lib/utils";
 
 import CoupleInformationForm from "./_components/form";
@@ -16,7 +16,7 @@ export default async function CoupleInformation({
   params: { slug: string };
 }) {
   let { slug } = params;
-  let event = await getEvent(slug);
+  let event = await getEventBySlug(slug);
   let svg = generateRandomImage(SVGS);
   let svg2 = generateRandomImage(SVGS);
   let svg3 = generateRandomImage(SVGS);

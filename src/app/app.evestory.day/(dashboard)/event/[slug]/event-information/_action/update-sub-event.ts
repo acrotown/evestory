@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/drizzle";
 import { action } from "@/lib/safe-action";
@@ -45,6 +46,7 @@ export let updateSubEvent = action(
       .returning();
 
     if (res?.id) {
+      revalidatePath("/", "layout");
       return {
         ok: true,
         data: res,

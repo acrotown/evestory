@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { db } from "@/lib/drizzle";
@@ -24,6 +25,7 @@ export let deleteSubEvent = action(schema, async (data) => {
       };
     }
 
+    revalidatePath("/", "layout");
     return {
       ok: true,
       data: null,

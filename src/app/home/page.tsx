@@ -6,12 +6,13 @@ import { Balancer } from "react-wrap-balancer";
 import { HomeHeader } from "@/components/home-header";
 import { Button } from "@/components/ui/button";
 import { APP_DOMAIN } from "@/lib/constants";
+// import { AuroraBackground } from "@/components/vfx/aurora-background";
 
 export default function Home() {
   return (
+    // <AuroraBackground>
     <main className="relative flex min-h-screen flex-col">
       <HomeHeader />
-
       <section className="min-h-screen pt-16">
         <div className="container flex flex-col items-center justify-center gap-4">
           <div className="group relative animate-in fade-in-0 slide-in-from-top-5 duration-1000 delay-0 running fill-mode-backwards repeat-1">
@@ -58,5 +59,6 @@ export default function Home() {
       <section className="min-h-screen text-center">Feature Section</section>
       <section className="min-h-screen text-center">Pricing Section</section>
     </main>
+    // </AuroraBackground>
   );
 }

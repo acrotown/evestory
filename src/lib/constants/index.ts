@@ -37,3 +37,12 @@ export const API_DOMAIN =
     : "http://localhost:3000/api";
 
 export let IS_DESKTOP = "(min-width: 768px)";
+
+export let PRAYERS = [
+  {
+    religion: "Hinduism",
+    content:
+      "O husband and wife couple, may you remain united and never be separated. May you achieve a life full of happiness, living in a home full of joy with all your descendants.",
+    // content: 'Wahai pasangan suami-istri, semoga kalian tetap bersatu dan tidak pernah terpisahkan. Semoga kalian mencapai hidup penuh kebahagiaan, tinggal di rumah yang penuh kegembiraan bersama seluruh keturunanmu.'
+  },
+];

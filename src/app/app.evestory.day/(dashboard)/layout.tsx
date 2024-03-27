@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import React from "react";
 
 import { AppHeader } from "@/components/app-header";
-import useEvent from "@/lib/swr/use-event";
 
 import Loading from "./loading";
 
@@ -16,12 +15,14 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
   let { slug } = useParams() as { slug?: string };
   let { setUserId } = useLogSnag();
   let { status, data: session } = useSession();
+  let [segment, urlEvent, preview] = pathname.split("/").filter(Boolean);
+  let previewMode = segment === "event" && preview === "preview";
 
-  React.useEffect(() => {
-    Crisp.configure("fb44a81e-9c42-42e6-9597-ecca9a6ea0e6", {
-      autoload: true,
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   Crisp.configure("fb44a81e-9c42-42e6-9597-ecca9a6ea0e6", {
+  //     autoload: true,
+  //   });
+  // }, []);
 
   // React.useEffect(() => {
   //   if (user?.primaryEmailAddress?.emailAddress) {
@@ -36,7 +37,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
   if (status === "loading") {
     return (
       <>
-        <AppHeader slug={slug} pathname={pathname} />
+        {!previewMode && <AppHeader slug={slug} pathname={pathname} />}
         <Loading />
       </>
     );
@@ -44,7 +45,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <AppHeader slug={slug} pathname={pathname} />
+      {!previewMode && <AppHeader slug={slug} pathname={pathname} />}
       <div className="relative flex">{children}</div>
     </>
   );

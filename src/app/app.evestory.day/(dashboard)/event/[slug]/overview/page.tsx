@@ -4,9 +4,10 @@ import { Suspense } from "react";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getEvent } from "@/lib/db/events";
+import { getEventBySlug } from "@/lib/db/events";
 
 import DeleteButton from "./_components/delete-button";
+import PreviewButton from "./_components/preview-button";
 import PublishSwitch from "./_components/publish-switch";
 
 export default async function Overview({
@@ -16,7 +17,7 @@ export default async function Overview({
 }) {
   let { slug } = params;
 
-  let event = await getEvent(slug);
+  let event = await getEventBySlug(slug);
 
   return (
     <MaxWidthWrapper>
@@ -27,6 +28,7 @@ export default async function Overview({
               <h1 className="font-display text-4xl">Dashboard</h1>
               <div className="flex gap-2">
                 <DeleteButton slug={slug} />
+                <PreviewButton slug={slug} design={event.design} />
                 <PublishSwitch isPublished={!!event?.isPublished} />
               </div>
             </div>

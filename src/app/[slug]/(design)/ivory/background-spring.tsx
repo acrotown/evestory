@@ -11,7 +11,7 @@ import flowerTop from "#/public/_static/templates/premium/ivory/flower-top.png";
 import flowerTopLeft from "#/public/_static/templates/premium/ivory/flower-top-left.png";
 import flowerTopRight from "#/public/_static/templates/premium/ivory/flower-top-right.png";
 
-export function Background() {
+export function BackgroundSpring() {
   let [isTopLeftLoaded, setIsTopLeftLoaded] = useState(false);
   let [isTopRightLoaded, setIsTopRightLoaded] = useState(false);
   let [isTopLoaded, setIsTopLoaded] = useState(false);

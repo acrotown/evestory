@@ -1,7 +1,7 @@
 "use server";
 
 import { and, eq, not } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/drizzle";
 import { action } from "@/lib/safe-action";
@@ -39,8 +39,7 @@ export let updateEventInfo = action(
       })
       .where(eq(events.id, data.id));
 
-    revalidateTag("events");
-    revalidateTag("event");
+    revalidatePath("/", "layout");
 
     return {
       ok: true,

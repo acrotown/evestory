@@ -33,7 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getEvent } from "@/lib/db/events";
+import { getEventBySlug } from "@/lib/db/events";
 import { cn } from "@/lib/utils";
 
 import { deleteSubEvent } from "../_action/delete-sub-event";
@@ -44,11 +44,11 @@ import SubEventModal from "./sub-event-modal";
 export default function SubEventList({
   event,
 }: {
-  event: Awaited<ReturnType<typeof getEvent>>;
+  event: Awaited<ReturnType<typeof getEventBySlug>>;
 }) {
   let router = useRouter();
   let [subEventSP, setSubEventSP] = useSubEventSearchParams();
-  let groupByDate = (event: Awaited<ReturnType<typeof getEvent>>) => {
+  let groupByDate = (event: Awaited<ReturnType<typeof getEventBySlug>>) => {
     return event?.subEvents
       .sort((a, b) => {
         let startTime = new Date(a.startTime).getTime();

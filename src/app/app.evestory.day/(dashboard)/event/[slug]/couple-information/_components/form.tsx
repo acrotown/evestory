@@ -25,14 +25,14 @@ import { Input } from "@/components/ui/input";
 import InputFile from "@/components/ui/input-file";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
-import { getEvent } from "@/lib/db/events";
+import { getEventBySlug } from "@/lib/db/events";
 
 import { updateCoupleInformation, updatePhoto } from "../_action";
 
 export default function CoupleInformationForm({
   event,
 }: {
-  event: Awaited<ReturnType<typeof getEvent>>;
+  event: Awaited<ReturnType<typeof getEventBySlug>>;
 }) {
   const form = useForm<z.infer<typeof CoupleInformationSchema>>({
     resolver: zodResolver(CoupleInformationSchema),

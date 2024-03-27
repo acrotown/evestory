@@ -5,10 +5,14 @@ import Balancer from "react-wrap-balancer";
 
 import { cn } from "@/lib/utils";
 
+import { EventTypeForPublic } from "../../type";
 import EventDate from "./event-date";
-import type { EventType } from "./page";
 
-export default function Cover({ event }: { event: NonNullable<EventType> }) {
+export default function Cover({
+  event,
+}: {
+  event: NonNullable<EventTypeForPublic>;
+}) {
   return (
     <motion.div
       initial={{ scale: 0, opacity: 0 }}

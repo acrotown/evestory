@@ -34,6 +34,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "wsrv.nl",
       },
+      {
+        protocol: "https",
+        hostname: "pub-8b53a4f840144073a68e244de3f1a669.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
   async headers() {

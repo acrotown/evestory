@@ -27,7 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getEvent } from "@/lib/db/events";
+import { getEventBySlug } from "@/lib/db/events";
 import { cn } from "@/lib/utils";
 
 import { updateEventInfo } from "../_action";
@@ -36,7 +36,7 @@ import { UpdateEventInformationSchema } from "../_schema/event-information";
 export default function EventInformationForm({
   event,
 }: {
-  event: Awaited<ReturnType<typeof getEvent>>;
+  event: Awaited<ReturnType<typeof getEventBySlug>>;
 }) {
   const form = useForm<z.infer<typeof UpdateEventInformationSchema>>({
     resolver: zodResolver(UpdateEventInformationSchema),

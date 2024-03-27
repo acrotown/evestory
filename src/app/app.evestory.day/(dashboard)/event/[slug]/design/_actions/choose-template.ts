@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { db } from "@/lib/drizzle";
@@ -21,6 +22,8 @@ export let chooseTemplateAction = action(schema, async (data) => {
         updatedAt: new Date().toISOString(),
       })
       .where(eq(events.url, data.url));
+
+    revalidatePath("/", "layout");
 
     return {
       ok: true,

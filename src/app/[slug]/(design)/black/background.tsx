@@ -11,8 +11,6 @@ export function Background() {
 
   return (
     <>
-      {/* <div className="w-lg pointer-events-none absolute inset-0 top-14 mx-16 h-[85svh] border-4 border-[#fff]"></div> */}
-
       <motion.div
         initial={{ opacity: 0, y: -100 }}
         animate={{

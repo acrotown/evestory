@@ -6,9 +6,13 @@ import Balancer from "react-wrap-balancer";
 
 import { cn, titleCase } from "@/lib/utils";
 
-import { type EventType } from "./page";
+import { EventTypeForPublic } from "../../type";
 
-export default function Cover({ event }: { event: NonNullable<EventType> }) {
+export default function Cover({
+  event,
+}: {
+  event: NonNullable<EventTypeForPublic>;
+}) {
   let [day, date, month, year] = format(
     new Date(event.date),
     "EEE do MMM yyyy",

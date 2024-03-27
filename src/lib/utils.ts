@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { twMerge } from "tailwind-merge";
 
 import { HOME_DOMAIN } from "./constants";
+import { NAVS } from "./constants/design-template";
 import { SVGS } from "./constants/svgs";
 
 export function cn(...inputs: ClassValue[]) {
@@ -88,4 +89,17 @@ export function titleCase(str: string) {
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+}
+
+export function generateNavs(path: string, slug: string) {
+  let path_ = path.split("/").filter(Boolean);
+  let navs = [...NAVS];
+  if (path_.includes("preview")) {
+    return navs.map((nav) => ({
+      ...nav,
+      path: `/event/${slug}/preview${nav.path}`,
+    }));
+  }
+
+  return navs;
 }

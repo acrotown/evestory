@@ -24,7 +24,7 @@ export let togglePublish = action(schema, async (data) => {
     .returning();
 
   if (res) {
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return {
       ok: true,
       data: res,

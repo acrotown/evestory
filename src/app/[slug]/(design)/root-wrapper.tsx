@@ -1,20 +1,6 @@
 import Image from "next/image";
 
-import { cn, constructMetadata } from "@/lib/utils";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  let title = `${params.slug}`;
-  let description = `${params.slug} wedding invitation.`;
-
-  return constructMetadata({
-    title,
-    description,
-  });
-}
+import { cn } from "@/lib/utils";
 
 export default async function RootWrapper({
   children,

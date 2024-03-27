@@ -1,17 +1,16 @@
 import { ipAddress } from "@vercel/edge";
 import { get } from "@vercel/edge-config";
-import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 import {
+  APP_DOMAIN,
   APP_HOSTNAMES,
   isHomeHostname,
   SOUVENIRS_HOSTNAMES,
 } from "@/lib/constants";
-import { events } from "#/drizzle/schema";
 
-import { db } from "./lib/drizzle";
+import { getCacheEventBySlugForMiddleware } from "./lib/db/events";
 
 export const config = {
   matcher: [
@@ -60,7 +59,6 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.rewrite(
       new URL(`/${domain}${path === "/" ? "" : path}`, req.url),
     );
-    // return NextResponse.rewrite(new URL(`/app${path ?? ""}`, req.url));
   }
 
   if (APP_HOSTNAMES.has(domain)) {
@@ -109,6 +107,51 @@ export default async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
+    let splitPath = path.split("/").filter(Boolean);
+
+    if (
+      splitPath.length >= 3 &&
+      splitPath[0] === "event" &&
+      splitPath[2] === "preview"
+    ) {
+      let url = splitPath[1];
+      let lastPath = splitPath[3];
+
+      if (url) {
+        let res = await fetch(`${APP_DOMAIN}/api/event/` + url);
+        let [event] = (await res.json()) as Awaited<
+          ReturnType<typeof getCacheEventBySlugForMiddleware>
+        >;
+
+        if (!event?.url) {
+          // Redirect to not found page if event URL does not exist.
+          return NextResponse.rewrite(new URL("/404", req.url));
+        }
+
+        let allowedPaths = [
+          undefined,
+          "cover",
+          "couple",
+          "event",
+          "wishes",
+          "stories",
+          "galleries",
+          "gift",
+        ];
+
+        if (allowedPaths.includes(lastPath)) {
+          return NextResponse.rewrite(
+            new URL(
+              `/${url}/${event.design}/${
+                path === "/" || lastPath === undefined ? "" : lastPath
+              }`,
+              req.url,
+            ),
+          );
+        }
+      }
+    }
+
     return NextResponse.rewrite(
       new URL(`/app.evestory.day${path === "/" ? "" : path}`, req.url),
     );
@@ -126,17 +169,14 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.rewrite(new URL("/404", req.url));
   }
 
-  let [event] = await db
-    .select({
-      design: events.design,
-      url: events.url,
-      isPublished: events.isPublished,
-    })
-    .from(events)
-    .where(eq(events.url, url));
+  let res = await fetch(`${APP_DOMAIN}/api/event/` + url);
+  let [event] = (await res.json()) as Awaited<
+    ReturnType<typeof getCacheEventBySlugForMiddleware>
+  >;
+
   let isEventExist = !!event?.url;
 
-  if (!isEventExist || !event?.isPublished) {
+  if (!isEventExist || !event?.isPublished || event?.paymentStatus !== "paid") {
     // Redirect to not found page if event not exist or not published.
     return NextResponse.rewrite(new URL("/404", req.url));
   }

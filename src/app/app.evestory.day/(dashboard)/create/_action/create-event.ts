@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { eq } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 import { CreateEventSchema } from "@/app/app.evestory.day/(dashboard)/create/_schema/create-event.schema";
 import { getSession } from "@/lib/auth";
@@ -32,9 +32,6 @@ export let createEvent = action(CreateEventSchema, async (data) => {
     }
 
     let event = await db.transaction(async (tx) => {
-      console.log("Creating event");
-      console.log(data.date);
-      console.log(data.date.toISOString());
       let [event] = await tx
         .insert(events)
         .values({
@@ -99,8 +96,7 @@ export let createEvent = action(CreateEventSchema, async (data) => {
       });
     }
 
-    revalidateTag("events");
-    revalidateTag("event");
+    revalidatePath("/", "layout");
 
     return {
       data: event,

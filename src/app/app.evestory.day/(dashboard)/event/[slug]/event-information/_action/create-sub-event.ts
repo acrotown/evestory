@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { db } from "@/lib/drizzle";
 import { action } from "@/lib/safe-action";
 import { subEvents } from "#/drizzle/schema";
@@ -41,6 +43,7 @@ export let createSubEvent = action(
       .returning();
 
     if (res?.id) {
+      revalidatePath("/", "layout");
       return {
         ok: true,
         data: res,

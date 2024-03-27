@@ -17,6 +17,11 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import { deleteEvent } from "../_actions/delete-event";
 
@@ -37,20 +42,25 @@ export default function DeleteButton({ slug }: { slug: string }) {
 
   return (
     <>
-      <Button
-        size="icon"
-        disabled={action.status === "executing"}
-        variant="ghost"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        {action.status === "executing" ? (
-          <ReloadIcon className="h-5 w-5 animate-spin" />
-        ) : (
-          <Trash2Icon className="h-5 w-5" />
-        )}
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            size="icon"
+            disabled={action.status === "executing"}
+            variant="ghost"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            {action.status === "executing" ? (
+              <ReloadIcon className="h-5 w-5 animate-spin" />
+            ) : (
+              <Trash2Icon className="h-5 w-5" />
+            )}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Delete event</TooltipContent>
+      </Tooltip>
 
       <AlertDialog
         open={isOpen}

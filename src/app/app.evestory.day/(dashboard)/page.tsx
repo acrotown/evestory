@@ -8,7 +8,6 @@ import { getEvents } from "@/lib/db/events";
 
 import CardEvent from "./card-event";
 import { CreateButton } from "./create-button";
-import Loading from "./loading";
 
 export default async function Events() {
   let events = await getEvents();

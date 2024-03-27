@@ -1,7 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/drizzle";
 import { action } from "@/lib/safe-action";
@@ -44,8 +44,7 @@ export let updateCoupleInformation = action(
 
       let batch = await db.batch([groom, bride, event]);
 
-      revalidateTag("events");
-      revalidateTag("event");
+      revalidatePath("/", "layout");
 
       return {
         ok: true,
@@ -79,8 +78,7 @@ export let updatePhoto = action(UpdateCouplePhotoSchema, async (data) => {
         groomPhotoUrl: grooms.photoUrl,
       });
 
-    revalidateTag("events");
-    revalidateTag("event");
+    revalidatePath("/", "layout");
     return {
       ok: true,
       data: groom,
@@ -100,8 +98,7 @@ export let updatePhoto = action(UpdateCouplePhotoSchema, async (data) => {
         bridePhotoUrl: brides.photoUrl,
       });
 
-    revalidateTag("events");
-    revalidateTag("event");
+    revalidatePath("/", "layout");
 
     return {
       ok: true,
